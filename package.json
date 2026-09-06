@@ -3,9 +3,12 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "echo DOGEBOT PACK build ready"
+    "build": "node scripts/migrate.cjs && echo DOGEBOT PACK build ready"
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
   }
 }
