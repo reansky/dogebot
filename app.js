@@ -124,27 +124,29 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   addLink(document.querySelector('.footer-links'), '#holders', 'Holder Intel');
 
   const bankrCopy = document.querySelector('.bankr-copy p');
-  if (bankrCopy) bankrCopy.innerHTML = 'Project knowledge, <em>read-only</em> market intelligence, holder tracking plans, Bankr Brief, and public safety context.';
+  if (bankrCopy) bankrCopy.innerHTML = 'Project knowledge, <em>read-only</em> market intelligence, holder tracking plans, Bankr Brief, and the official Bankr Space community hub.';
 
   const communityOverline = document.querySelector('#community .overline');
-  if (communityOverline) communityOverline.textContent = '05 / Forum + Bankr Brief';
+  if (communityOverline) communityOverline.textContent = '05 / Forum + Bankr Brief + Space';
   const communityCopy = document.querySelector('#community .section-head p');
-  if (communityCopy) communityCopy.textContent = 'Use the public forum for conversation and Bankr Brief for read-only project context. No publishing, trading, or automated actions happen here.';
+  if (communityCopy) communityCopy.textContent = 'Use the public forum for conversation, Bankr Brief for read-only project context, and Bankr Space for verified announcements, pins, polls, and governance.';
   const newsCopy = document.querySelector('#news .section-head p');
-  if (newsCopy) newsCopy.textContent = 'Approved project updates, Bankr Brief context, community notes, and read-only market recaps.';
+  if (newsCopy) newsCopy.textContent = 'Approved project updates, Bankr Brief context, community notes, and read-only market recaps. Official announcements belong in Bankr Space.';
 
   const workflow = document.querySelectorAll('.workflow-strip span')[2];
-  if (workflow) workflow.textContent = '03 / BANKR BRIEF';
+  if (workflow) workflow.textContent = '03 / BANKR BRIEF + SPACE';
   const agentMode = document.querySelector('.agent-console-top small');
   if (agentMode) agentMode.textContent = 'PROJECT KNOWLEDGE + BANKR BRIEF MODE';
   const briefMode = document.querySelector('.agent-brief-top small');
   if (briefMode) briefMode.textContent = 'READ-ONLY / LIVE WHEN CONNECTED';
+  const briefTitle = document.querySelector('.agent-brief-top strong');
+  if (briefTitle) briefTitle.textContent = 'Bankr Brief';
   const gateTitle = document.querySelector('.brief-list div:nth-child(3) strong');
-  if (gateTitle) gateTitle.textContent = 'Read-only brief';
+  if (gateTitle) gateTitle.textContent = 'Bankr Space';
   const gateCopy = document.querySelector('.brief-list div:nth-child(3) span');
-  if (gateCopy) gateCopy.textContent = 'Context only; no publishing or transactions.';
+  if (gateCopy) gateCopy.textContent = 'Verified announcements with owner approval.';
   const approvalNote = document.querySelector('.agent-approval-note');
-  if (approvalNote) approvalNote.textContent = 'Bankr Brief is informational. No posts or transactions are executed.';
+  if (approvalNote) approvalNote.textContent = 'Bankr Brief is read-only. Bankr Space announcements require manual owner approval.';
   const draftButton = document.getElementById('agentDraft');
   if (draftButton) draftButton.textContent = 'Copy Bankr Brief';
 
@@ -152,7 +154,7 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   bankrPrompt?.addEventListener('click', () => {
     const response = document.getElementById('agentResponse');
     const source = document.getElementById('agentSource');
-    if (response) response.textContent = 'Bankr Brief is the read-only knowledge layer for DOGEBOT PACK. It gives the community project context, launch status, and safety notes without publishing, trading, or deploying anything.';
+    if (response) response.textContent = 'Bankr Brief is the read-only knowledge layer for DOGEBOT PACK. Bankr Space is the official hub for verified announcements, pins, polls, and governance with owner approval.';
     if (source) source.textContent = 'Source: Bankr Brief · read-only';
   });
   draftButton?.addEventListener('click', () => {
