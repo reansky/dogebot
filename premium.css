@@ -169,6 +169,9 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .step:hover, .news-card:hover { transform: translateY(-4px); border-color: var(--line-strong); box-shadow: var(--shadow); }
 .step-num, .news-card small { color: var(--rh-green-soft); }
 .step h3, .news-card h3 { font-family: 'Space Grotesk', Inter, sans-serif; }
+.news-card h3 { color: var(--ink) !important; }
+.news-card a { color: var(--doge-gold) !important; }
+.news-card a:hover { color: var(--rh-green-soft) !important; }
 .step p, .news-card p { color: var(--muted); }
 
 .market { margin-top: 34px; }
@@ -260,7 +263,11 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .ai-fab:hover { color: #ffffff !important; background: #0a2b17 !important; border-color: var(--rh-green-soft) !important; }
 .ai-panel { border-color: var(--line-strong); }
 .ai-message { border-color: var(--line); color: var(--ink); background: rgba(255,255,255,.035); }
+.ai-message.assistant { color: var(--ink) !important; background: rgba(255,255,255,.045) !important; border-color: var(--line) !important; }
+.ai-message.assistant .ai-label { color: var(--doge-gold) !important; }
 .ai-message.user { color: #031004; background: var(--rh-green); border-color: var(--rh-green); }
+.ai-close { color: var(--ink) !important; background: rgba(255,255,255,.06) !important; border-color: var(--line) !important; }
+.ai-close:hover { color: var(--doge-gold) !important; border-color: var(--doge-gold) !important; }
 .ai-form textarea { color: var(--ink); background: rgba(255,255,255,.045); border-color: var(--line); }
 .ai-suggestions button, .ai-foot { color: var(--muted); }
 
