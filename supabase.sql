@@ -28,6 +28,18 @@ create table if not exists public.memes (
 
 create index if not exists memes_feed_idx on public.memes (status, created_at desc);
 
+create table if not exists public.agent_updates (
+  id uuid primary key default gen_random_uuid(),
+  title text not null check (char_length(title) between 1 and 120),
+  body text not null check (char_length(body) between 1 and 1500),
+  source text not null default 'DOGEBOT PACK Agent',
+  status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
+  moderation_reason text,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists agent_updates_feed_idx on public.agent_updates (status, created_at desc);
+
 create table if not exists public.rate_limits (
   scope_key text primary key,
   window_started_at timestamptz not null default now(),
@@ -62,6 +74,7 @@ $$;
 alter table public.forum_posts enable row level security;
 alter table public.memes enable row level security;
 alter table public.rate_limits enable row level security;
+alter table public.agent_updates enable row level security;
 
 insert into storage.buckets (id, name, public)
 values ('dogebot-memes', 'dogebot-memes', true)

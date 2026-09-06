@@ -40,3 +40,68 @@ const explainDatadogMarket = localAi;
 localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   ? 'This is the DATADOG MARKET panel for Datadog (DDOG). It is read-only: no live DOGEBOT/Datadog trading pair, trades, swaps, or buy recommendation is active.'
   : explainDatadogMarket(question);
+(() => {
+  const agentBankrUrl = 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack';
+  const navLinks = document.querySelector('.nav-links');
+  if (navLinks && !navLinks.querySelector('[href="#agent"]')) {
+    const link = document.createElement('a');
+    link.href = '#agent';
+    link.textContent = 'Agent';
+    navLinks.insertBefore(link, navLinks.querySelector('[href="#dogebot"]'));
+  }
+
+  const agentSection = document.createElement('section');
+  agentSection.className = 'section shell agent-section';
+  agentSection.id = 'agent';
+  agentSection.innerHTML = `
+    <div class="agent-section-head">
+      <div>
+        <div class="overline">06 / THE HOODED SCOUT</div>
+        <h2>Meet the <span>agent.</span></h2>
+        <p>A Bankr-native, read-only copilot for DOGEBOT PACK knowledge, signals, and human-approved community updates.</p>
+      </div>
+      <div class="agent-badge"><i class="dot-live"></i><span>PACK SCOUT</span><small>READ-ONLY</small></div>
+    </div>
+    <div class="agent-grid">
+      <article class="agent-console glass">
+        <div class="agent-console-top"><div><strong>Agent Console</strong><small>Project knowledge + Bankr brief mode</small></div><span>ONLINE</span></div>
+        <div class="agent-response" id="agentResponse">Ask the Scout for a concise readout. It never trades, auto-buys, deploys tokens, or asks for wallet secrets.</div>
+        <div class="agent-prompts" aria-label="Agent prompts">
+          <button type="button" data-agent-key="brief">Daily Pack Brief</button>
+          <button type="button" data-agent-key="watch">What is the pack watching?</button>
+          <button type="button" data-agent-key="bankr">Explain Bankr mode</button>
+          <button type="button" data-agent-key="launch">Launch checklist</button>
+        </div>
+        <div class="agent-console-foot"><span id="agentSource">Source: local project knowledge</span><div class="agent-actions"><button type="button" id="agentDraft">Draft for Bankr Space</button><a class="btn btn-primary" href="${agentBankrUrl}" target="_blank" rel="noopener noreferrer">Open in Bankr ↗</a></div></div>
+      </article>
+      <aside class="agent-brief glass">
+        <div class="agent-brief-top"><div><strong>Daily Pack Brief</strong><small>PRE-LAUNCH / HUMAN REVIEW</small></div><span class="agent-brief-mark">SCOUT</span></div>
+        <div class="brief-list"><div><small>SIGNAL</small><strong>Community mode</strong><span>No live contract configured yet.</span></div><div><small>WATCH</small><strong>Read-only intelligence</strong><span>Market context, holder plans, and pack activity.</span></div><div><small>GATE</small><strong>Manual approval</strong><span>Nothing reaches Bankr Space automatically.</span></div></div>
+        <div class="agent-updates" id="agentUpdates"><div class="agent-empty">No approved agent updates yet. Drafts stay private until reviewed.</div></div>
+        <div class="agent-approval-note">Human approval required before Bankr Space publication.</div>
+      </aside>
+    </div>`;
+  document.querySelector('.stat-strip')?.before(agentSection);
+
+  const response = document.getElementById('agentResponse');
+  const source = document.getElementById('agentSource');
+  const answers = {
+    brief: 'Daily Pack Brief: DOGEBOT PACK is in community mode. The Scout is watching project updates, read-only market context, pack activity, and safety status. No trading or token deployment is active.',
+    watch: 'The Scout watches the public project timeline, read-only market signals, planned holder tracking, community activity, and safety notes. It reports context, not financial instructions.',
+    bankr: 'Bankr is the official home for DOGEBOT PACK knowledge and approved announcements. Install the skill to open the Bankr workspace. Any public update remains subject to human review.',
+    launch: 'Launch checklist: confirm the contract address, verify the token page and explorer links, publish the official Bankr brief, confirm community moderation, and keep the Scout read-only.'
+  };
+  document.querySelectorAll('[data-agent-key]').forEach((button) => {
+    button.onclick = () => {
+      response.textContent = answers[button.dataset.agentKey] || answers.brief;
+      source.textContent = 'Source: DOGEBOT PACK Agent · read-only';
+    };
+  });
+
+  document.getElementById('agentDraft')?.addEventListener('click', async () => {
+    const draft = 'DOGEBOT PACK Agent Brief\n\nSignal: community mode\nWatch: read-only market context, pack activity, and safety status\nNext: confirm official launch details\n\nHuman review required before Bankr Space publication.';
+    await copyText(draft);
+    response.textContent = 'Draft copied. Review every line before posting it to Bankr Space.';
+    source.textContent = 'Source: prepared draft · manual approval required';
+  });
+})();

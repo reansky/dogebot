@@ -29,6 +29,7 @@
   const featuredCaption = document.getElementById('featuredMemeCaption');
   const featuredCreator = document.getElementById('featuredMemeCreator');
   const memeCounter = document.getElementById('memeCounter');
+  const agentUpdates = document.getElementById('agentUpdates');
   let remoteForum = false;
   let remoteMemes = false;
 
@@ -206,6 +207,38 @@
     }
   }
 
+  function renderAgentUpdates(updates) {
+    if (!agentUpdates) return;
+    if (!updates.length) {
+      agentUpdates.replaceChildren(Object.assign(document.createElement('div'), {
+        className: 'agent-empty',
+        textContent: 'No approved agent updates yet. Drafts stay private until reviewed.',
+      }));
+      return;
+    }
+    agentUpdates.replaceChildren(...updates.map((update) => {
+      const card = document.createElement('article');
+      card.className = 'agent-update-card';
+      const meta = document.createElement('small');
+      meta.textContent = `${update.source || 'DOGEBOT PACK Agent'} · ${relativeTime(update.createdAt)}`;
+      const title = document.createElement('strong');
+      title.textContent = update.title;
+      const copy = document.createElement('p');
+      copy.textContent = update.body;
+      card.append(meta, title, copy);
+      return card;
+    }));
+  }
+
+  async function loadAgentUpdates() {
+    try {
+      const data = await request('/agent-updates');
+      renderAgentUpdates(Array.isArray(data.updates) ? data.updates : []);
+    } catch {
+      renderAgentUpdates([]);
+    }
+  }
+
   if (memeForm) {
     const localMemeSubmit = memeForm.onsubmit;
     memeForm.onsubmit = async (event) => {
@@ -231,4 +264,5 @@
 
   loadPosts();
   loadMemes();
+  loadAgentUpdates();
 })();
