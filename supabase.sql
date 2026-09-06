@@ -69,7 +69,3 @@ on conflict (id) do nothing;
 
 -- The API uses SUPABASE_SERVICE_ROLE_KEY, so no public table policies are needed.
 -- Public visitors can read approved content only through the Vercel API.
-SUPABASE_URL=https://project-id.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=service-role-key
-SUPABASE_STORAGE_BUCKET=dogebot-memes
-MODERATOR_TOKEN=random-long-secret
