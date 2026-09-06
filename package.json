@@ -1,0 +1,17 @@
+{
+  "name": "dogebot-pack",
+  "version": "1.0.0",
+  "description": "DOGEBOT PACK community hub and anonymous forum",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'",
+    "lint": "echo 'No linter configured'"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
