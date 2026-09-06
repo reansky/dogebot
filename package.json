@@ -1,0 +1,11 @@
+{
+  "name": "dogebot-pack",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo DOGEBOT PACK build ready"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
