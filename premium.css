@@ -8,8 +8,8 @@
   --doge-gold: #f1b94e;
   --doge-cream: #fff2cc;
   --ink: #f3f7ef;
-  --muted: #91a296;
-  --dim: #5f7064;
+  --muted: #a7b8aa;
+  --dim: #7f9283;
   --line: rgba(203, 235, 207, .14);
   --line-strong: rgba(0, 200, 5, .34);
   --shadow: 0 28px 80px rgba(0, 0, 0, .42);
@@ -254,8 +254,8 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .footer strong { color: var(--ink); }
 .footer-links a { color: var(--muted); }
 .footer-links a:hover { color: var(--rh-green-soft); }
-.ai-fab { right: 26px; bottom: 26px; color: #031004; background: var(--rh-green); border-color: var(--rh-green-soft); box-shadow: 0 16px 42px rgba(0,0,0,.45), 0 0 28px rgba(0,200,5,.2); }
-.ai-fab:hover { background: var(--rh-green-soft); }
+.ai-fab { right: 26px; bottom: 26px; color: #1b1205; background: linear-gradient(135deg, #ffe3a0, var(--doge-gold)); border-color: #ffe7b0; box-shadow: 0 16px 42px rgba(0,0,0,.45), 0 0 28px rgba(241,185,78,.2); font-weight: 900; text-shadow: none; }
+.ai-fab:hover { color: #120d03; background: linear-gradient(135deg, #fff0bf, #f5ca67); }
 .ai-panel { border-color: var(--line-strong); }
 .ai-message { border-color: var(--line); color: var(--ink); background: rgba(255,255,255,.035); }
 .ai-message.user { color: #031004; background: var(--rh-green); border-color: var(--rh-green); }
