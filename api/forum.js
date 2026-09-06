@@ -1,6 +1,6 @@
-const { rest, rateLimit } = require('./_lib/supabase');
-const { json, body, error } = require('./_lib/http');
-const { moderateText, clientId, name, ipKey } = require('./_lib/security');
+const { rest, rateLimit } = require('./lib/supabase');
+const { json, body, error } = require('./lib/http');
+const { moderateText, clientId, name, ipKey } = require('./lib/security');
 
 function id(value) {
   const valueString = String(value || '');

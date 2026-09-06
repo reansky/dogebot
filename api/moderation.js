@@ -1,5 +1,5 @@
-const { rest } = require('./_lib/supabase');
-const { json, body, error } = require('./_lib/http');
+const { rest } = require('./lib/supabase');
+const { json, body, error } = require('./lib/http');
 
 function authorized(req) {
   const token = String(process.env.MODERATOR_TOKEN || '');

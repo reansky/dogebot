@@ -1,7 +1,7 @@
 const crypto = require('crypto');
-const { rest, rateLimit, upload } = require('./_lib/supabase');
-const { json, body, error } = require('./_lib/http');
-const { moderateText, clientId, ipKey } = require('./_lib/security');
+const { rest, rateLimit, upload } = require('./lib/supabase');
+const { json, body, error } = require('./lib/http');
+const { moderateText, clientId, ipKey } = require('./lib/security');
 
 const MAX_BYTES = 1.5 * 1024 * 1024;
 const IMAGE_PATTERN = /^data:(image\/(?:png|jpeg|gif|webp));base64,([a-z0-9+/=]+)$/i;
