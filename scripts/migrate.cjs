@@ -10,8 +10,10 @@ if (!connectionString) {
 }
 
 const sql = fs.readFileSync(path.join(__dirname, '..', 'supabase.sql'), 'utf8');
+const databaseUrl = new URL(connectionString);
+databaseUrl.searchParams.delete('sslmode');
 const client = new Client({
-  connectionString,
+  connectionString: databaseUrl.toString(),
   ssl: { rejectUnauthorized: false },
 });
 
