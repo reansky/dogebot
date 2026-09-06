@@ -72,7 +72,7 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .nav-links a:before { width: 3px; height: 3px; background: var(--rh-green); }
 .nav-links a:hover { color: var(--rh-green-soft); }
 .nav-actions { gap: 7px; }
-.pill-price, .nav-pack-status { border-color: var(--line); background: rgba(255,255,255,.035); }
+.nav-actions .pill-price, .nav-pack-status { color: var(--muted); border-color: var(--line); background: rgba(255,255,255,.035); }
 .pill-price { color: var(--muted); }
 .x-link { width: 38px; padding: 10px; }
 .x-link svg { fill: var(--ink); }
@@ -204,7 +204,7 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .agent-response { background: linear-gradient(135deg, rgba(0,200,5,.08), rgba(241,185,78,.06)); border-color: rgba(0,200,5,.2); color: var(--ink); }
 .agent-prompts button, .agent-actions button { color: var(--muted); border-color: var(--line); background: rgba(255,255,255,.035); }
 .agent-prompts button:hover, .agent-actions button:hover { color: var(--rh-green-soft); border-color: var(--line-strong); background: rgba(0,200,5,.08); }
-.agent-empty, .agent-update-card { color: var(--muted); border-color: var(--line); }
+.agent-empty, .agent-update-card { color: var(--muted); border-color: var(--line); background: rgba(255,255,255,.035); }
 .agent-update-card strong { color: var(--ink); }
 .agent-approval-note { color: var(--doge-gold); border-color: rgba(241,185,78,.25); background: rgba(241,185,78,.06); }
 
