@@ -99,9 +99,94 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   });
 
   document.getElementById('agentDraft')?.addEventListener('click', async () => {
-    const draft = 'DOGEBOT PACK Agent Brief\n\nSignal: community mode\nWatch: read-only market context, pack activity, and safety status\nNext: confirm official launch details\n\nHuman review required before Bankr Space publication.';
+    const draft = 'DOGEBOT PACK Bankr Brief\n\nSignal: community mode\nWatch: read-only market context, pack activity, and safety status\nNext: confirm official launch details\n\nRead-only context. No publishing, trading, or token deployment.';
     await copyText(draft);
-    response.textContent = 'Draft copied. Review every line before posting it to Bankr Space.';
-    source.textContent = 'Source: prepared draft · manual approval required';
+    response.textContent = 'Bankr Brief copied. Review the content before sharing it anywhere.';
+    source.textContent = 'Source: Bankr Brief draft · read-only';
   });
+})();
+
+(() => {
+  const bankrBriefUrl = 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack';
+  const addLink = (parent, href, text, before) => {
+    if (!parent || parent.querySelector(`[href="${href}"]`)) return;
+    const link = document.createElement('a');
+    link.href = href;
+    link.textContent = text;
+    if (before) parent.insertBefore(link, before);
+    else parent.append(link);
+  };
+
+  const navLinks = document.querySelector('.nav-links');
+  addLink(navLinks, '#holders', 'Holder Intel', navLinks?.querySelector('[href="#community"]'));
+  const mobilePanel = document.querySelector('.mobile-panel');
+  addLink(mobilePanel, '#holders', 'Read-only holder intelligence', mobilePanel?.querySelector('[href="#community"]'));
+  addLink(document.querySelector('.footer-links'), '#holders', 'Holder Intel');
+
+  const bankrCopy = document.querySelector('.bankr-copy p');
+  if (bankrCopy) bankrCopy.innerHTML = 'Project knowledge, <em>read-only</em> market intelligence, holder tracking plans, Bankr Brief, and public safety context.';
+
+  const communityOverline = document.querySelector('#community .overline');
+  if (communityOverline) communityOverline.textContent = '05 / Forum + Bankr Brief';
+  const communityCopy = document.querySelector('#community .section-head p');
+  if (communityCopy) communityCopy.textContent = 'Use the public forum for conversation and Bankr Brief for read-only project context. No publishing, trading, or automated actions happen here.';
+  const newsCopy = document.querySelector('#news .section-head p');
+  if (newsCopy) newsCopy.textContent = 'Approved project updates, Bankr Brief context, community notes, and read-only market recaps.';
+
+  const workflow = document.querySelectorAll('.workflow-strip span')[2];
+  if (workflow) workflow.textContent = '03 / BANKR BRIEF';
+  const agentMode = document.querySelector('.agent-console-top small');
+  if (agentMode) agentMode.textContent = 'PROJECT KNOWLEDGE + BANKR BRIEF MODE';
+  const briefMode = document.querySelector('.agent-brief-top small');
+  if (briefMode) briefMode.textContent = 'READ-ONLY / LIVE WHEN CONNECTED';
+  const gateTitle = document.querySelector('.brief-list div:nth-child(3) strong');
+  if (gateTitle) gateTitle.textContent = 'Read-only brief';
+  const gateCopy = document.querySelector('.brief-list div:nth-child(3) span');
+  if (gateCopy) gateCopy.textContent = 'Context only; no publishing or transactions.';
+  const approvalNote = document.querySelector('.agent-approval-note');
+  if (approvalNote) approvalNote.textContent = 'Bankr Brief is informational. No posts or transactions are executed.';
+  const draftButton = document.getElementById('agentDraft');
+  if (draftButton) draftButton.textContent = 'Copy Bankr Brief';
+
+  const bankrPrompt = document.querySelector('[data-agent-key="bankr"]');
+  bankrPrompt?.addEventListener('click', () => {
+    const response = document.getElementById('agentResponse');
+    const source = document.getElementById('agentSource');
+    if (response) response.textContent = 'Bankr Brief is the read-only knowledge layer for DOGEBOT PACK. It gives the community project context, launch status, and safety notes without publishing, trading, or deploying anything.';
+    if (source) source.textContent = 'Source: Bankr Brief · read-only';
+  });
+  draftButton?.addEventListener('click', () => {
+    const response = document.getElementById('agentResponse');
+    const source = document.getElementById('agentSource');
+    if (response) response.textContent = 'Bankr Brief copied. Review the content before sharing it anywhere.';
+    if (source) source.textContent = 'Source: Bankr Brief draft · read-only';
+  });
+
+  if (!document.getElementById('holders')) {
+    const section = document.createElement('section');
+    section.className = 'section shell holder-section';
+    section.id = 'holders';
+    section.innerHTML = `
+      <div class="section-head">
+        <div>
+          <div class="overline">07 / READ-ONLY HOLDER INTELLIGENCE</div>
+          <h2>Know the <span>pack.</span></h2>
+          <p>Holder context for the community, designed to stay transparent and read-only. Live data activates only after the official contract is configured.</p>
+        </div>
+        <div class="section-readout">DATA MODE<strong><i class="dot-live"></i> READ-ONLY</strong></div>
+      </div>
+      <div class="holder-layout">
+        <article class="holder-summary glass">
+          <div class="holder-card-top"><div><strong>Holder intelligence</strong><small>BANKR BRIEF / COMMUNITY VIEW</small></div><span class="holder-state">AWAITING LAUNCH</span></div>
+          <div class="holder-total"><span>HOLDER COUNT</span><strong>—</strong><p>Activates after the official contract is configured.</p></div>
+          <div class="holder-metrics"><div><small>CONCENTRATION</small><strong>—</strong><span>not live yet</span></div><div><small>TOP WALLET</small><strong>—</strong><span>not live yet</span></div><div><small>LAST SYNC</small><strong>TBA</strong><span>Bankr Brief source</span></div><div><small>MODE</small><strong>READ-ONLY</strong><span>no actions enabled</span></div></div>
+        </article>
+        <article class="holder-notes glass">
+          <div class="holder-card-top"><div><strong>What this view will show</strong><small>NO FINANCIAL INSTRUCTIONS</small></div><span class="holder-mark">PACK</span></div>
+          <div class="holder-note-list"><div><i>01</i><span><strong>Distribution context</strong><em>How the pack is distributed, without exposing wallets.</em></span></div><div><i>02</i><span><strong>Holder activity</strong><em>Read-only changes after launch, sourced from Bankr.</em></span></div><div><i>03</i><span><strong>Safety status</strong><em>Official contract and source checks before any claim.</em></span></div></div>
+          <a class="btn btn-ghost holder-brief-link" href="${bankrBriefUrl}" target="_blank" rel="noopener noreferrer">Open Bankr Brief ↗</a>
+        </article>
+      </div>`;
+    document.querySelector('#news')?.after(section);
+  }
 })();
