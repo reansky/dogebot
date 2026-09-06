@@ -80,8 +80,9 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
   grid-template-columns: .88fr 1.12fr;
   gap: 28px;
   padding: 72px 0 54px;
+  align-items: start;
 }
-.hero-copy { align-self: center; padding: 8px 0; }
+.hero-copy { align-self: start; padding: 8px 0; }
 .hero-brand-marquee { max-width: 760px; margin-bottom: 24px; }
 .eyebrow { margin-bottom: 23px; }
 .hero h1 {
@@ -97,7 +98,8 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .hero-meta span:not(.k), .hero-meta code { font-size: 11px; }
 .hero-visual {
   min-height: 520px;
-  align-self: center;
+  align-self: start;
+  padding-top: 8px;
   justify-self: stretch;
   isolation: isolate;
 }
