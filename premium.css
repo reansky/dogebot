@@ -73,6 +73,10 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .nav-links a:hover { color: var(--rh-green-soft); }
 .nav-actions { gap: 7px; }
 .nav-actions .pill-price, .nav-pack-status { color: var(--muted); border-color: var(--line); background: rgba(255,255,255,.035); }
+.nav-pack-status { width: 58px; min-width: 58px; padding: 6px 7px; gap: 5px; border-radius: 10px; font-size: 8px; }
+.nav-pack-status .dot-live { width: 5px; height: 5px; }
+.nav-pack-status b { font-size: 8px; }
+.nav-pack-status em { margin-top: 2px; font-size: 7px; }
 .pill-price { color: var(--muted); }
 .x-link { width: 38px; padding: 10px; }
 .x-link svg { fill: var(--ink); }
@@ -135,8 +139,12 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .hero-visual:before { width: 86%; background: radial-gradient(circle, rgba(0,200,5,.22), rgba(0,200,5,.04) 50%, transparent 72%); filter: blur(30px); }
 .hero-visual:after { content: ''; position: absolute; z-index: -1; inset: 7% 1% 4% 8%; border: 1px solid rgba(0,200,5,.2); border-radius: 32px; transform: rotate(2deg); background: linear-gradient(145deg, rgba(0,200,5,.07), transparent 60%); }
 .hero-ape { width: min(100%, 610px); height: auto; max-height: 558px; aspect-ratio: 960 / 877; border: 1px solid rgba(241,185,78,.34); border-radius: 28px; object-fit: cover; box-shadow: 0 34px 65px rgba(0,0,0,.48), 0 0 0 6px rgba(0,0,0,.12), 0 0 32px rgba(0,200,5,.1); filter: saturate(1.06) contrast(1.04); }
-.hero-card.hero-card-compact { display: grid !important; right: -4px; bottom: 12px; width: 180px; padding: 14px; background: rgba(9,17,11,.92); border-color: rgba(241,185,78,.34); box-shadow: 0 18px 46px rgba(0,0,0,.46); }
-.hero-card-compact .hero-card-value strong { color: var(--rh-green-soft); }
+.hero-card.hero-card-compact { display: grid !important; right: -2px; bottom: 10px; width: 142px; padding: 10px; background: rgba(9,17,11,.94); border-color: rgba(241,185,78,.34); box-shadow: 0 18px 46px rgba(0,0,0,.46); }
+.hero-card-compact .hero-card-head { font-size: 8px; }
+.hero-card-compact .hero-card-value { margin-top: 8px; }
+.hero-card-compact .hero-card-value strong { color: var(--rh-green-soft); font-size: 20px; }
+.hero-card-compact .hero-card-sub { font-size: 8px; }
+.hero-card-compact .hero-card-foot { margin-top: 10px; font-size: 8px; }
 .hero-card-compact .hero-card-sub, .hero-card-compact .hero-card-head { color: var(--muted); }
 .hero-card-compact .hero-card-foot strong { color: var(--doge-gold); }
 
@@ -332,9 +340,10 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
   .hero-visual { display: block; width: 100%; min-height: 0; padding: 0; }
   .hero-visual:after { inset: 3% 2% 3% 4%; border-radius: 23px; }
   .hero-ape { display: block; width: 100%; height: auto; max-height: none; border-radius: 20px; }
-  .hero-card.hero-card-compact { right: 7px; bottom: 8px; width: 144px; padding: 10px; }
-  .hero-card-compact .hero-card-value strong { font-size: 20px; }
-  .hero-card-compact .hero-card-sub { font-size: 9px; }
+  .hero-card.hero-card-compact { right: 6px; bottom: 7px; width: 118px; padding: 8px; }
+  .hero-card-compact .hero-card-value strong { font-size: 17px; }
+  .hero-card-compact .hero-card-sub { font-size: 8px; }
+  .hero-card-compact .hero-card-foot { margin-top: 7px; font-size: 7px; }
 
   .stat-strip { grid-template-columns: 1fr 1fr; gap: 7px; }
   .stat { min-height: 86px; padding: 13px 11px; border-radius: 14px; }
