@@ -7,23 +7,21 @@ const MAX_BYTES = 3 * 1024 * 1024;
 const IMAGE_PATTERN = /^data:(image\/(?:png|jpeg|gif|webp));base64,([a-z0-9+/=]+)$/i;
 const extensions = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/gif': 'gif', 'image/webp': 'webp' };
 
-function publicMemes(rows, viewer) {
+function publicMemes(rows) {
   return (rows || []).map((meme) => ({
     id: meme.id,
     imageUrl: meme.image_url,
     caption: meme.caption,
     createdAt: meme.created_at,
     status: meme.status,
-    mine: meme.client_id === viewer,
   }));
 }
 
 module.exports = async function handler(req, res) {
   try {
     if (req.method === 'GET') {
-      const viewer = clientId(req.headers['x-dogebot-client']);
       const rows = await rest('memes?select=id,image_url,caption,created_at,status&status=eq.approved&order=created_at.desc&limit=60');
-      return json(res, 200, { memes: publicMemes(rows, viewer) });
+      return json(res, 200, { memes: publicMemes(rows) });
     }
     if (req.method !== 'POST') return json(res, 405, { error: 'Method not allowed.' });
 
@@ -46,7 +44,7 @@ module.exports = async function handler(req, res) {
       method: 'POST',
       body: JSON.stringify([{ image_url: imageUrl, caption: moderated.text, client_id: viewer, status: 'pending' }]),
     });
-    return json(res, 201, { meme: { ...publicMemes(rows || [], viewer)[0], status: 'pending' }, message: 'Meme submitted for moderation.' });
+    return json(res, 201, { meme: { ...publicMemes(rows || [])[0], status: 'pending' }, message: 'Meme submitted for moderation.' });
   } catch (err) {
     return error(res, err);
   }
