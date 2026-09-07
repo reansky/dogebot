@@ -446,7 +446,7 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
 (() => {
   const main = document.querySelector('main');
   const statStrip = main?.querySelector('.stat-strip');
-  const sectionOrder = ['rewards', 'dogebot', 'pack', 'news', 'memes', 'community', 'agent', 'holders', 'trust'];
+  const sectionOrder = ['rewards', 'dogebot', 'pack', 'news', 'community', 'memes', 'agent', 'holders', 'trust'];
   if (main && statStrip) {
     let cursor = statStrip;
     sectionOrder.forEach((id) => {
