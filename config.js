@@ -58,4 +58,11 @@ window.DOGEBOT_CONFIG = Object.freeze({
     chartFrame.hidden = false;
     if (chartPlaceholder) chartPlaceholder.hidden = true;
   }
+
+  const watchtowerStatus = document.querySelector('.brief-list span');
+  if (watchtowerStatus) watchtowerStatus.textContent = 'Contract configured; market data remains read-only.';
+
+  const trustCopy = [...document.querySelectorAll('.trust-card p')]
+    .find((node) => node.textContent.includes('official contract'));
+  if (trustCopy) trustCopy.textContent = 'The contract address is configured. The buy link, chart source, and holder data remain placeholders until verified.';
 })();
