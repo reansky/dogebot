@@ -22,10 +22,7 @@ module.exports = async function handler(req, res) {
   try {
     if (req.method === 'GET') {
       const viewer = clientId(req.headers['x-dogebot-client']);
-      const visibility = viewer === 'anonymous'
-        ? 'status=eq.approved'
-        : `or=${encodeURIComponent(`(status.eq.approved,client_id.eq.${viewer})`)}`;
-      const rows = await rest(`memes?select=id,image_url,caption,created_at,status,client_id&${visibility}&order=created_at.desc&limit=60`);
+      const rows = await rest('memes?select=id,image_url,caption,created_at,status&status=eq.approved&order=created_at.desc&limit=60');
       return json(res, 200, { memes: publicMemes(rows, viewer) });
     }
     if (req.method !== 'POST') return json(res, 405, { error: 'Method not allowed.' });

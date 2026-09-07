@@ -32,6 +32,12 @@
   const agentUpdates = document.getElementById('agentUpdates');
   let remoteForum = false;
   let remoteMemes = false;
+  let pendingMemes = [];
+  const defaultSpotlights = [
+    { id: 'spotlight-sentinel', imageUrl: 'images/dogebot-pack-sentinel.webp', caption: 'Neon sentinel signal', status: 'approved', static: true },
+    { id: 'spotlight-guardian', imageUrl: 'images/dogebot-pack-guardian.webp', caption: 'Guardian over the pack', status: 'approved', static: true },
+    { id: 'spotlight-den', imageUrl: 'images/dogebot-pack-den.webp', caption: 'The signal den', status: 'approved', static: true },
+  ];
   const memeStage = document.querySelector('.meme-stage');
   if (memeStage && memeGrid) {
     const stageTop = memeStage.querySelector('.meme-stage-top');
@@ -206,32 +212,33 @@
   }
 
   function renderMemes(memes) {
+    const pool = [...defaultSpotlights, ...pendingMemes, ...memes];
     const memeStat = [...document.querySelectorAll('.stat')]
       .find((stat) => stat.querySelector('small')?.textContent?.trim() === 'MEME POWER');
     if (memeStat) {
-      memeStat.querySelector('strong').textContent = String(memes.length);
+      memeStat.querySelector('strong').textContent = String(pool.length);
       memeStat.querySelector('p').textContent = 'approved signals';
       memeStat.querySelector('p').classList.remove('up');
     }
-    if (memePoolCounter) memePoolCounter.textContent = `${memes.length} image${memes.length === 1 ? '' : 's'} in the pool`;
-    if (!memes.length) {
+    if (memePoolCounter) memePoolCounter.textContent = `${pool.length} image${pool.length === 1 ? '' : 's'} in the pool`;
+    if (!pool.length) {
       const empty = document.createElement('div');
       empty.className = 'meme-pool-empty';
       empty.textContent = 'No approved uploads yet. Submit the first signal to fill the pool.';
       memeGrid?.replaceChildren(empty);
       return;
     }
-    memeGrid?.replaceChildren(...memes.map((meme, index) => {
+    memeGrid?.replaceChildren(...pool.map((meme, index) => {
       const card = document.createElement('article');
       card.className = `meme-card glass${index === 0 ? ' meme-card-spotlight' : ''}`;
-      card.dataset.memeId = meme.id;
+      if (!meme.static) card.dataset.memeId = meme.id;
       const image = document.createElement('img');
       image.src = meme.imageUrl;
       image.alt = `DOGEBOT PACK meme: ${meme.caption}`;
       image.loading = index < 4 ? 'eager' : 'lazy';
       const body = document.createElement('div');
       body.className = 'meme-card-body';
-      if (index === 0) {
+      if (meme.static) {
         const badge = document.createElement('small');
         badge.className = 'meme-card-badge';
         badge.textContent = 'PACK SPOTLIGHT';
@@ -241,10 +248,10 @@
       caption.textContent = meme.caption;
       const meta = document.createElement('span');
       meta.className = 'meme-card-meta';
-      meta.textContent = 'Approved community signal';
+      meta.textContent = meme.static ? 'Built-in pack spotlight' : (meme.status === 'pending' ? 'Pending moderation · visible to you' : 'Approved community signal');
       const actions = document.createElement('div');
       actions.className = 'meme-card-actions';
-      actions.append(makeXShare(meme));
+      if (meme.static || meme.status === 'approved') actions.append(makeXShare(meme));
       body.append(caption, meta, actions);
       card.append(image, body);
       return card;
@@ -417,9 +424,10 @@
       if (!/^image\/(png|jpeg|gif|webp)$/i.test(file.type)) return setHint(memeHint, 'Use PNG, JPG, GIF, or WEBP', true);
       memeForm.querySelector('button[type="submit"]').disabled = true;
       try {
-        await request('/memes', { method: 'POST', body: JSON.stringify({ imageData: await fileAsDataUrl(file), caption: memeCaption.value.trim(), clientId }) });
+        const data = await request('/memes', { method: 'POST', body: JSON.stringify({ imageData: await fileAsDataUrl(file), caption: memeCaption.value.trim(), clientId }) });
+        if (data.meme?.imageUrl) pendingMemes = [data.meme, ...pendingMemes.filter((meme) => meme.id !== data.meme.id)];
         memeForm.reset();
-        setHint(memeHint, 'Submitted for moderation.');
+        setHint(memeHint, 'Submitted for moderation. It is visible in your pool while it is reviewed.');
         await loadMemes();
       } catch (err) {
         setHint(memeHint, err.message, true);
