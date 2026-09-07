@@ -131,7 +131,8 @@
     try {
       const started = await request('/bankr', { method: 'POST', body: JSON.stringify({ prompt, clientId }) });
       let result = started;
-      for (let attempt = 0; attempt < 9 && ['pending', 'processing'].includes(result.status); attempt += 1) {
+      const activeStatuses = ['queued', 'submitted', 'pending', 'processing', 'in_progress', 'running'];
+      for (let attempt = 0; attempt < 18 && result.jobId && activeStatuses.includes(String(result.status).toLowerCase()); attempt += 1) {
         await wait(700);
         result = await request(`/bankr?job=${encodeURIComponent(started.jobId)}`);
       }
