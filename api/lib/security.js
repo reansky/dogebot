@@ -14,13 +14,9 @@ function clientId(value) {
   return String(value || '').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 96) || 'anonymous';
 }
 
-function name(value) {
-  return String(value || 'anonymous_pack_member').replace(/[^a-zA-Z0-9 _-]/g, '').replace(/\s+/g, ' ').trim().slice(0, 24) || 'anonymous_pack_member';
-}
-
 function ipKey(req, label, id) {
   const ip = String(req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown').split(',')[0].trim();
   return `${label}:${ip}:${clientId(id)}`.slice(0, 180);
 }
 
-module.exports = { moderateText, clientId, name, ipKey };
+module.exports = { moderateText, clientId, ipKey };
