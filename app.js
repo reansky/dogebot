@@ -415,6 +415,8 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   if (holderCopy) holderCopy.textContent = 'Holder context for the community, calculated from Robinhood Chain transfer logs and kept read-only.';
   const holderState = document.querySelector('.holder-state');
   if (holderState) holderState.textContent = 'SYNCING';
+  const holderSource = document.querySelector('.holder-card-top small');
+  if (holderSource) holderSource.textContent = 'ROBINHOOD CHAIN / COMMUNITY VIEW';
   const holderTotalNote = document.querySelector('.holder-total p');
   if (holderTotalNote) holderTotalNote.textContent = 'Reading the latest positive-balance addresses.';
   const holderMetrics = [...document.querySelectorAll('.holder-metrics > div')];
@@ -431,6 +433,9 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
     holderMetrics[2].querySelector('strong').textContent = '—';
     holderMetrics[2].querySelector('span').textContent = 'Robinhood Chain RPC';
   }
+  const holderNotes = [...document.querySelectorAll('.holder-note-list em')];
+  if (holderNotes[1]) holderNotes[1].textContent = 'Read-only changes calculated from Robinhood Chain transfer logs.';
+  if (holderNotes[2]) holderNotes[2].textContent = 'Public contract and source checks before any claim.';
   const explainLiveMarket = localAi;
   localAi = (question) => /price|market|token|contract|ddog|datadog/i.test(String(question || ''))
     ? 'The market panel uses live read-only data from configured GeckoTerminal, DexScreener, and Robinhood Chain sources. It does not execute trades.'
