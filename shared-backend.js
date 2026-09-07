@@ -413,7 +413,7 @@
       event.preventDefault();
       const file = memeImage?.files?.[0];
       if (!file) return setHint(memeHint, 'Choose an image first', true);
-      if (file.size > 1.5 * 1024 * 1024) return setHint(memeHint, 'Meme images must be 1.5 MB or smaller', true);
+       if (file.size > 3 * 1024 * 1024) return setHint(memeHint, 'Meme images must be 3 MB or smaller', true);
       if (!/^image\/(png|jpeg|gif|webp)$/i.test(file.type)) return setHint(memeHint, 'Use PNG, JPG, GIF, or WEBP', true);
       memeForm.querySelector('button[type="submit"]').disabled = true;
       try {

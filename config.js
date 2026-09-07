@@ -131,4 +131,19 @@ window.DOGEBOT_CONFIG = Object.freeze({
   const trustCopy = [...document.querySelectorAll('.trust-card p')]
     .find((node) => node.textContent.includes('official contract'));
   if (trustCopy) trustCopy.textContent = 'The contract, buy routes, and GeckoTerminal chart are configured. Holder data remains read-only until verified.';
+
+  const decorateBankrButtons = () => {
+    document.querySelectorAll('[data-bankr-install], [data-bankr-mobile-install], .bankr-install, a[href*="bankr.bot/"]:not(.buy-route)').forEach((link) => {
+      if (link.querySelector('.bankr-button-logo')) return;
+      const label = link.textContent.replace(/↗/g, '').trim();
+      const logo = document.createElement('img');
+      logo.className = 'bankr-button-logo';
+      logo.src = 'images/bankr-logo.webp';
+      logo.alt = '';
+      link.classList.add('bankr-logo-action');
+      link.replaceChildren(logo, document.createTextNode(label));
+    });
+  };
+  decorateBankrButtons();
+  new MutationObserver(decorateBankrButtons).observe(document.body, { childList: true, subtree: true });
 })();

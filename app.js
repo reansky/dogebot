@@ -35,7 +35,7 @@ const explainFeeStatus = localAi;
 localAi = (question) => /fee|fees|holder|holders|dividend|distribution|buyback|revenue/i.test(String(question || ''))
   ? 'No holder fee, dividend, or buyback model is active or configured for DOGEBOT PACK. The page is read-only and does not execute trades or distributions.'
   : explainFeeStatus(question);
- document.getElementById('memeHint')?.replaceChildren(document.createTextNode('PNG, JPG, GIF, or WEBP · 1.5 MB max'));
+ document.getElementById('memeHint')?.replaceChildren(document.createTextNode('PNG, JPG, GIF, or WEBP · 3 MB max'));
 const explainDatadogMarket = localAi;
 localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   ? 'This is the DATADOG MARKET panel for Datadog (DDOG). It is read-only: no live DOGEBOT/Datadog trading pair, trades, swaps, or buy recommendation is active.'

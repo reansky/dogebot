@@ -660,6 +660,8 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .buy-link-mark { display: grid; place-items: center; width: 16px; height: 16px; }
 .buy-link-mark svg { width: 16px; height: 16px; fill: currentColor; }
 .buy-link-mark img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; }
+.bankr-logo-action { display: inline-flex; align-items: center; gap: 8px; }
+.bankr-button-logo { width: 18px; height: 18px; flex: none; object-fit: contain; border-radius: 5px; background: #e9e4dc; }
 .buy-route.uniswap .buy-route-mark { color: #ff4fa3; background: linear-gradient(135deg, #ffd1e8, #b9a4ff); }
 .buy-route.uniswap .buy-route-mark { background: url("images/buy-uniswap.jpeg") center / cover no-repeat; }
 .buy-route.uniswap .buy-route-mark svg { display: none; }
