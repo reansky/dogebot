@@ -32,6 +32,14 @@
   const agentUpdates = document.getElementById('agentUpdates');
   let remoteForum = false;
   let remoteMemes = false;
+  const memeStage = document.querySelector('.meme-stage');
+  if (memeStage && memeGrid) {
+    memeStage.querySelector('.meme-stage-top strong')?.replaceChildren(document.createTextNode('Pack spotlight pool'));
+    memeFeature?.remove();
+    memeGrid.className = 'meme-grid meme-pool-grid';
+    memeStage.append(memeGrid);
+  }
+  document.querySelector('.meme-pool-head p')?.replaceChildren(document.createTextNode('Every approved upload stays visible in the pool. Pick a signal, then shill it to X.'));
   document.querySelector('.meme-pool-note')?.replaceChildren(document.createTextNode('Shared backend: uploads are moderated before appearing in the Pack spotlight.'));
 
   function setHint(node, text, warning = false) {
@@ -171,6 +179,25 @@
     });
   }
 
+  function shareUrlFor(meme) {
+    const imageUrl = String(meme.imageUrl || '');
+    return /^https?:\/\//i.test(imageUrl) ? imageUrl : `${window.location.origin}${window.location.pathname}#memes`;
+  }
+
+  function makeXShare(meme) {
+    const share = document.createElement('a');
+    const caption = String(meme.caption || 'DOGEBOT PACK signal');
+    const siteUrl = `${window.location.origin}${window.location.pathname}#memes`;
+    const text = `Pack spotlight: "${caption}"\n\nShill the DOGEBOT PACK signal. $DOGEBOT\n${siteUrl}`;
+    share.className = 'meme-share';
+    share.href = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrlFor(meme))}`;
+    share.target = '_blank';
+    share.rel = 'noopener noreferrer';
+    share.textContent = 'SHILL ON X ↗';
+    share.setAttribute('aria-label', `Share ${caption} on X`);
+    return share;
+  }
+
   function renderMemes(memes) {
     const memeStat = [...document.querySelectorAll('.stat')]
       .find((stat) => stat.querySelector('small')?.textContent?.trim() === 'MEME POWER');
@@ -179,31 +206,33 @@
       memeStat.querySelector('p').textContent = 'approved signals';
       memeStat.querySelector('p').classList.remove('up');
     }
-    if (memeCounter) memeCounter.textContent = `${memes.length} approved signal${memes.length === 1 ? '' : 's'}`;
-    if (memeFeature) memeFeature.classList.toggle('has-meme', memes.length > 0);
-    if (memes[0]) {
-      memeFeature.dataset.memeId = memes[0].id;
-      featuredMeme.src = memes[0].imageUrl;
-      featuredMeme.alt = `Featured DOGEBOT PACK meme: ${memes[0].caption}`;
-      featuredCaption.textContent = memes[0].caption;
-      featuredCreator.textContent = 'Approved community signal';
-    } else {
-      memeFeature?.removeAttribute('data-meme-id');
-      featuredMeme.removeAttribute('src');
-      featuredMeme.alt = 'No approved DOGEBOT PACK meme yet';
-      featuredCaption.textContent = 'Awaiting approved signal';
-      featuredCreator.textContent = 'Submit the first meme';
-    }
-    memeGrid?.replaceChildren(...memes.slice(1).map((meme) => {
+    if (memeCounter) memeCounter.textContent = `${memes.length} image${memes.length === 1 ? '' : 's'} in the pool`;
+    memeGrid?.replaceChildren(...memes.map((meme, index) => {
       const card = document.createElement('article');
-      card.className = 'meme-card glass';
+      card.className = `meme-card glass${index === 0 ? ' meme-card-spotlight' : ''}`;
       card.dataset.memeId = meme.id;
       const image = document.createElement('img');
       image.src = meme.imageUrl;
-      image.alt = meme.caption;
+      image.alt = `DOGEBOT PACK meme: ${meme.caption}`;
+      image.loading = index < 4 ? 'eager' : 'lazy';
+      const body = document.createElement('div');
+      body.className = 'meme-card-body';
+      if (index === 0) {
+        const badge = document.createElement('small');
+        badge.className = 'meme-card-badge';
+        badge.textContent = 'PACK SPOTLIGHT';
+        body.append(badge);
+      }
       const caption = document.createElement('strong');
       caption.textContent = meme.caption;
-      card.append(image, caption);
+      const meta = document.createElement('span');
+      meta.className = 'meme-card-meta';
+      meta.textContent = 'Approved community signal';
+      const actions = document.createElement('div');
+      actions.className = 'meme-card-actions';
+      actions.append(makeXShare(meme));
+      body.append(caption, meta, actions);
+      card.append(image, body);
       return card;
     }));
   }
