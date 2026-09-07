@@ -96,6 +96,8 @@ window.DOGEBOT_CONFIG = Object.freeze({
     chartFrame.src = chartUrl;
     chartFrame.hidden = false;
     if (chartPlaceholder) chartPlaceholder.hidden = true;
+    const chartStatus = document.querySelector('.chart-card .delta');
+    if (chartStatus) chartStatus.textContent = 'GECKOTERMINAL · LIVE';
   }
 
   const watchtowerStatus = document.querySelector('.brief-list span');
