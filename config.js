@@ -33,33 +33,56 @@ window.DOGEBOT_CONFIG = Object.freeze({
   if (buyLink) {
     buyLink.href = config.buyUrl;
     buyLink.title = 'Swap DOGEBOT on Uniswap';
-    const buyLabel = buyLink.querySelector('code');
-    if (buyLabel) buyLabel.textContent = 'BUY / UNISWAP';
+    buyLink.innerHTML = '<span class="buy-link-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.4 4.1c3.2.3 5.2 1.2 6.1 2.7-1.2-.3-2.2-.2-3 .2 2.7.3 4.4 1.3 5.2 3.1-1.5-.7-3-.7-4.5-.1 1.3.2 2.5.7 3.4 1.6-2.2-.1-4.1-.8-5.6-2.1C6.9 8.1 6.4 6.3 6.4 4.1Zm8.9 8.2c1.7.2 2.7.8 3.1 1.9-.8-.2-1.5-.2-2.1.1 1.2.1 2 .5 2.4 1.2-.9-.2-1.7-.1-2.5.3.8.1 1.4.4 1.9.9-1.3.1-2.4-.2-3.2-.8-.2-1.5-.1-2.7-.4-3.6Z"/></svg></span><code>BUY / UNISWAP</code>';
   }
 
   const heroCopy = document.querySelector('.hero-copy');
   if (heroCopy && !heroCopy.querySelector('.buy-routes')) {
     const routes = document.createElement('div');
     routes.className = 'buy-routes';
+    const bankrLogo = document.querySelector('.bankr-logo')?.src || '';
     const routeData = [
-      ['Uniswap', config.buyUrl],
-      ['FOMO', config.fomoUrl],
-      ['Bankr', config.bankrTradeUrl],
-      ['Chart', config.geckoChartPageUrl],
+      {
+        label: 'Uniswap',
+        type: 'Swap',
+        href: config.buyUrl,
+        className: 'uniswap',
+        icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 4.1c3.2.3 5.2 1.2 6.1 2.7-1.2-.3-2.2-.2-3 .2 2.7.3 4.4 1.3 5.2 3.1-1.5-.7-3-.7-4.5-.1 1.3.2 2.5.7 3.4 1.6-2.2-.1-4.1-.8-5.6-2.1C6.9 8.1 6.4 6.3 6.4 4.1Zm8.9 8.2c1.7.2 2.7.8 3.1 1.9-.8-.2-1.5-.2-2.1.1 1.2.1 2 .5 2.4 1.2-.9-.2-1.7-.1-2.5.3.8.1 1.4.4 1.9.9-1.3.1-2.4-.2-3.2-.8-.2-1.5-.1-2.7.4-3.6Z"/></svg>'
+      },
+      {
+        label: 'FOMO',
+        type: 'Token page',
+        href: config.fomoUrl,
+        className: 'fomo',
+        icon: '<span class="route-letter" aria-hidden="true">F</span>'
+      },
+      {
+        label: 'Bankr',
+        type: 'Trade link',
+        href: config.bankrTradeUrl,
+        className: 'bankr',
+        icon: bankrLogo ? `<img src="${bankrLogo}" alt="">` : '<span class="route-letter" aria-hidden="true">B</span>'
+      },
+      {
+        label: 'GeckoTerminal',
+        type: 'Pool chart',
+        href: config.geckoChartPageUrl,
+        className: 'gecko',
+        icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17.5 9 12l3 2.6 6-7.1 2 1.7-7.9 9.2L9 15.7l-3.1 3.1L4 17.5Z"/></svg>'
+      }
     ];
-    routeData.forEach(([label, href]) => {
+    routes.innerHTML = '<span class="buy-routes-label">BUY $DOGEBOT</span>';
+    routeData.forEach(({ label, type, href, className, icon }) => {
       const link = document.createElement('a');
-      link.className = 'buy-route';
+      link.className = `buy-route ${className}`;
       link.href = href;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.textContent = `${label} ↗`;
+      link.setAttribute('aria-label', `${label} ${type}`);
+      link.innerHTML = `<span class="buy-route-mark">${icon}</span><span class="buy-route-copy"><b>${label}</b><small>${type}</small></span>`;
       routes.append(link);
     });
     heroCopy.append(routes);
-    const routeStyle = document.createElement('style');
-    routeStyle.textContent = '.buy-routes{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.buy-route{padding:7px 10px;border:1px solid rgba(0,200,5,.22);border-radius:999px;color:#078d24;background:rgba(255,255,255,.62);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.buy-route:hover{border-color:#078d24;background:#d9f8dd}';
-    document.head.append(routeStyle);
   }
 
   document.querySelectorAll('a.footer-x, a[href*="x.com/"]').forEach(link => {
