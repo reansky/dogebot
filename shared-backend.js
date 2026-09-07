@@ -331,6 +331,7 @@
       updateStat('MARKET CAP', formatUsd(market.marketCapUsd), 'live market data');
       updateStat('PACK SIZE', market.holders ? market.holders.count.toLocaleString('en-US') : '—', market.holders ? 'positive-balance addresses' : 'holder feed unavailable');
       updateStat('LIQUIDITY', formatUsd(market.liquidityUsd), 'live pool liquidity');
+      updateStat('VOLUME 24H', formatUsd(market.volume24hUsd), 'live 24h volume');
       updateQuote('HOLDERS', market.holders ? market.holders.count.toLocaleString('en-US') : '—', market.holders ? 'RPC transfer-log index' : 'holder feed unavailable');
       const navPrice = document.getElementById('nav-price');
       if (navPrice) navPrice.textContent = formatPrice(market.priceUsd);
@@ -349,6 +350,7 @@
       updateStat('PRICE', '—', 'live source unavailable');
       updateStat('MARKET CAP', '—', 'live source unavailable');
       updateStat('LIQUIDITY', '—', 'live source unavailable');
+      updateStat('VOLUME 24H', '—', 'live source unavailable');
       updateQuote('HOLDERS', '—', 'live source unavailable');
       const state = document.querySelector('.holder-state');
       if (state) state.textContent = 'FEED UNAVAILABLE';
