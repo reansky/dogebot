@@ -421,3 +421,32 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
   .hero-card.hero-card-compact { width: 136px; }
   .agent-actions { grid-template-columns: 1fr; }
 }
+
+/* Keep the Pack Runs and Pack Den copy readable against the dark panels. */
+#rewards .section-head p,
+#community .section-head p,
+#rewards .step p,
+#community .forum-rules li,
+#community .sub,
+#community .post-hint,
+#community .post-body,
+#community .post-time,
+#community .post-action {
+  color: #c6d8c9;
+}
+
+#rewards .section-readout,
+#community .section-readout,
+#community .forum-side-head .sub {
+  color: #b2c6b5;
+}
+
+#rewards .step h3,
+#community .forum-side-head strong,
+#community .forum-rules strong {
+  color: #f3f7ef;
+}
+
+#community .forum-warn {
+  color: #f2ca72;
+}
