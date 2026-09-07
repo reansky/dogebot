@@ -35,7 +35,7 @@ window.DOGEBOT_CONFIG = Object.freeze({
   if (buyLink) {
     buyLink.href = config.buyUrl;
     buyLink.title = 'Swap DOGEBOT on Uniswap';
-    buyLink.innerHTML = '<span class="buy-link-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.4 4.1c3.2.3 5.2 1.2 6.1 2.7-1.2-.3-2.2-.2-3 .2 2.7.3 4.4 1.3 5.2 3.1-1.5-.7-3-.7-4.5-.1 1.3.2 2.5.7 3.4 1.6-2.2-.1-4.1-.8-5.6-2.1C6.9 8.1 6.4 6.3 6.4 4.1Zm8.9 8.2c1.7.2 2.7.8 3.1 1.9-.8-.2-1.5-.2-2.1.1 1.2.1 2 .5 2.4 1.2-.9-.2-1.7-.1-2.5.3.8.1 1.4.4 1.9.9-1.3.1-2.4-.2-3.2-.8-.2-1.5-.1-2.7-.4-3.6Z"/></svg></span><code>BUY / UNISWAP</code>';
+    buyLink.innerHTML = '<span class="buy-link-mark" aria-hidden="true"><img src="images/buy-uniswap.jpeg" alt=""></span><code>BUY / UNISWAP</code>';
   }
 
   const heroCopy = document.querySelector('.hero-copy');
@@ -56,7 +56,7 @@ window.DOGEBOT_CONFIG = Object.freeze({
         type: 'Token page',
         href: config.fomoUrl,
         className: 'fomo',
-        icon: '<span class="route-letter" aria-hidden="true">F</span>'
+        icon: '<img src="images/buy-fomo.webp" alt="">'
       },
       {
         label: 'Bankr',
@@ -70,7 +70,7 @@ window.DOGEBOT_CONFIG = Object.freeze({
         type: 'Pool chart',
         href: config.geckoChartPageUrl,
         className: 'gecko',
-        icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17.5 9 12l3 2.6 6-7.1 2 1.7-7.9 9.2L9 15.7l-3.1 3.1L4 17.5Z"/></svg>'
+        icon: '<img src="images/buy-geckoterminal.png" alt="">'
       }
     ];
     routes.innerHTML = '<span class="buy-routes-label">BUY $DOGEBOT</span>';

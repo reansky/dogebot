@@ -645,7 +645,10 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .buy-route-copy small { color: var(--muted); font: 9px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .05em; text-transform: uppercase; }
 .buy-link-mark { display: grid; place-items: center; width: 16px; height: 16px; }
 .buy-link-mark svg { width: 16px; height: 16px; fill: currentColor; }
+.buy-link-mark img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; }
 .buy-route.uniswap .buy-route-mark { color: #ff4fa3; background: linear-gradient(135deg, #ffd1e8, #b9a4ff); }
+.buy-route.uniswap .buy-route-mark { background: url("images/buy-uniswap.jpeg") center / cover no-repeat; }
+.buy-route.uniswap .buy-route-mark svg { display: none; }
 .buy-route.fomo .buy-route-mark { background: linear-gradient(135deg, #ffb45b, #ff5d67); }
 .buy-route.fomo .route-letter { color: #fff; }
 .buy-route.bankr .buy-route-mark { background: #e9e4dc; }
