@@ -66,7 +66,7 @@ window.DOGEBOT_CONFIG = Object.freeze({
     link.href = config.xUrl;
   });
 
-  document.querySelectorAll('[data-bankr-install], [data-bankr-mobile-install], .bankr-install, a[href*="bankr.bot/"]').forEach(link => {
+  document.querySelectorAll('[data-bankr-install], [data-bankr-mobile-install], .bankr-install, a[href*="bankr.bot/"]:not(.buy-route)').forEach(link => {
     link.href = config.bankrSkillUrl;
   });
 
@@ -74,13 +74,23 @@ window.DOGEBOT_CONFIG = Object.freeze({
   if (network) network.textContent = config.network;
 
   const chartUrl = String(config.geckoChartUrl || '').trim();
-  const chartFrame = document.getElementById('geckoChart');
+  let chartFrame = document.getElementById('geckoChart');
   const chartPlaceholder = document.getElementById('geckoChartPlaceholder');
   const demoChart = document.querySelector('.chart');
   const chartTabs = document.querySelector('.chart-tabs');
 
   demoChart?.classList.add('chart-hidden');
   chartTabs?.classList.add('chart-tabs-hidden');
+
+  if (!chartFrame && chartUrl) {
+    chartFrame = document.createElement('iframe');
+    chartFrame.id = 'geckoChart';
+    chartFrame.title = 'DOGEBOT / DDOG GeckoTerminal chart';
+    chartFrame.loading = 'lazy';
+    chartFrame.referrerPolicy = 'no-referrer';
+    chartFrame.style.cssText = 'display:block;width:100%;height:430px;border:0;border-radius:16px;background:#071009;';
+    document.querySelector('.chart-card')?.append(chartFrame);
+  }
 
   if (chartFrame && chartUrl) {
     chartFrame.src = chartUrl;
