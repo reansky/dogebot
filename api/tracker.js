@@ -1,30 +1,11 @@
-const { configured, job, submitPrompt } = require('./_lib/bankr');
-const { json, error } = require('./lib/http');
+const { json, error } = require('./_lib/http');
 
 const TOKEN = '0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3';
-
-function wait(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+const BANKR_PUBLIC = 'https://api.bankr.bot';
 
 function finite(value) {
   const number = Number(value);
   return Number.isFinite(number) ? number : null;
-}
-
-function parseTelemetry(text) {
-  const match = String(text || '').match(/\{[\s\S]*\}/);
-  if (!match) return {};
-  try {
-    const value = JSON.parse(match[0]);
-    return {
-      swapFees: finite(value.swapFees ?? value.totalSwapFees ?? value.fees),
-      buyback: finite(value.buyback ?? value.buybacks ?? value.accumulatedBuyback),
-      currency: String(value.currency || 'USD').slice(0, 12),
-    };
-  } catch {
-    return {};
-  }
 }
 
 async function marketSnapshot(req) {
@@ -35,39 +16,41 @@ async function marketSnapshot(req) {
   return response.json();
 }
 
-async function bankrTelemetry() {
-  if (!configured()) return { status: 'not_configured', text: null, metrics: {} };
-  const prompt = [
-    'Read-only DOGEBOT PACK tracker request on Robinhood Chain.',
-    `Contract: ${TOKEN}.`,
-    'Return JSON only with this shape: {"swapFees": number|null, "buyback": number|null, "currency": "USD"|"TOKEN", "status": "verified"|"not_exposed"}.',
-    'Report only publicly verifiable on-chain values for total swap fees collected and accumulated buybacks. Never execute any transaction. Use null when the contract or public telemetry does not expose a verified value.',
-  ].join(' ');
-  const started = await submitPrompt(prompt);
-  if (!started.jobId) return { status: 'unavailable', text: started.response, metrics: parseTelemetry(started.response) };
-  let result = started;
-  for (let attempt = 0; attempt < 6 && ['pending', 'processing'].includes(result.status); attempt += 1) {
-    await wait(650);
-    result = await job(started.jobId);
-  }
+async function bankrSnapshot() {
+  const response = await fetch(`${BANKR_PUBLIC}/token-launches/${TOKEN}`, { headers: { accept: 'application/json' } });
+  if (!response.ok) throw new Error('Bankr public fee data is unavailable.');
+  const data = await response.json();
+  const launch = data.launch || {};
+  const fees = launch.unclaimedFees || {};
+  const tokenAmount = finite(fees.tokenAmount);
+  const ddogAmount = finite(fees.wethAmount);
+  const ddogSymbol = String(fees.numeraireSymbol || 'DDOG').slice(0, 12);
+  const tokenSymbol = String(fees.tokenSymbol || 'DOGEBOT').slice(0, 12);
+  const usdValue = finite(fees.usdValue);
+  const usdNote = usdValue == null ? '' : ` (about $${usdValue.toFixed(2)})`;
   return {
-    status: result.status === 'completed' ? 'live' : result.status,
-    text: result.response || null,
-    metrics: parseTelemetry(result.response),
+    ddogAmount,
+    ddogSymbol,
+    tokenAmount,
+    tokenSymbol,
+    usdValue,
+    text: `Bankr public token data currently shows ${ddogAmount == null ? 'no' : ddogAmount} ${ddogSymbol} and ${tokenAmount == null ? 'no' : tokenAmount} ${tokenSymbol} as claimable fees${usdNote}. This is a current claimable balance, not a historical fee total, transfer tax, or buyback figure.`,
   };
 }
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'GET') return json(res, 405, { error: 'Method not allowed.' });
   try {
-    const [market, telemetry] = await Promise.all([marketSnapshot(req), bankrTelemetry()]);
+    const [market, bankr] = await Promise.all([marketSnapshot(req), bankrSnapshot()]);
     return json(res, 200, {
       token: { address: TOKEN, symbol: 'DOGEBOT', network: 'Robinhood Chain' },
       metrics: {
         holders: market.holders?.count ?? null,
-        swapFees: telemetry.metrics.swapFees,
-        buyback: telemetry.metrics.buyback,
-        currency: telemetry.metrics.currency || 'USD',
+        claimableDdogFees: bankr.ddogAmount,
+        claimableDdogSymbol: bankr.ddogSymbol,
+        claimableTokenFees: bankr.tokenAmount,
+        claimableTokenSymbol: bankr.tokenSymbol,
+        claimableFeesUsd: bankr.usdValue,
       },
       market: {
         priceUsd: market.priceUsd ?? null,
@@ -76,11 +59,11 @@ module.exports = async function handler(req, res) {
         fetchedAt: market.fetchedAt || null,
       },
       telemetry: {
-        status: telemetry.status,
-        text: telemetry.text,
-        source: configured() ? 'Bankr Agent read-only telemetry' : 'Bankr Agent API not configured',
+        status: 'live',
+        text: bankr.text,
+        source: 'Bankr public token-launch data',
       },
-      tradeUrl: 'https://bankr.bot',
+      tradeUrl: 'https://bankr.bot/terminal/trade?out=0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3&chain=robinhood',
     });
   } catch (err) {
     return error(res, err);

@@ -11,6 +11,7 @@ This folder is the Vercel version of the DOGEBOT PACK website. It serves the rea
 ├── app.js
 ├── config.js
 ├── shared-backend.js
+├── visuals.js
 ├── images/
 ├── api/
 ├── supabase.sql
@@ -51,7 +52,9 @@ Valid actions are `approve` and `reject`; valid types are `meme`, `post`, and `a
 - The Trust Center states the read-only market policy, Bankr approval gate, safety rules, and live configuration state in the public UI.
 - Pack Passport is currently an optional local browser profile for identity and notification preferences; cross-device magic-link login activates after Supabase Auth is connected.
 - The local AI is project-knowledge-only. It does not call OpenAI, trade, buy, sell, deploy tokens, or distribute fees.
+- Bankr links lead to the official skill and trade page; the site does not expose an interactive Bankr Agent or require a Bankr API key.
+- The original hero artwork remains in place; `visuals.js` adds three curated pack images below it.
 - The market panel remains read-only and uses the configured GeckoTerminal source.
-- Bankr Bot Agent requests run through `/api/bankr`; keep `BANKR_API_KEY` server-side in Vercel and never expose it in browser code.
+- The Holder Fee Tracker uses `/api/tracker` and Bankr's public token-launch data. It shows current claimable balances only and never infers historical fees or buybacks.
 - Meme Contest voting uses `/api/meme-votes` and one browser client can vote once per meme.
-- Holder Rewards & Buyback Tracker uses `/api/tracker`; fee and buyback values remain `NOT EXPOSED` unless Bankr returns verified public telemetry.
+- Holder Fee Tracker uses `/api/tracker`; it displays current claimable fee balances from Bankr's public token-launch data and does not infer historical fees or buybacks.

@@ -142,8 +142,6 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   };
 
   const navLinks = document.querySelector('.nav-links');
-   addLink(document.querySelector('.mobile-panel'), '#bankr-agent', 'Bankr Bot Agent', document.querySelector('.mobile-panel')?.querySelector('[href="#community"]'));
-   addLink(document.querySelector('.footer-links'), '#bankr-agent', 'Bankr Bot Agent', document.querySelector('.footer-links')?.querySelector('[href="#community"]'));
   const mobilePanel = document.querySelector('.mobile-panel');
   addLink(mobilePanel, '#holders', 'Read-only holder intelligence', mobilePanel?.querySelector('[href="#community"]'));
   addLink(document.querySelector('.footer-links'), '#holders', 'Holder Intel');
@@ -380,7 +378,7 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
 (() => {
   const main = document.querySelector('main');
   const statStrip = main?.querySelector('.stat-strip');
-  const sectionOrder = ['rewards', 'dogebot', 'pack', 'news', 'community', 'memes', 'agent', 'holders', 'trust'];
+  const sectionOrder = ['rewards', 'dogebot', 'pack', 'news', 'community', 'memes', 'holders', 'trust'];
   if (main && statStrip) {
     let cursor = statStrip;
     sectionOrder.forEach((id) => {
@@ -398,16 +396,15 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
     news: '04 / THE SIGNAL FEED',
     community: '05 / FORUM + BANKR SPACE',
     memes: '06 / MEME POOL',
-    agent: '07 / DOGEBOT WATCHTOWER',
-    holders: '08 / READ-ONLY HOLDER INTELLIGENCE',
-    trust: '09 / TRUST CENTER',
+    holders: '07 / READ-ONLY HOLDER INTELLIGENCE',
+    trust: '08 / TRUST CENTER',
   };
   Object.entries(labels).forEach(([id, label]) => {
     const overline = document.querySelector(`#${id} .overline`);
     if (overline) overline.textContent = label;
   });
 
-  const linkOrder = ['#top', '#rewards', '#dogebot', '#pack', '#news', '#memes', '#community', '#agent', '#holders', '#trust'];
+  const linkOrder = ['#top', '#rewards', '#dogebot', '#pack', '#news', '#memes', '#community', '#holders', '#trust'];
   const reorderLinks = (selector) => {
     const parent = document.querySelector(selector);
     if (!parent) return;
