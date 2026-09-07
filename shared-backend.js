@@ -172,6 +172,13 @@
   }
 
   function renderMemes(memes) {
+    const memeStat = [...document.querySelectorAll('.stat')]
+      .find((stat) => stat.querySelector('small')?.textContent?.trim() === 'MEME POWER');
+    if (memeStat) {
+      memeStat.querySelector('strong').textContent = String(memes.length);
+      memeStat.querySelector('p').textContent = 'approved signals';
+      memeStat.querySelector('p').classList.remove('up');
+    }
     if (memeCounter) memeCounter.textContent = `${memes.length} approved signal${memes.length === 1 ? '' : 's'}`;
     if (memeFeature) memeFeature.classList.toggle('has-meme', memes.length > 0);
     if (memes[0]) {
@@ -242,6 +249,112 @@
     }
   }
 
+  function formatUsd(value) {
+    if (!Number.isFinite(value)) return '—';
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      notation: 'compact',
+      maximumFractionDigits: 2,
+    }).format(value);
+  }
+
+  function formatPrice(value) {
+    if (!Number.isFinite(value)) return '—';
+    if (value < 0.0001) return `$${value.toFixed(10).replace(/0+$/, '').replace(/\.$/, '')}`;
+    return `$${value.toFixed(6).replace(/0+$/, '').replace(/\.$/, '')}`;
+  }
+
+  function formatPercent(value) {
+    if (!Number.isFinite(value)) return '—';
+    return `${value < 1 ? value.toFixed(2) : value.toFixed(1)}%`;
+  }
+
+  function stat(label) {
+    return [...document.querySelectorAll('.stat')]
+      .find((node) => node.querySelector('small')?.textContent?.trim() === label);
+  }
+
+  function updateStat(label, value, note) {
+    const node = stat(label);
+    if (!node) return;
+    node.querySelector('strong').textContent = value;
+    node.querySelector('p').textContent = note;
+    node.querySelector('p').classList.remove('up');
+  }
+
+  function updateQuote(label, value, note) {
+    const node = [...document.querySelectorAll('#dogebot .quote')]
+      .find((quote) => quote.querySelector('small')?.textContent?.trim() === label);
+    if (!node) return;
+    node.querySelector('strong').textContent = value;
+    node.querySelector('span').textContent = note;
+  }
+
+  function updateHolderView(market) {
+    const snapshot = market.holders;
+    const state = document.querySelector('.holder-state');
+    const total = document.querySelector('.holder-total strong');
+    const totalNote = document.querySelector('.holder-total p');
+    const metrics = [...document.querySelectorAll('.holder-metrics > div')];
+    if (!snapshot) {
+      if (state) state.textContent = 'FEED UNAVAILABLE';
+      if (total) total.textContent = '—';
+      if (totalNote) totalNote.textContent = 'The read-only holder feed is temporarily unavailable.';
+      return;
+    }
+    if (state) state.textContent = 'LIVE · RPC SYNC';
+    if (total) total.textContent = snapshot.count.toLocaleString('en-US');
+    if (totalNote) totalNote.textContent = `${snapshot.count.toLocaleString('en-US')} positive-balance addresses · block ${snapshot.block.toLocaleString('en-US')}`;
+    if (metrics[0]) {
+      metrics[0].querySelector('small').textContent = 'TOP 10 CONCENTRATION';
+      metrics[0].querySelector('strong').textContent = formatPercent(snapshot.concentrationPct);
+      metrics[0].querySelector('span').textContent = 'share of total supply';
+    }
+    if (metrics[1]) {
+      metrics[1].querySelector('small').textContent = 'TOP BALANCE';
+      metrics[1].querySelector('strong').textContent = formatPercent(snapshot.topHolderPct);
+      metrics[1].querySelector('span').textContent = 'largest positive balance';
+    }
+    if (metrics[2]) {
+      metrics[2].querySelector('small').textContent = 'LAST SYNC';
+      metrics[2].querySelector('strong').textContent = new Date(market.fetchedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      metrics[2].querySelector('span').textContent = 'Robinhood Chain RPC';
+    }
+  }
+
+  async function loadMarket() {
+    try {
+      const market = await request('/market');
+      window.DOGEBOT_MARKET = market;
+      updateStat('PRICE', formatPrice(market.priceUsd), 'live USD price');
+      updateStat('MARKET CAP', formatUsd(market.marketCapUsd), 'live market data');
+      updateStat('PACK SIZE', market.holders ? market.holders.count.toLocaleString('en-US') : '—', market.holders ? 'positive-balance addresses' : 'holder feed unavailable');
+      updateStat('LIQUIDITY', formatUsd(market.liquidityUsd), 'live pool liquidity');
+      updateQuote('HOLDERS', market.holders ? market.holders.count.toLocaleString('en-US') : '—', market.holders ? 'RPC transfer-log index' : 'holder feed unavailable');
+      const navPrice = document.getElementById('nav-price');
+      if (navPrice) navPrice.textContent = formatPrice(market.priceUsd);
+      const navDelta = document.querySelector('.pill-price .delta');
+      if (navDelta) navDelta.textContent = 'LIVE';
+      const chartDelta = document.querySelector('.chart-card .delta');
+      if (chartDelta) chartDelta.textContent = `LIVE · ${formatPercent(market.priceChange24hPct)} / 24H`;
+      const marketLabel = document.querySelector('#dogebot .chart-card .card-top small');
+      if (marketLabel) marketLabel.textContent = 'LIVE MARKET DATA · READ-ONLY · API SOURCES SHOWN BELOW';
+      const sourceNote = document.querySelector('#dogebot .quote-card .card-top small');
+      if (sourceNote) sourceNote.textContent = `${market.sources.join(' + ')} · ${new Date(market.fetchedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+      const holderCopy = document.querySelector('#holders .section-head p');
+      if (holderCopy) holderCopy.textContent = 'Positive-balance addresses and concentration calculated from Robinhood Chain transfer logs. Read-only, no wallet actions.';
+      updateHolderView(market);
+    } catch {
+      updateStat('PRICE', '—', 'live source unavailable');
+      updateStat('MARKET CAP', '—', 'live source unavailable');
+      updateStat('LIQUIDITY', '—', 'live source unavailable');
+      updateQuote('HOLDERS', '—', 'live source unavailable');
+      const state = document.querySelector('.holder-state');
+      if (state) state.textContent = 'FEED UNAVAILABLE';
+    }
+  }
+
   if (memeForm) {
     memeForm.onsubmit = async (event) => {
       if (!remoteMemes) {
@@ -271,4 +384,5 @@
   loadPosts();
   loadMemes();
   loadAgentUpdates();
+  loadMarket();
 })();
