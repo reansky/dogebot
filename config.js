@@ -10,6 +10,8 @@ window.DOGEBOT_CONFIG = Object.freeze({
   bankrSkillUrl: 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack',
   network: 'Robinhood Chain',
   apiBase: '/api',
+  marketApiUrl: '/api/market',
+  rpcUrl: 'https://rpc.mainnet.chain.robinhood.com',
   geckoChartUrl: 'https://www.geckoterminal.com/robinhood/pools/0xc4aa486bbaae46b6503e3871cc3991fdfbb540444218963077ae3cd0eec290b9?embed=1&info=0&swaps=0'
 });
 
