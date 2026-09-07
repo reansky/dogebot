@@ -1,6 +1,6 @@
-const { rest, rateLimit } = require('./_lib/supabase');
-const { json, body, error } = require('./_lib/http');
-const { clientId, ipKey } = require('./_lib/security');
+const { rest, rateLimit } = require('./lib/supabase');
+const { json, body, error } = require('./lib/http');
+const { clientId, ipKey } = require('./lib/security');
 
 function publicCounts(rows) {
   return (rows || []).reduce((counts, row) => {

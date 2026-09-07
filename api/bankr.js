@@ -1,6 +1,6 @@
 const { configured, job, submitPrompt, wallet } = require('./lib/bankr');
-const { json, body, error } = require('./_lib/http');
-const { clientId, ipKey } = require('./_lib/security');
+const { json, body, error } = require('./lib/http');
+const { clientId, ipKey } = require('./lib/security');
 
 const buckets = globalThis.__dogebotBankrBuckets || new Map();
 globalThis.__dogebotBankrBuckets = buckets;
