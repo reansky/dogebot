@@ -1,17 +1,17 @@
 try{const key='dogebot-memes',stored=JSON.parse(localStorage.getItem(key)||'[]');if(Array.isArray(stored)){const valid=stored.filter(m=>m&&typeof m.image==='string'&&/^data:image\/(?:png|jpeg|gif|webp);base64,/i.test(m.image)&&m.image.length>100);if(valid.length!==stored.length)localStorage.setItem(key,JSON.stringify(valid))}}catch{}
 
 
-const seed=[{id:'p1',name:'nightshift_doge',text:'The den is looking clean. Keep the signal weird and the links out.',time:'2m',likes:12},{id:'p2',name:'byte_barker',text:'DOGEBOT PACK is online. What should the first community tool be?',time:'18m',likes:7},{id:'p3',name:'anon_404',text:'Reminder: nobody from the team will DM first. Stay sharp, pack.',time:'1h',likes:19}];
+const seed=[];
 const get=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};const set=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value))}catch{}};
- let user=get('dogebot-user','anonymous_'+Math.random().toString(36).slice(2,6));let posts=get('dogebot-posts',seed);if(!Array.isArray(posts))posts=seed.map(post=>({...post}));const feed=document.getElementById('feed');const currentUser=document.getElementById('currentUser');const forumCount=document.getElementById('forumCount');currentUser.textContent=user;
+ let user=get('dogebot-user','anonymous_'+Math.random().toString(36).slice(2,6));let posts=[];const feed=document.getElementById('feed');const currentUser=document.getElementById('currentUser');const forumCount=document.getElementById('forumCount');currentUser.textContent=user;
 const packNote=document.createElement('div');packNote.className='pack-note glass';packNote.innerHTML='<span class="pack-note-mark">◎</span><div><strong>“Pack” means the DOGEBOT PACK community</strong><p>People who build, discuss, and help keep this space safe. You do not need to own tokens, and the term is not a promise of profit.</p></div>';document.querySelector('#rewards .steps').before(packNote);
 function render(){feed.textContent='';forumCount.textContent=posts.length+' posts';posts.forEach(post=>{const card=document.createElement('article');card.className='post glass';const head=document.createElement('div');head.className='post-head';const author=document.createElement('div');author.className='post-author';const avatar=document.createElement('span');avatar.className='avatar';avatar.textContent=post.name.slice(0,1).toUpperCase();const name=document.createElement('strong');name.textContent=post.name;const time=document.createElement('span');time.className='post-time';time.textContent=post.time==='now'?'now':post.time+' ago';author.append(avatar,name);const body=document.createElement('p');body.className='post-body';body.textContent=post.text;const actions=document.createElement('div');actions.className='post-actions';const like=document.createElement('button');like.className='post-action';like.type='button';like.textContent='♡ '+(post.likes||0);like.onclick=()=>{post.likes=(post.likes||0)+1;set('dogebot-posts',posts);render()};actions.append(like);if(post.mine){const del=document.createElement('button');del.className='post-action';del.type='button';del.textContent='✕ delete';del.onclick=()=>{posts=posts.filter(item=>item.id!==post.id);set('dogebot-posts',posts);render()};actions.append(del)}head.append(author,time);card.append(head,body,actions);feed.append(card)})}render();
 document.getElementById('publish').onclick=()=>{const box=document.getElementById('compose'),text=box.value.trim(),hint=document.getElementById('postHint');if(!text){hint.textContent='Type a message first';hint.style.color='#f5cb62';box.focus();return}const hasUrl=/(https?:\/\/|www\.|[a-z0-9-]+\.(com|xyz|lol|io|org|net)\b)/i.test(text);if(hasUrl){hint.textContent='Links are blocked in the den';hint.style.color='#f5cb62';return}posts.unshift({id:'p'+Date.now(),name:user,text,time:'now',likes:0,mine:true});set('dogebot-posts',posts);box.value='';hint.textContent='Links are blocked · 500 characters';hint.style.color='';render()};
 document.getElementById('changeName').onclick=()=>{const next=prompt('Choose an anonymous name:',user);if(next&&next.trim()){user=next.trim().replace(/\s+/g,' ').slice(0,24);set('dogebot-user',user);currentUser.textContent=user}};
 async function copyText(value){try{if(!navigator.clipboard?.writeText)throw new Error('clipboard unavailable');await Promise.race([navigator.clipboard.writeText(value),new Promise((_,reject)=>setTimeout(()=>reject(new Error('clipboard timeout')),700))])}catch{const helper=document.createElement('textarea');helper.value=value;helper.setAttribute('readonly','');helper.style.position='fixed';helper.style.opacity='0';document.body.append(helper);helper.select();document.execCommand('copy');helper.remove()}}
-document.getElementById('copyContract').onclick=async()=>{const b=document.getElementById('copyContract');await copyText('DOGEBOT_CONTRACT_TBA');b.innerHTML='<code>COPIED</code> ✓';setTimeout(()=>b.innerHTML='<code>CA / TBA</code> ⧉',1600)};
+ document.getElementById('copyContract').onclick=async()=>{const b=document.getElementById('copyContract');await copyText('0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3');b.innerHTML='<code>COPIED</code> ✓';setTimeout(()=>b.innerHTML='<code>0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3</code> ⧉',1600)};
 const chartButtons=[...document.querySelectorAll('.chart-tabs button')];const chartLine=document.querySelector('.chart path.line');const chartArea=document.querySelector('.chart path.area');const chartStatus=document.querySelector('.chart-card .delta');const chartPaths=[['M0 183 C55 177 63 140 111 151 S180 194 226 131 S290 160 334 121 S398 143 445 98 S512 143 556 83 S620 100 700 43','M0 183 C55 177 63 140 111 151 S180 194 226 131 S290 160 334 121 S398 143 445 98 S512 143 556 83 S620 100 700 43 V220 H0Z'],['M0 181 C55 168 81 176 122 130 S193 141 231 153 S300 113 341 128 S408 97 456 115 S512 72 561 91 S632 43 700 66','M0 181 C55 168 81 176 122 130 S193 141 231 153 S300 113 341 128 S408 97 456 115 S512 72 561 91 S632 43 700 66 V220 H0Z'],['M0 154 C58 133 73 158 116 120 S177 96 224 111 S291 65 337 83 S399 44 448 69 S520 45 565 58 S626 23 700 39','M0 154 C58 133 73 158 116 120 S177 96 224 111 S291 65 337 83 S399 44 448 69 S520 45 565 58 S626 23 700 39 V220 H0Z'],['M0 174 C52 170 79 110 125 129 S187 118 232 139 S299 73 345 102 S410 52 455 73 S509 94 554 48 S627 60 700 24','M0 174 C52 170 79 110 125 129 S187 118 232 139 S299 73 345 102 S410 52 455 73 S509 94 554 48 S627 60 700 24 V220 H0Z'],['M0 190 C54 162 83 172 127 116 S196 143 238 102 S303 113 349 78 S406 97 458 50 S526 85 568 40 S636 70 700 18','M0 190 C54 162 83 172 127 116 S196 143 238 102 S303 113 349 78 S406 97 458 50 S526 85 568 40 S636 70 700 18 V220 H0Z']];
-function setChart(index){chartButtons.forEach((button,i)=>button.classList.toggle('active',i===index));chartLine.setAttribute('d',chartPaths[index][0]);chartArea.setAttribute('d',chartPaths[index][1]);chartStatus.textContent=chartButtons[index].textContent+' · DEMO'}chartButtons.forEach((button,index)=>button.addEventListener('click',()=>setChart(index)));setChart(0);
+ function setChart(index){chartButtons.forEach((button,i)=>button.classList.toggle('active',i===index));chartLine.setAttribute('d',chartPaths[index][0]);chartArea.setAttribute('d',chartPaths[index][1]);chartStatus.textContent=chartButtons[index].textContent+' · READ-ONLY'}chartButtons.forEach((button,index)=>button.addEventListener('click',()=>setChart(index)));setChart(0);
 const menu=document.getElementById('menu'),nav=document.getElementById('nav');menu.setAttribute('aria-expanded','false');menu.onclick=()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.textContent=open?'×':'☰'};document.querySelectorAll('.mobile-panel a').forEach(a=>a.onclick=()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰'});
 const aiLaunch=document.getElementById('aiLaunch'),aiOverlay=document.getElementById('aiOverlay'),aiClose=document.getElementById('aiClose'),aiMessages=document.getElementById('aiMessages'),aiForm=document.getElementById('aiForm'),aiInput=document.getElementById('aiInput'),aiSend=document.getElementById('aiSend'),aiMode=document.getElementById('aiMode');let aiHistory=get('dogebot-ai-history',[]);if(!Array.isArray(aiHistory)||!aiHistory.length)aiHistory=[{role:'assistant',content:'Hi, I am DOGEBOT PACK AI. I only explain this project, its community, its token page, and its forum.'}];
 function saveAi(){set('dogebot-ai-history',aiHistory)}function renderAi(){aiMessages.textContent='';aiHistory.forEach(message=>{const bubble=document.createElement('div');bubble.className='ai-message '+(message.role==='user'?'user':'assistant');const label=document.createElement('span');label.className='ai-label';label.textContent=message.role==='user'?'You':'DOGEBOT PACK AI';const content=document.createElement('span');content.textContent=message.content;bubble.append(label,content);aiMessages.append(bubble)});aiMessages.scrollTop=aiMessages.scrollHeight}function updateAiMode(){aiMode.textContent='Project knowledge mode'}renderAi();updateAiMode();
@@ -104,6 +104,46 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
     response.textContent = 'Bankr Brief copied. Review the content before sharing it anywhere.';
     source.textContent = 'Source: Bankr Brief draft · read-only';
   });
+})();
+
+// Keep launch metrics and copy honest until each live data source is connected.
+(() => {
+  const statUpdates = {
+    'MARKET CAP': ['—', 'data source pending'],
+    'PACK SIZE': ['—', 'shared count pending'],
+    LIQUIDITY: ['—', 'data source pending'],
+    'MEME POWER': ['—', 'community signal'],
+  };
+  document.querySelectorAll('.stat').forEach((stat) => {
+    const key = stat.querySelector('small')?.textContent?.trim();
+    const update = statUpdates[key];
+    if (!update) return;
+    const value = stat.querySelector('strong');
+    const note = stat.querySelector('p');
+    if (value) value.textContent = update[0];
+    if (note) note.textContent = update[1];
+    note?.classList.remove('up');
+  });
+
+  const quoteLabels = [...document.querySelectorAll('#dogebot .quote')];
+  const quoteUpdates = {
+    HOLDERS: ['—', 'read-only feed pending'],
+    ROUNDS: ['—', 'not enabled'],
+    FEES: ['—', 'not configured'],
+  };
+  quoteLabels.forEach((quote) => {
+    const key = quote.querySelector('small')?.textContent?.trim();
+    const update = quoteUpdates[key];
+    if (!update) return;
+    quote.querySelector('strong').textContent = update[0];
+    quote.querySelector('span').textContent = update[1];
+  });
+
+  const explainLiveState = localAi;
+  localAi = (question) => explainLiveState(question).replace(
+    'The market panel is currently a visual demo. No live DOGEBOT PACK contract or price feed has been configured, so the placeholder values are not financial data.',
+    'The market panel is read-only and uses the configured GeckoTerminal source. No trading actions are enabled.'
+  );
 })();
 
 (() => {
@@ -344,4 +384,19 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   }));
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setOpen(false); });
   overlay.querySelector('.passport-foot a')?.addEventListener('click', () => setOpen(false));
+})();
+
+(() => {
+  const launchCard = [...document.querySelectorAll('.trust-card')]
+    .find((card) => card.querySelector('small')?.textContent?.includes('LAUNCH STATE'));
+  if (launchCard) {
+    launchCard.querySelector('strong').textContent = 'LIVE CONFIGURED';
+    launchCard.querySelector('p').textContent = 'The contract, buy routes, chart source, and shared community APIs are configured.';
+  }
+  document.querySelectorAll('.brief-list span').forEach((node) => {
+    if (node.textContent.includes('No live contract configured')) node.textContent = 'Contract and route configuration are live.';
+  });
+  document.querySelectorAll('.holder-metrics span').forEach((node) => {
+    if (node.textContent.includes('not live yet')) node.textContent = 'awaiting read-only feed';
+  });
 })();
