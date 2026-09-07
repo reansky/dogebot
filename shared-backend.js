@@ -34,11 +34,18 @@
   let remoteMemes = false;
   const memeStage = document.querySelector('.meme-stage');
   if (memeStage && memeGrid) {
-    memeStage.querySelector('.meme-stage-top strong')?.replaceChildren(document.createTextNode('Pack spotlight pool'));
+    const stageTop = memeStage.querySelector('.meme-stage-top');
+    stageTop?.querySelector('strong')?.replaceChildren(document.createTextNode('Pack spotlight pool'));
+    const legacyCounter = stageTop?.querySelector('#memeCounter');
+    legacyCounter?.classList.add('legacy-meme-counter');
+    const poolCounter = document.createElement('span');
+    poolCounter.id = 'memePoolCounter';
+    stageTop?.append(poolCounter);
     memeFeature?.remove();
     memeGrid.className = 'meme-grid meme-pool-grid';
     memeStage.append(memeGrid);
   }
+  const memePoolCounter = document.getElementById('memePoolCounter');
   document.querySelector('.meme-pool-head p')?.replaceChildren(document.createTextNode('Every approved upload stays visible in the pool. Pick a signal, then shill it to X.'));
   document.querySelector('.meme-pool-note')?.replaceChildren(document.createTextNode('Shared backend: uploads are moderated before appearing in the Pack spotlight.'));
 
@@ -206,7 +213,14 @@
       memeStat.querySelector('p').textContent = 'approved signals';
       memeStat.querySelector('p').classList.remove('up');
     }
-    if (memeCounter) memeCounter.textContent = `${memes.length} image${memes.length === 1 ? '' : 's'} in the pool`;
+    if (memePoolCounter) memePoolCounter.textContent = `${memes.length} image${memes.length === 1 ? '' : 's'} in the pool`;
+    if (!memes.length) {
+      const empty = document.createElement('div');
+      empty.className = 'meme-pool-empty';
+      empty.textContent = 'No approved uploads yet. Submit the first signal to fill the pool.';
+      memeGrid?.replaceChildren(empty);
+      return;
+    }
     memeGrid?.replaceChildren(...memes.map((meme, index) => {
       const card = document.createElement('article');
       card.className = `meme-card glass${index === 0 ? ' meme-card-spotlight' : ''}`;

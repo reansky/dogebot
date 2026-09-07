@@ -219,6 +219,8 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .meme-share { display: inline-flex; align-items: center; justify-content: center; padding: 7px 9px; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.045); font: 9px 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; letter-spacing: .04em; text-decoration: none; }
 .meme-share:hover { color: #031004; border-color: var(--rh-green); background: var(--rh-green); }
 .meme-card-spotlight { border-color: rgba(0, 200, 5, .45); box-shadow: 0 0 0 1px rgba(0, 200, 5, .08), var(--shadow); }
+.legacy-meme-counter { display: none !important; }
+.meme-pool-empty { grid-column: 1 / -1; padding: 30px 18px; color: var(--muted); border: 1px dashed var(--line); border-radius: 14px; text-align: center; font-size: 12px; }
 @media (max-width: 700px) { .meme-pool-grid { grid-template-columns: 1fr; } }
 
 .agent-badge { border-color: var(--line); background: rgba(255,255,255,.035); color: var(--ink); }
