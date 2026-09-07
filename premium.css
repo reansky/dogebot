@@ -322,10 +322,28 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
   .forum-main { order: 1; }
   .footer { margin-top: 80px; }
   .ai-fab { right: 14px; bottom: 14px; padding: 12px 15px; }
+  .bankr-agent-fab { right: 14px; bottom: 70px; padding: 11px 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *:before, *:after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+.pack-visuals-section { padding-top: 86px; }
+.pack-visual-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
+.pack-visual-card { position: relative; min-height: 360px; overflow: hidden; border-radius: 21px; border-color: var(--line); box-shadow: var(--shadow); }
+.pack-visual-card:after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 38%, rgba(3,7,4,.9) 100%); }
+.pack-visual-card img { display: block; width: 100%; height: 390px; object-fit: cover; object-position: center; transition: transform .5s ease, filter .5s ease; }
+.pack-visual-card:hover img { transform: scale(1.04); filter: saturate(1.12); }
+.pack-visual-copy { position: absolute; z-index: 1; right: 19px; bottom: 17px; left: 19px; }
+.pack-visual-copy small { color: var(--rh-green-soft); font: 9px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .12em; }
+.pack-visual-copy h3 { margin: 8px 0 5px; color: var(--ink); font: 600 20px 'Space Grotesk', Inter, sans-serif; letter-spacing: -.04em; }
+.pack-visual-copy p { margin: 0; color: rgba(243,247,239,.72); font-size: 11px; line-height: 1.45; }
+
+@media (max-width: 700px) {
+  .pack-visuals-section { padding-top: 70px; }
+  .pack-visual-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 24px; }
+  .pack-visual-card, .pack-visual-card img { min-height: 300px; height: 300px; }
 }
 
 /* Mobile gets its own composition instead of a shrunken desktop grid. */
@@ -676,7 +694,7 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .bankr-agent-side li { position: relative; padding-left: 17px; color: var(--muted); font-size: 12px; line-height: 1.55; }
 .bankr-agent-side li:before { content: ''; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--rh-green); box-shadow: 0 0 10px rgba(0,200,5,.7); }
 .bankr-agent-side .btn { width: fit-content; margin-top: 30px; }
-.bankr-agent-fab { position: fixed; right: 25px; bottom: 25px; z-index: 72; display: inline-flex; align-items: center; gap: 8px; padding: 13px 16px; color: #fff; border: 1px solid var(--doge-gold); border-radius: 999px; background: #061a0d; box-shadow: 0 16px 42px rgba(0,0,0,.5), 0 0 28px rgba(241,185,78,.16); font-size: 11px; font-weight: 900; }
+.bankr-agent-fab { position: fixed; right: 25px; bottom: 84px; z-index: 72; display: inline-flex; align-items: center; gap: 8px; padding: 13px 16px; color: #fff; border: 1px solid var(--doge-gold); border-radius: 999px; background: #061a0d; box-shadow: 0 16px 42px rgba(0,0,0,.5), 0 0 28px rgba(241,185,78,.16); font-size: 11px; font-weight: 900; }
 .bankr-agent-fab:hover { transform: translateY(-3px); border-color: var(--rh-green-soft); background: #0a2b17; }
 .bankr-agent-fab-mark { color: var(--doge-gold); font-size: 18px; line-height: 1; }
 .bankr-agent-fab .dot-live { width: 5px; height: 5px; }
