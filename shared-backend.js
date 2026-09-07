@@ -182,11 +182,13 @@
     if (memeCounter) memeCounter.textContent = `${memes.length} approved signal${memes.length === 1 ? '' : 's'}`;
     if (memeFeature) memeFeature.classList.toggle('has-meme', memes.length > 0);
     if (memes[0]) {
+      memeFeature.dataset.memeId = memes[0].id;
       featuredMeme.src = memes[0].imageUrl;
       featuredMeme.alt = `Featured DOGEBOT PACK meme: ${memes[0].caption}`;
       featuredCaption.textContent = memes[0].caption;
       featuredCreator.textContent = 'Approved community signal';
     } else {
+      memeFeature?.removeAttribute('data-meme-id');
       featuredMeme.removeAttribute('src');
       featuredMeme.alt = 'No approved DOGEBOT PACK meme yet';
       featuredCaption.textContent = 'Awaiting approved signal';
@@ -195,6 +197,7 @@
     memeGrid?.replaceChildren(...memes.slice(1).map((meme) => {
       const card = document.createElement('article');
       card.className = 'meme-card glass';
+      card.dataset.memeId = meme.id;
       const image = document.createElement('img');
       image.src = meme.imageUrl;
       image.alt = meme.caption;

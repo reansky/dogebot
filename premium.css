@@ -636,3 +636,99 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 @media (max-width: 520px) {
   .buy-routes { grid-template-columns: 1fr; }
 }
+
+/* Bankr Agent, contest voting, and tracker surfaces. */
+.nav-links a[href="#bankr-agent"], .nav-links a[href="/tracker"], .nav-links a[href="/memes"] { color: var(--doge-gold); }
+.nav-links a[href="#bankr-agent"]:before, .nav-links a[href="/tracker"]:before, .nav-links a[href="/memes"]:before { background: var(--doge-gold); }
+.nav-links { flex: 1 1 auto; min-width: 0; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a { flex: 0 0 auto; }
+.nav-bankr-agent { display: inline-flex; align-items: center; gap: 6px; padding: 8px 10px; color: var(--doge-gold); border: 1px solid rgba(241,185,78,.35); border-radius: 999px; background: rgba(241,185,78,.06); font: 9px 'IBM Plex Mono', ui-monospace, monospace; white-space: nowrap; }
+.nav-bankr-agent .dot-live { width: 5px; height: 5px; }
+.nav-bankr-agent:hover { color: var(--rh-green-soft); border-color: var(--line-strong); background: rgba(0,200,5,.08); }
+.bankr-agent-section { padding-top: 104px; }
+.bankr-agent-grid { display: grid; grid-template-columns: 1.13fr .87fr; gap: 12px; margin-top: 34px; }
+.bankr-agent-console, .bankr-agent-side { padding: 22px; border-radius: 20px; }
+.bankr-agent-console-top, .bankr-agent-side-top, .tracker-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.bankr-agent-console-top strong, .bankr-agent-side-top strong, .tracker-card-top strong { display: block; color: var(--ink); font: 600 16px 'Space Grotesk', Inter, sans-serif; }
+.bankr-agent-console-top small, .tracker-card-top small { display: block; margin-top: 6px; color: var(--dim); font: 9px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .1em; }
+.bankr-agent-live, .bankr-agent-side-top span, .tracker-lock { color: var(--rh-green-soft); font: 9px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .1em; white-space: nowrap; }
+.bankr-agent-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 25px; border-block: 1px solid var(--line); }
+.bankr-agent-stats div { display: grid; gap: 6px; min-height: 90px; padding: 15px 10px 11px 0; border-right: 1px solid var(--line); }
+.bankr-agent-stats div:last-child { border: 0; padding-right: 0; }
+.bankr-agent-stats small, .tracker-metrics small { color: var(--dim); font: 9px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; }
+.bankr-agent-stats strong, .tracker-metrics strong { color: var(--ink); font: 600 17px 'Space Grotesk', Inter, sans-serif; }
+.bankr-agent-stats span, .tracker-metrics span { color: var(--muted); font-size: 10px; line-height: 1.3; }
+.bankr-agent-messages { display: grid; gap: 9px; min-height: 94px; max-height: 260px; overflow: auto; margin-top: 16px; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(0,0,0,.18); }
+.bankr-agent-message { max-width: 90%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.035); }
+.bankr-agent-message.user { justify-self: end; color: #031004; border-color: var(--rh-green); background: var(--rh-green); }
+.bankr-agent-message small { display: block; color: var(--doge-gold); font: 8px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .1em; }
+.bankr-agent-message.user small { color: #245d2c; }
+.bankr-agent-message p { margin: 5px 0 0; color: inherit; font-size: 12px; line-height: 1.5; white-space: pre-wrap; }
+.bankr-agent-prompts { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
+.bankr-agent-prompts button { padding: 8px 10px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.035); font: 10px 'IBM Plex Mono', ui-monospace, monospace; }
+.bankr-agent-prompts button:hover { color: var(--rh-green-soft); border-color: var(--line-strong); background: rgba(0,200,5,.08); }
+.bankr-agent-form { display: flex; gap: 8px; margin-top: 12px; }
+.bankr-agent-form input { flex: 1; min-width: 0; padding: 11px 13px; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; outline: none; background: rgba(255,255,255,.045); font-size: 12px; }
+.bankr-agent-form input:focus { border-color: var(--line-strong); box-shadow: 0 0 0 3px rgba(0,200,5,.08); }
+.bankr-agent-side { display: flex; flex-direction: column; min-height: 100%; background: linear-gradient(145deg, rgba(0,200,5,.09), rgba(9,14,10,.94)); }
+.bankr-agent-side ul { display: grid; gap: 16px; margin: 30px 0 auto; padding: 0; list-style: none; }
+.bankr-agent-side li { position: relative; padding-left: 17px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.bankr-agent-side li:before { content: ''; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--rh-green); box-shadow: 0 0 10px rgba(0,200,5,.7); }
+.bankr-agent-side .btn { width: fit-content; margin-top: 30px; }
+.bankr-agent-fab { position: fixed; right: 25px; bottom: 25px; z-index: 72; display: inline-flex; align-items: center; gap: 8px; padding: 13px 16px; color: #fff; border: 1px solid var(--doge-gold); border-radius: 999px; background: #061a0d; box-shadow: 0 16px 42px rgba(0,0,0,.5), 0 0 28px rgba(241,185,78,.16); font-size: 11px; font-weight: 900; }
+.bankr-agent-fab:hover { transform: translateY(-3px); border-color: var(--rh-green-soft); background: #0a2b17; }
+.bankr-agent-fab-mark { color: var(--doge-gold); font-size: 18px; line-height: 1; }
+.bankr-agent-fab .dot-live { width: 5px; height: 5px; }
+.bankr-agent-overlay { position: fixed; inset: 0; z-index: 80; display: none; align-items: flex-end; justify-content: flex-end; padding: 25px; background: rgba(2,5,3,.48); backdrop-filter: blur(7px); }
+.bankr-agent-overlay.open { display: flex; }
+.bankr-agent-popover { width: min(490px, calc(100vw - 32px)); max-height: min(720px, calc(100vh - 32px)); overflow: auto; padding: 22px; border-radius: 24px; border-color: var(--line-strong); }
+.bankr-agent-popover > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.bankr-agent-popover h2 { margin: 8px 0 0; color: var(--ink); font: 600 30px 'Space Grotesk', Inter, sans-serif; letter-spacing: -.06em; }
+.bankr-agent-close { width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); background: rgba(255,255,255,.045); font-size: 20px; }
+.bankr-agent-close:hover { color: var(--doge-gold); border-color: var(--doge-gold); }
+.bankr-popover-status { display: flex; align-items: center; gap: 7px; margin-top: 17px; color: var(--muted); font: 9px 'IBM Plex Mono', ui-monospace, monospace; }
+.bankr-popover-status .dot-live { width: 5px; height: 5px; }
+.tracker-grid { display: grid; grid-template-columns: 1.12fr .88fr; gap: 12px; margin-top: 34px; }
+.tracker-card { min-height: 280px; padding: 22px; border-radius: 20px; }
+.tracker-card-top > span { color: var(--doge-gold); font: 9px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; }
+.tracker-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 28px; border-top: 1px solid var(--line); }
+.tracker-metrics div { display: grid; gap: 6px; min-height: 92px; padding: 17px 12px 9px 0; border-bottom: 1px solid var(--line); }
+.tracker-metrics div:nth-child(even) { padding-left: 14px; border-left: 1px solid var(--line); }
+.tracker-metrics strong { font-size: 20px; }
+.tracker-card-action { display: flex; flex-direction: column; background: linear-gradient(145deg, rgba(241,185,78,.1), rgba(9,14,10,.94)); }
+.tracker-card-action p { margin: 32px 0 auto; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.tracker-card-action .btn { width: fit-content; margin-top: 24px; }
+.tracker-source { margin-top: 16px; color: var(--dim); font-size: 10px; line-height: 1.45; }
+.tracker-telemetry { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; margin-top: 10px; padding: 15px 17px; border-radius: 17px; }
+.tracker-telemetry-mark { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid rgba(241,185,78,.38); border-radius: 50%; color: var(--doge-gold); font-weight: 800; }
+.tracker-telemetry strong { color: var(--ink); font-size: 12px; }
+.tracker-telemetry p { margin: 4px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.meme-contest-bar { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 13px; padding: 13px 15px; border-radius: 15px; border-color: rgba(241,185,78,.3); background: linear-gradient(100deg, rgba(241,185,78,.09), rgba(0,200,5,.05)); }
+.meme-contest-bar small { display: block; color: var(--doge-gold); font: 9px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .1em; }
+.meme-contest-bar strong { display: block; margin-top: 4px; color: var(--ink); font: 600 13px 'Space Grotesk', Inter, sans-serif; }
+.meme-contest-bar > span { color: var(--muted); font: 10px 'IBM Plex Mono', ui-monospace, monospace; text-align: right; }
+.meme-card, #memeFeature { position: relative; }
+.meme-vote { position: absolute; right: 12px; bottom: 12px; z-index: 3; padding: 8px 10px; color: #031004; border: 1px solid var(--rh-green); border-radius: 999px; background: var(--rh-green); font: 9px 'IBM Plex Mono', ui-monospace, monospace; font-weight: 800; }
+.meme-vote:hover { background: var(--rh-green-soft); }
+.meme-feature-vote { right: 16px; bottom: 16px; }
+
+@media (max-width: 980px) {
+  .bankr-agent-grid, .tracker-grid { grid-template-columns: 1fr; }
+  .nav-links { gap: 10px; }
+}
+
+@media (max-width: 700px) {
+  .bankr-agent-fab { right: 12px; bottom: 12px; padding: 11px 13px; }
+  .nav-bankr-agent { display: none; }
+  .bankr-agent-overlay { align-items: flex-end; padding: 10px; }
+  .bankr-agent-popover { width: 100%; max-height: calc(100vh - 20px); padding: 18px; border-radius: 21px; }
+  .bankr-agent-stats { grid-template-columns: 1fr 1fr; }
+  .bankr-agent-stats div:nth-child(2) { border-right: 0; }
+  .bankr-agent-stats div:nth-child(3), .bankr-agent-stats div:nth-child(4) { border-top: 1px solid var(--line); }
+  .bankr-agent-stats div:nth-child(3) { border-right: 1px solid var(--line); }
+  .bankr-agent-side .btn, .tracker-card-action .btn { width: 100%; }
+  .meme-contest-bar { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .meme-contest-bar > span { text-align: left; }
+  .tracker-telemetry { align-items: start; }
+}

@@ -28,6 +28,15 @@ create table if not exists public.memes (
 
 create index if not exists memes_feed_idx on public.memes (status, created_at desc);
 
+create table if not exists public.meme_votes (
+  meme_id uuid not null references public.memes(id) on delete cascade,
+  client_id text not null,
+  created_at timestamptz not null default now(),
+  primary key (meme_id, client_id)
+);
+
+create index if not exists meme_votes_feed_idx on public.meme_votes (meme_id, created_at desc);
+
 create table if not exists public.agent_updates (
   id uuid primary key default gen_random_uuid(),
   title text not null check (char_length(title) between 1 and 120),
@@ -73,6 +82,7 @@ $$;
 
 alter table public.forum_posts enable row level security;
 alter table public.memes enable row level security;
+alter table public.meme_votes enable row level security;
 alter table public.rate_limits enable row level security;
 alter table public.agent_updates enable row level security;
 

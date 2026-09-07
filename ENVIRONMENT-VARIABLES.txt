@@ -4,5 +4,6 @@ SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=replace-with-server-only-service-role-key
 SUPABASE_STORAGE_BUCKET=dogebot-memes
 MODERATOR_TOKEN=replace-with-a-long-random-moderator-token
+BANKR_API_KEY=replace-with-server-only-bankr-agent-key
 
 Do not publish real secret values in GitHub files.

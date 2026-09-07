@@ -3,6 +3,10 @@
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/memes", "destination": "/index.html" },
+    { "source": "/tracker", "destination": "/index.html" }
+  ],
   "functions": {
     "api/**/*.js": {
       "maxDuration": 10,

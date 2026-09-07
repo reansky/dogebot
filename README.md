@@ -52,3 +52,6 @@ Valid actions are `approve` and `reject`; valid types are `meme`, `post`, and `a
 - Pack Passport is currently an optional local browser profile for identity and notification preferences; cross-device magic-link login activates after Supabase Auth is connected.
 - The local AI is project-knowledge-only. It does not call OpenAI, trade, buy, sell, deploy tokens, or distribute fees.
 - The market panel remains read-only and uses the configured GeckoTerminal source.
+- Bankr Bot Agent requests run through `/api/bankr`; keep `BANKR_API_KEY` server-side in Vercel and never expose it in browser code.
+- Meme Contest voting uses `/api/meme-votes` and one browser client can vote once per meme.
+- Holder Rewards & Buyback Tracker uses `/api/tracker`; fee and buyback values remain `NOT EXPOSED` unless Bankr returns verified public telemetry.
