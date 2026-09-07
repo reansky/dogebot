@@ -1,4 +1,4 @@
-const { configured, job, submitPrompt, wallet } = require('./lib/bankr');
+const { configured, job, submitPrompt, wallet } = require('./_lib/bankr');
 const { json, body, error } = require('./lib/http');
 const { clientId, ipKey } = require('./lib/security');
 

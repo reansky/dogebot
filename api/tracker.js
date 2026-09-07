@@ -1,4 +1,4 @@
-const { configured, job, submitPrompt } = require('./lib/bankr');
+const { configured, job, submitPrompt } = require('./_lib/bankr');
 const { json, error } = require('./lib/http');
 
 const TOKEN = '0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3';
