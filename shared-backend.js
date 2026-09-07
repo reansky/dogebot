@@ -32,6 +32,7 @@
   const agentUpdates = document.getElementById('agentUpdates');
   let remoteForum = false;
   let remoteMemes = false;
+  document.querySelector('.meme-pool-note')?.replaceChildren(document.createTextNode('Shared backend: uploads are moderated before appearing in the Pack spotlight.'));
 
   function setHint(node, text, warning = false) {
     if (!node) return;
@@ -116,7 +117,7 @@
       if (postHint) setHint(postHint, 'Shared feed · links and scam prompts are blocked');
       window.DOGEBOT_SHARED_BACKEND = true;
     } catch {
-      setHint(postHint, 'Local demo mode · connect Supabase to share posts', true);
+      setHint(postHint, 'Shared forum unavailable · try again shortly', true);
     }
   }
 
@@ -136,9 +137,11 @@
   }, true);
 
   if (publish) {
-    const localPublish = publish.onclick;
     publish.onclick = async () => {
-      if (!remoteForum) return localPublish?.();
+      if (!remoteForum) {
+        setHint(postHint, 'Shared forum unavailable · try again shortly', true);
+        return;
+      }
       const text = String(compose?.value || '').trim();
       if (!text) {
         setHint(postHint, 'Type a message first', true);
@@ -203,7 +206,7 @@
       const note = document.querySelector('.meme-pool-note');
       if (note) note.textContent = 'Shared backend: uploads are moderated before appearing in the Pack spotlight.';
     } catch {
-      setHint(memeHint, 'Local demo mode · connect Supabase to share memes', true);
+      setHint(memeHint, 'Meme Pool unavailable · try again shortly', true);
     }
   }
 
@@ -240,9 +243,12 @@
   }
 
   if (memeForm) {
-    const localMemeSubmit = memeForm.onsubmit;
     memeForm.onsubmit = async (event) => {
-      if (!remoteMemes) return localMemeSubmit?.(event);
+      if (!remoteMemes) {
+        event.preventDefault();
+        setHint(memeHint, 'Meme Pool unavailable · try again shortly', true);
+        return;
+      }
       event.preventDefault();
       const file = memeImage?.files?.[0];
       if (!file) return setHint(memeHint, 'Choose an image first', true);
