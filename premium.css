@@ -68,7 +68,7 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 .brand-text strong { color: var(--ink); letter-spacing: .08em; }
 .brand-text em { color: var(--rh-green-soft); letter-spacing: .08em; }
 .nav-links { gap: 18px; }
-.nav-links a { color: #9cac9e; font-size: 11px; }
+.nav-links a { color: #9cac9e; font-size: 11px; white-space: nowrap; }
 .nav-links a:before { width: 3px; height: 3px; background: var(--rh-green); }
 .nav-links a:hover { color: var(--rh-green-soft); }
 .nav-actions { gap: 7px; }
@@ -449,4 +449,144 @@ code, .overline, .k, .nav-pack-status, .section-readout, .delta,
 
 #community .forum-warn {
   color: #f2ca72;
+}
+
+/* Trust Center */
+.trust-section-head { align-items: end; }
+.trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 28px; }
+.trust-card { display: grid; grid-template-columns: auto 1fr; gap: 13px; min-height: 188px; padding: 19px; border-radius: 17px; }
+.trust-index { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid var(--line-strong); border-radius: 9px; color: var(--rh-green-soft); font: 10px 'IBM Plex Mono', ui-monospace, monospace; }
+.trust-card small { display: block; color: var(--dim); font: 9px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .1em; }
+.trust-card strong { display: block; margin-top: 9px; color: var(--ink); font: 600 15px 'Space Grotesk', Inter, sans-serif; line-height: 1.15; }
+.trust-card p { margin: 11px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.trust-foot { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 13px; margin-top: 10px; padding: 15px 17px; border-radius: 17px; }
+.trust-foot-mark { display: grid; place-items: center; width: 31px; height: 31px; border-radius: 50%; color: #031004; background: var(--rh-green); font-weight: 900; }
+.trust-foot strong { display: block; color: var(--ink); font-size: 12px; }
+.trust-foot p { margin: 4px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+.trust-foot .btn { white-space: nowrap; }
+
+@media (max-width: 980px) {
+  .trust-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .trust-grid { grid-template-columns: 1fr; margin-top: 24px; }
+  .trust-card { min-height: 0; padding: 17px; }
+  .trust-foot { grid-template-columns: auto 1fr; }
+  .trust-foot .btn { grid-column: 1 / -1; width: 100%; }
+}
+
+/* Keep the lead card readable against the green-black glass. */
+#rewards .step:first-child,
+#trust .trust-card:first-child {
+  border-color: rgba(0, 200, 5, .42);
+  background: linear-gradient(145deg, rgba(0, 200, 5, .13), rgba(9, 14, 10, .96));
+  box-shadow: 0 22px 48px rgba(0, 0, 0, .34), inset 0 2px rgba(0, 200, 5, .35);
+}
+
+#rewards .step:first-child h3,
+#trust .trust-card:first-child strong {
+  color: #ffffff;
+}
+
+#rewards .step:first-child p,
+#trust .trust-card:first-child p {
+  color: #d9eddd;
+}
+
+/* Keep section status readouts visible without competing with the hero. */
+.section-readout strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--rh-green-soft);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.section-readout strong .dot-live {
+  display: inline-block;
+  margin-right: 6px;
+  vertical-align: 1px;
+}
+
+/* The navbar already carries Pack status; keep the hero art unobstructed. */
+.hero-card.hero-card-compact {
+  display: none !important;
+}
+
+/* Pack Passport */
+.passport-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 11px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.035);
+  font: 10px 'IBM Plex Mono', ui-monospace, monospace;
+  white-space: nowrap;
+}
+.passport-nav-btn:hover { color: var(--rh-green-soft); border-color: var(--line-strong); background: rgba(0,200,5,.08); }
+.passport-nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--doge-gold); box-shadow: 0 0 10px rgba(241,185,78,.65); }
+.passport-mobile-link { width: 100%; padding: 13px 0; color: var(--rh-green-soft); border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; font: inherit; }
+.passport-overlay { position: fixed; inset: 0; z-index: 90; display: none; align-items: center; justify-content: center; padding: 22px; background: rgba(2,5,3,.72); backdrop-filter: blur(10px); }
+.passport-overlay.open { display: flex; }
+.passport-panel { width: min(880px, 100%); max-height: min(760px, calc(100vh - 36px)); overflow: auto; border-radius: 26px; }
+.passport-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 25px 26px 21px; border-bottom: 1px solid var(--line); }
+.passport-head h2 { margin: 9px 0 0; color: var(--ink); font: 600 35px 'Space Grotesk', Inter, sans-serif; letter-spacing: -.06em; }
+.passport-head h2 span { color: var(--rh-green); }
+.passport-head p { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+.passport-close { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); background: rgba(255,255,255,.04); font-size: 21px; }
+.passport-close:hover { color: var(--doge-gold); border-color: var(--doge-gold); }
+.passport-grid { display: grid; grid-template-columns: 1.04fr .96fr; gap: 12px; padding: 20px 26px 0; }
+.passport-identity, .passport-stats, .passport-preferences, .passport-locked { padding: 19px; border: 1px solid var(--line); border-radius: 17px; background: rgba(255,255,255,.025); }
+.passport-card-label { display: flex; align-items: start; justify-content: space-between; gap: 14px; margin-bottom: 17px; }
+.passport-card-label span { color: var(--rh-green-soft); font: 9px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .1em; }
+.passport-card-label strong { color: var(--ink); font: 600 14px 'Space Grotesk', Inter, sans-serif; }
+.passport-identity label { display: grid; gap: 7px; margin-top: 13px; color: var(--muted); font: 10px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; }
+.passport-identity input, .passport-identity textarea { width: 100%; padding: 11px 12px; color: var(--ink); border: 1px solid var(--line); border-radius: 10px; outline: none; background: rgba(255,255,255,.045); font: 12px Inter, system-ui, sans-serif; letter-spacing: normal; text-transform: none; resize: vertical; }
+.passport-identity input:focus, .passport-identity textarea:focus { border-color: var(--line-strong); box-shadow: 0 0 0 3px rgba(0,200,5,.08); }
+.passport-form-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 15px; }
+.passport-form-foot span { color: var(--dim); font-size: 10px; }
+.passport-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border-top: 1px solid var(--line); }
+.passport-stat-grid div { display: grid; gap: 6px; min-height: 83px; padding: 15px 9px 7px 0; border-bottom: 1px solid var(--line); }
+.passport-stat-grid div:nth-child(even) { padding-left: 13px; border-left: 1px solid var(--line); }
+.passport-stat-grid small { color: var(--dim); font: 9px 'IBM Plex Mono', ui-monospace, monospace; }
+.passport-stat-grid strong { color: var(--ink); font: 600 18px 'Space Grotesk', Inter, sans-serif; }
+.passport-stat-grid span { color: var(--muted); font-size: 10px; }
+.passport-preferences { margin: 12px 26px 0; }
+.passport-preferences label { display: flex; align-items: flex-start; gap: 11px; padding: 12px 0; border-top: 1px solid var(--line); cursor: pointer; }
+.passport-preferences input { accent-color: var(--rh-green); margin-top: 3px; }
+.passport-preferences label strong { display: block; color: var(--ink); font-size: 12px; }
+.passport-preferences label small { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.4; }
+.passport-locked { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; margin: 12px 26px 0; border-color: rgba(241,185,78,.25); background: rgba(241,185,78,.045); }
+.passport-locked-mark { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid rgba(241,185,78,.42); border-radius: 10px; color: var(--doge-gold); font: 9px 'IBM Plex Mono', ui-monospace, monospace; }
+.passport-locked strong { display: block; color: var(--ink); font-size: 12px; }
+.passport-locked p { margin: 4px 0 0; color: var(--muted); font-size: 10px; line-height: 1.45; }
+.passport-locked button:disabled { cursor: not-allowed; opacity: .55; }
+.passport-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 19px 26px 25px; color: var(--muted); font-size: 10px; }
+
+@media (max-width: 700px) {
+  .passport-nav-btn { display: none; }
+  .passport-overlay { align-items: end; padding: 10px; }
+  .passport-panel { max-height: calc(100vh - 20px); border-radius: 21px; }
+  .passport-head { padding: 21px 18px 17px; }
+  .passport-head h2 { font-size: 29px; }
+  .passport-grid { grid-template-columns: 1fr; padding: 13px 18px 0; }
+  .passport-preferences, .passport-locked { margin-inline: 18px; }
+  .passport-locked { grid-template-columns: auto 1fr; }
+  .passport-locked button { grid-column: 1 / -1; width: 100%; }
+  .passport-foot { align-items: stretch; flex-direction: column; padding: 16px 18px 19px; }
+.passport-foot .btn { width: 100%; }
+}
+
+/* Make the Pack definition readable below Core Status. */
+.pack-note strong {
+  color: #ffffff !important;
+  font-weight: 800;
+}
+
+.pack-note p {
+  color: #d9eddd !important;
 }

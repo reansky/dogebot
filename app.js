@@ -46,7 +46,7 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   if (navLinks && !navLinks.querySelector('[href="#agent"]')) {
     const link = document.createElement('a');
     link.href = '#agent';
-    link.textContent = 'Agent';
+     link.textContent = 'Watchtower';
     navLinks.insertBefore(link, navLinks.querySelector('[href="#dogebot"]'));
   }
 
@@ -56,19 +56,19 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   agentSection.innerHTML = `
     <div class="agent-section-head">
       <div>
-        <div class="overline">06 / THE HOODED SCOUT</div>
-        <h2>Meet the <span>agent.</span></h2>
-        <p>A Bankr-native, read-only copilot for DOGEBOT PACK knowledge, signals, and human-approved community updates.</p>
+         <div class="overline">06 / DOGEBOT WATCHTOWER</div>
+         <h2>Meet the <span>Watchtower.</span></h2>
+         <p>A Bankr-native, read-only copilot for DOGEBOT PACK knowledge, signals, safety checks, and human-approved community updates.</p>
       </div>
-      <div class="agent-badge"><i class="dot-live"></i><span>PACK SCOUT</span><small>READ-ONLY</small></div>
+       <div class="agent-badge"><i class="dot-live"></i><span>WATCHTOWER</span><small>READ-ONLY</small></div>
     </div>
     <div class="agent-grid">
       <article class="agent-console glass">
-        <div class="agent-console-top"><div><strong>Agent Console</strong><small>Project knowledge + Bankr brief mode</small></div><span>ONLINE</span></div>
-        <div class="agent-response" id="agentResponse">Ask the Scout for a concise readout. It never trades, auto-buys, deploys tokens, or asks for wallet secrets.</div>
+         <div class="agent-console-top"><div><strong>Watchtower Console</strong><small>Read-only signals + Bankr Brief mode</small></div><span>ONLINE</span></div>
+         <div class="agent-response" id="agentResponse">Ask the Watchtower for a concise readout. It never trades, auto-buys, deploys tokens, or asks for wallet secrets.</div>
         <div class="agent-prompts" aria-label="Agent prompts">
-          <button type="button" data-agent-key="brief">Daily Pack Brief</button>
-          <button type="button" data-agent-key="watch">What is the pack watching?</button>
+           <button type="button" data-agent-key="brief">Daily Watchtower Brief</button>
+           <button type="button" data-agent-key="watch">What is it watching?</button>
           <button type="button" data-agent-key="bankr">Explain Bankr mode</button>
           <button type="button" data-agent-key="launch">Launch checklist</button>
         </div>
@@ -86,15 +86,15 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   const response = document.getElementById('agentResponse');
   const source = document.getElementById('agentSource');
   const answers = {
-    brief: 'Daily Pack Brief: DOGEBOT PACK is in community mode. The Scout is watching project updates, read-only market context, pack activity, and safety status. No trading or token deployment is active.',
-    watch: 'The Scout watches the public project timeline, read-only market signals, planned holder tracking, community activity, and safety notes. It reports context, not financial instructions.',
+     brief: 'Daily Watchtower Brief: DOGEBOT PACK is in community mode. The Watchtower is watching project updates, read-only market context, pack activity, and safety status. No trading or token deployment is active.',
+     watch: 'The Watchtower watches the public project timeline, read-only market signals, planned holder tracking, community activity, and safety notes. It reports context, not financial instructions.',
     bankr: 'Bankr is the official home for DOGEBOT PACK knowledge and approved announcements. Install the skill to open the Bankr workspace. Any public update remains subject to human review.',
-    launch: 'Launch checklist: confirm the contract address, verify the token page and explorer links, publish the official Bankr brief, confirm community moderation, and keep the Scout read-only.'
+     launch: 'Launch checklist: confirm the contract address, verify the token page and explorer links, publish the official Bankr brief, confirm community moderation, and keep the Watchtower read-only.'
   };
   document.querySelectorAll('[data-agent-key]').forEach((button) => {
     button.onclick = () => {
       response.textContent = answers[button.dataset.agentKey] || answers.brief;
-      source.textContent = 'Source: DOGEBOT PACK Agent · read-only';
+       source.textContent = 'Source: DOGEBOT PACK Watchtower · read-only';
     };
   });
 
@@ -118,7 +118,50 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   };
 
   const navLinks = document.querySelector('.nav-links');
-  addLink(navLinks, '#holders', 'Holder Intel', navLinks?.querySelector('[href="#community"]'));
+  addLink(navLinks, '#trust', 'Trust Center', navLinks?.querySelector('[href="#community"]'));
+  const mobilePanel = document.querySelector('.mobile-panel');
+  addLink(mobilePanel, '#trust', 'Trust Center', mobilePanel?.querySelector('[href="#community"]'));
+  addLink(document.querySelector('.footer-links'), '#trust', 'Trust Center');
+
+  const section = document.createElement('section');
+  section.className = 'section shell trust-section';
+  section.id = 'trust';
+  section.innerHTML = `
+    <div class="section-head trust-section-head">
+      <div>
+        <div class="overline">08 / TRUST CENTER</div>
+        <h2>Trust the <span>process.</span></h2>
+        <p>A plain-language status board for what DOGEBOT PACK can do today, what is still pending, and which actions always require a human.</p>
+      </div>
+      <div class="section-readout">POLICY STATUS<strong><i class="dot-live"></i> PUBLIC</strong></div>
+    </div>
+    <div class="trust-grid">
+      <article class="trust-card glass"><span class="trust-index">01</span><div><small>MARKET MODE</small><strong>READ-ONLY</strong><p>Charts, market context, and holder plans are informational. No swaps, buys, sells, or auto-buy are enabled.</p></div></article>
+      <article class="trust-card glass"><span class="trust-index">02</span><div><small>BANKR GATE</small><strong>HUMAN REVIEW</strong><p>Bankr Brief can explain the project. Bankr Space publication requires owner approval.</p></div></article>
+      <article class="trust-card glass"><span class="trust-index">03</span><div><small>SAFETY RULE</small><strong>NO SECRET REQUESTS</strong><p>The Pack does not ask for seed phrases or private keys. URLs and common drainer prompts are blocked in the den.</p></div></article>
+      <article class="trust-card glass"><span class="trust-index">04</span><div><small>LAUNCH STATE</small><strong>VERIFY BEFORE LIVE</strong><p>The official contract, buy link, chart source, and holder data remain placeholders until verified and configured.</p></div></article>
+    </div>
+    <div class="trust-foot glass"><span class="trust-foot-mark">✓</span><div><strong>Simple rule for the Pack</strong><p>If a claim is not in the verified Bankr Space or configured on this page, treat it as unconfirmed.</p></div><a class="btn btn-ghost" href="${bankrBriefUrl}" target="_blank" rel="noopener noreferrer">Open Bankr Brief ↗</a></div>`;
+
+  const holders = document.getElementById('holders');
+  if (holders) holders.after(section);
+  else document.querySelector('main')?.append(section);
+})();
+
+(() => {
+  const bankrBriefUrl = 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack';
+  const addLink = (parent, href, text, before) => {
+    if (!parent || parent.querySelector(`[href="${href}"]`)) return;
+    const link = document.createElement('a');
+    link.href = href;
+    link.textContent = text;
+    if (before) parent.insertBefore(link, before);
+    else parent.append(link);
+  };
+
+  const navLinks = document.querySelector('.nav-links');
+   addLink(document.querySelector('.mobile-panel'), '#agent', 'Watchtower', document.querySelector('.mobile-panel')?.querySelector('[href="#community"]'));
+   addLink(document.querySelector('.footer-links'), '#agent', 'Watchtower', document.querySelector('.footer-links')?.querySelector('[href="#community"]'));
   const mobilePanel = document.querySelector('.mobile-panel');
   addLink(mobilePanel, '#holders', 'Read-only holder intelligence', mobilePanel?.querySelector('[href="#community"]'));
   addLink(document.querySelector('.footer-links'), '#holders', 'Holder Intel');
@@ -136,7 +179,7 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   const workflow = document.querySelectorAll('.workflow-strip span')[2];
   if (workflow) workflow.textContent = '03 / BANKR BRIEF + SPACE';
   const agentMode = document.querySelector('.agent-console-top small');
-  if (agentMode) agentMode.textContent = 'PROJECT KNOWLEDGE + BANKR BRIEF MODE';
+   if (agentMode) agentMode.textContent = 'READ-ONLY SIGNALS + BANKR BRIEF MODE';
   const briefMode = document.querySelector('.agent-brief-top small');
   if (briefMode) briefMode.textContent = 'READ-ONLY / LIVE WHEN CONNECTED';
   const briefTitle = document.querySelector('.agent-brief-top strong');
@@ -191,4 +234,114 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
       </div>`;
     document.querySelector('#news')?.after(section);
   }
+})();
+
+(() => {
+  const passportKey = 'dogebot-passport';
+  const passport = get(passportKey, {
+    name: user,
+    bio: '',
+    watchtower: true,
+    bankr: true,
+    safety: true,
+  });
+  const navActions = document.querySelector('.nav-actions');
+  const menu = document.getElementById('menu');
+  const mobilePanel = document.querySelector('.mobile-panel');
+
+  const openButton = document.createElement('button');
+  openButton.className = 'passport-nav-btn';
+  openButton.type = 'button';
+  openButton.dataset.passportOpen = 'true';
+  openButton.innerHTML = '<span class="passport-nav-dot"></span><span>Pack Passport</span>';
+  if (navActions) {
+    if (menu) navActions.insertBefore(openButton, menu);
+    else navActions.append(openButton);
+  }
+
+  const mobileButton = document.createElement('button');
+  mobileButton.className = 'passport-mobile-link';
+  mobileButton.type = 'button';
+  mobileButton.dataset.passportOpen = 'true';
+  mobileButton.textContent = 'Open Pack Passport';
+  mobilePanel?.append(mobileButton);
+
+  const overlay = document.createElement('div');
+  overlay.className = 'passport-overlay';
+  overlay.id = 'passportOverlay';
+  overlay.setAttribute('aria-hidden', 'true');
+  overlay.innerHTML = `
+    <section class="passport-panel glass" role="dialog" aria-modal="true" aria-labelledby="passportTitle">
+      <header class="passport-head">
+        <div><div class="overline">PACK PASSPORT / MEMBER PRODUCT</div><h2 id="passportTitle">Your place in the <span>pack.</span></h2><p>Personal settings for the DOGEBOT PACK experience.</p></div>
+        <button class="passport-close" type="button" aria-label="Close Pack Passport">×</button>
+      </header>
+      <div class="passport-grid">
+        <form class="passport-identity" id="passportForm">
+          <div class="passport-card-label"><span>01 / IDENTITY</span><strong>Anonymous by default</strong></div>
+          <label>Pack name<input id="passportName" name="name" maxlength="24" autocomplete="nickname" placeholder="anonymous_pack_member"></label>
+          <label>Short bio<textarea id="passportBio" name="bio" maxlength="120" rows="3" placeholder="What are you bringing to the pack?"></textarea></label>
+          <div class="passport-form-foot"><span id="passportSaveNote">Saved in this browser only.</span><button class="post-btn" type="submit">Save passport</button></div>
+        </form>
+        <aside class="passport-stats">
+          <div class="passport-card-label"><span>02 / PACK STATUS</span><strong id="passportDisplayName">anonymous</strong></div>
+          <div class="passport-stat-grid"><div><small>SAVED SIGNALS</small><strong>0</strong><span>ready to add</span></div><div><small>MEME DRAFTS</small><strong>0</strong><span>creator mode</span></div><div><small>REPUTATION</small><strong>NEW</strong><span>non-financial</span></div><div><small>ACCESS</small><strong>LOCAL</strong><span>shared auth next</span></div></div>
+        </aside>
+      </div>
+      <div class="passport-preferences">
+        <div class="passport-card-label"><span>03 / YOUR SIGNALS</span><strong>Choose what reaches you</strong></div>
+        <label><input type="checkbox" data-passport-pref="watchtower"> <span><strong>Watchtower Briefs</strong><small>Read-only weekly project and safety recaps.</small></span></label>
+        <label><input type="checkbox" data-passport-pref="bankr"> <span><strong>Bankr Space updates</strong><small>Verified announcements and community notes.</small></span></label>
+        <label><input type="checkbox" data-passport-pref="safety"> <span><strong>Safety alerts</strong><small>Scam, drainer, and impersonation reminders.</small></span></label>
+      </div>
+      <div class="passport-locked"><span class="passport-locked-mark">NEXT</span><div><strong>Cross-device login comes with Supabase Auth.</strong><p>Until shared auth is connected, this passport stays local to this browser. No passwords or wallet secrets are stored.</p></div><button class="btn btn-ghost" type="button" disabled>Magic link next</button></div>
+      <footer class="passport-foot"><span>Pack Passport is optional. Reading remains open without an account.</span><a class="btn btn-primary" href="#community">Enter the den ↗</a></footer>
+    </section>`;
+  document.body.append(overlay);
+
+  const nameInput = overlay.querySelector('#passportName');
+  const bioInput = overlay.querySelector('#passportBio');
+  const displayName = overlay.querySelector('#passportDisplayName');
+  const saveNote = overlay.querySelector('#passportSaveNote');
+  const form = overlay.querySelector('#passportForm');
+
+  function renderPassport() {
+    nameInput.value = passport.name || user;
+    bioInput.value = passport.bio || '';
+    displayName.textContent = passport.name || user;
+    overlay.querySelectorAll('[data-passport-pref]').forEach((input) => {
+      input.checked = passport[input.dataset.passportPref] !== false;
+    });
+  }
+
+  function setOpen(open) {
+    overlay.classList.toggle('open', open);
+    overlay.setAttribute('aria-hidden', String(!open));
+    if (open) {
+      renderPassport();
+      nameInput.focus();
+    }
+  }
+
+  document.querySelectorAll('[data-passport-open]').forEach((button) => button.addEventListener('click', () => setOpen(true)));
+  overlay.querySelector('.passport-close').addEventListener('click', () => setOpen(false));
+  overlay.addEventListener('click', (event) => { if (event.target === overlay) setOpen(false); });
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    passport.name = String(nameInput.value || user).replace(/[^a-zA-Z0-9 _-]/g, '').replace(/\s+/g, ' ').trim().slice(0, 24) || user;
+    passport.bio = String(bioInput.value || '').replace(/[<>]/g, '').trim().slice(0, 120);
+    user = passport.name;
+    set('dogebot-user', user);
+    set(passportKey, passport);
+    currentUser.textContent = user;
+    displayName.textContent = user;
+    saveNote.textContent = 'Passport saved locally.';
+    setTimeout(() => { saveNote.textContent = 'Saved in this browser only.'; }, 2200);
+  });
+  overlay.querySelectorAll('[data-passport-pref]').forEach((input) => input.addEventListener('change', () => {
+    passport[input.dataset.passportPref] = input.checked;
+    set(passportKey, passport);
+  }));
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setOpen(false); });
+  overlay.querySelector('.passport-foot a')?.addEventListener('click', () => setOpen(false));
 })();
