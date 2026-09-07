@@ -1,4 +1,4 @@
-const { json, error } = require('./_lib/http');
+const { json, error } = require('./lib/http');
 
 const TOKEN = '0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3';
 const BANKR_PUBLIC = 'https://api.bankr.bot';
