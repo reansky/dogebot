@@ -1,6 +1,7 @@
 /* QUICK EDIT CONFIG: change project values here before publishing. */
 window.DOGEBOT_CONFIG = Object.freeze({
-  contractAddress: 'CA / TBA',
+  contractAddress: '0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3',
+  pairSymbol: '$DDOG',
   buyUrl: '#dogebot',
   xUrl: 'https://x.com/dogebotdotfun',
   bankrSkillUrl: 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack',
