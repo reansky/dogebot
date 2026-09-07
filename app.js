@@ -106,6 +106,14 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   });
 })();
 
+// Keep market and holder copy aligned with the configured live data sources.
+(() => {
+  const marketCopy = document.querySelector('#dogebot .section-head p');
+  if (marketCopy) marketCopy.textContent = '$DOGEBOT includes a clearly labeled Datadog market panel ($DDOG) on Robinhood Chain. Live price, market cap, liquidity, volume, and holder data are read-only public signals; no trades or buy recommendation are active.';
+  const pairCopy = document.querySelector('.pair-note p');
+  if (pairCopy) pairCopy.textContent = 'Live read-only market data is sourced from the configured pool and public APIs. This panel is not a swap interface and does not execute trades or recommend a purchase.';
+})();
+
 // Keep launch metrics and copy honest until each live data source is connected.
 (() => {
   const statUpdates = {
@@ -399,4 +407,32 @@ localAi = (question) => /ddog|datadog|pair|market/i.test(String(question || ''))
   document.querySelectorAll('.holder-metrics span').forEach((node) => {
     if (node.textContent.includes('not live yet')) node.textContent = 'awaiting read-only feed';
   });
+})();
+
+// Apply holder copy after the dynamic holder section has been created.
+(() => {
+  const holderCopy = document.querySelector('#holders .section-head p');
+  if (holderCopy) holderCopy.textContent = 'Holder context for the community, calculated from Robinhood Chain transfer logs and kept read-only.';
+  const holderState = document.querySelector('.holder-state');
+  if (holderState) holderState.textContent = 'SYNCING';
+  const holderTotalNote = document.querySelector('.holder-total p');
+  if (holderTotalNote) holderTotalNote.textContent = 'Reading the latest positive-balance addresses.';
+  const holderMetrics = [...document.querySelectorAll('.holder-metrics > div')];
+  if (holderMetrics[0]) {
+    holderMetrics[0].querySelector('small').textContent = 'TOP 10 CONCENTRATION';
+    holderMetrics[0].querySelector('span').textContent = 'syncing supply share';
+  }
+  if (holderMetrics[1]) {
+    holderMetrics[1].querySelector('small').textContent = 'TOP BALANCE';
+    holderMetrics[1].querySelector('span').textContent = 'syncing largest balance';
+  }
+  if (holderMetrics[2]) {
+    holderMetrics[2].querySelector('small').textContent = 'LAST SYNC';
+    holderMetrics[2].querySelector('strong').textContent = '—';
+    holderMetrics[2].querySelector('span').textContent = 'Robinhood Chain RPC';
+  }
+  const explainLiveMarket = localAi;
+  localAi = (question) => /price|market|token|contract|ddog|datadog/i.test(String(question || ''))
+    ? 'The market panel uses live read-only data from configured GeckoTerminal, DexScreener, and Robinhood Chain sources. It does not execute trades.'
+    : explainLiveMarket(question);
 })();
