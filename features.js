@@ -334,8 +334,8 @@
 
       <div class="hub-tabs">
         <button class="hub-tab-btn active" data-hub-tab="treasury">🏛️ Treasury Tracker</button>
-        <button class="hub-tab-btn" data-hub-tab="gating">🛡️ Holder Gating</button>
-        <button class="hub-tab-btn" data-hub-tab="airdrop">🎁 Reward & Airdrop</button>
+        <button class="hub-tab-btn" data-hub-tab="gating">Pack Tiers</button>
+        <button class="hub-tab-btn" data-hub-tab="airdrop">Distribusi Mingguan</button>
         <button class="hub-tab-btn" data-hub-tab="chat">💬 AI Pack Sentinel</button>
       </div>
 
@@ -393,66 +393,79 @@
         </div>
       </div>
 
-      <!-- TAB 2: HOLDER GATING -->
+      <!-- TAB 2: HOLDER TIERS (NO WALLET CONNECT REQUIRED) -->
       <div class="hub-tab-pane" id="hub-pane-gating">
         <div class="hub-card">
-          <h4>Decentralized Holder Verification</h4>
-          <p style="font-size: 12px; color: #8b93ac; margin: 4px 0 12px 0;">
-            Verify your $DOGEBOT pack status on Robinhood Chain without any centralized accounts or email passwords.
-          </p>
-          <div class="hub-input-row">
-            <input type="text" class="hub-input" id="hub-gating-addr" placeholder="0x... enter wallet address to verify">
-            <button class="hub-btn" id="hub-btn-verify">Verify Tier</button>
-            <button class="hub-btn hub-btn-outline" id="hub-btn-connect-wallet">Connect Wallet</button>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h4>DOGEBOT Pack Tiers</h4>
+            <span class="hub-badge hub-badge-green">🛡️ 100% Otomatis & Tanpa Connect Wallet</span>
           </div>
+          <p style="font-size: 13px; color: #8b93ac; line-height: 1.5; margin: 4px 0 16px 0;">
+            Tidak perlu menghubungkan dompet (No Connect Wallet) demi keamanan penuh dari drainer. Status tier dan kelayakan dihitung otomatis berdasarkan snapshot saldo on-chain di Robinhood Chain.
+          </p>
 
-          <div id="hub-gating-result" style="margin-top: 14px; display: none; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 14px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <strong id="hub-tier-name" style="font-family: ui-monospace, SFMono-Regular, monospace; color: #f5a623;">PACK LEADER (TIER 1)</strong>
-              <span class="hub-badge hub-badge-green" id="hub-tier-badge">VERIFIED</span>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 16px;">
+            <div style="background: rgba(245, 166, 35, 0.08); border: 1px solid rgba(245, 166, 35, 0.25); border-radius: 8px; padding: 14px;">
+              <div style="font-size: 11px; color: #f5a623; font-weight: 700; text-transform: uppercase;">Tier 1 · Alpha Pack Leader</div>
+              <div style="font-size: 18px; font-weight: 800; color: #fff; margin: 6px 0;">&gt; 1,000,000 $DOGEBOT</div>
+              <div style="font-size: 12px; color: #8b93ac;">Akses VIP Den Chat, Alpha Signal eksklusif, dan voting tata kelola komunitas.</div>
             </div>
-            <p id="hub-tier-desc" style="font-size: 12px; color: #8b93ac; margin: 0 0 10px 0;">
-              VIP perks unlocked: Access to Alpha Signals, Governance voting rights, and Zero-Fee Sentinel indexing.
-            </p>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <span class="hub-badge hub-badge-amber">VIP Den Chat</span>
-              <span class="hub-badge hub-badge-cyan">Datadog Alpha Stream</span>
-              <span class="hub-badge hub-badge-green">0% Sentinel Fee</span>
+            <div style="background: rgba(0, 229, 255, 0.08); border: 1px solid rgba(0, 229, 255, 0.25); border-radius: 8px; padding: 14px;">
+              <div style="font-size: 11px; color: #00e5ff; font-weight: 700; text-transform: uppercase;">Tier 2 · Pack Scout</div>
+              <div style="font-size: 18px; font-weight: 800; color: #fff; margin: 6px 0;">100k - 1M $DOGEBOT</div>
+              <div style="font-size: 12px; color: #8b93ac;">Akses diskusi komunitas prioritas dan pelacak pergerakan smart money.</div>
+            </div>
+            <div style="background: rgba(0, 230, 118, 0.08); border: 1px solid rgba(0, 230, 118, 0.25); border-radius: 8px; padding: 14px;">
+              <div style="font-size: 11px; color: #00e676; font-weight: 700; text-transform: uppercase;">Tier 3 · Pack Pup</div>
+              <div style="font-size: 18px; font-weight: 800; color: #fff; margin: 6px 0;">&gt; 0 $DOGEBOT</div>
+              <div style="font-size: 12px; color: #8b93ac;">Akses forum komunitas terbuka dan distribusi reward mingguan otomatis.</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- TAB 3: AIRDROP & REWARDS -->
+      <!-- TAB 3: DISTRIBUSI MINGGUAN OTOMATIS -->
       <div class="hub-tab-pane" id="hub-pane-airdrop">
         <div class="hub-grid">
           <div class="hub-card">
-            <h4>Airdrop Campaign</h4>
-            <div class="hub-card-value" style="font-size: 17px; color: #f5a623;">Robinhood Top-500</div>
-            <div class="hub-card-sub">Leaderboard Pack Distribution</div>
+            <h4>Jadwal Distribusi</h4>
+            <div class="hub-card-value" style="font-size: 17px; color: #00e676;">Setiap Minggu</div>
+            <div class="hub-card-sub">Otomatis Masuk ke Wallet</div>
           </div>
           <div class="hub-card">
-            <h4>Claim Amount</h4>
-            <div class="hub-card-value" style="color: #00e5ff;">20,000 $DOGEBOT</div>
-            <div class="hub-card-sub">Fixed Per Eligible Wallet</div>
+            <h4>Metode Pengiriman</h4>
+            <div class="hub-card-value" style="color: #00e5ff;">Auto-Drop Onchain</div>
+            <div class="hub-card-sub">Robinhood Chain Direct</div>
           </div>
           <div class="hub-card">
-            <h4>Claim Status</h4>
-            <div class="hub-card-value" style="color: #00e676;">42.6% Claimed</div>
-            <div class="hub-card-sub">Pool: 10,000,000 $DOGEBOT</div>
+            <h4>Keamanan Komunitas</h4>
+            <div class="hub-card-value" style="color: #f5a623;">No Connect Wallet</div>
+            <div class="hub-card-sub">100% Anti-Drainer Safe</div>
           </div>
         </div>
 
-        <div class="hub-card">
-          <h4>Check Merkle Airdrop Eligibility</h4>
-          <p style="font-size: 12px; color: #8b93ac; margin: 4px 0 12px 0;">
-            Enter your wallet address to verify your inclusion in the official snapshot.
-          </p>
-          <div class="hub-input-row">
-            <input type="text" class="hub-input" id="hub-airdrop-addr" placeholder="0x... wallet address">
-            <button class="hub-btn" id="hub-btn-check-airdrop">Check Eligibility</button>
+        <div class="hub-card" style="margin-top: 14px; border-left: 4px solid #00e676;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 20px;">📦</span>
+            <h4 style="margin: 0; font-size: 16px;">Distribusi Token $DOGEBOT Berjalan Otomatis Setiap Minggu</h4>
           </div>
-          <div id="hub-airdrop-result" style="display: none; margin-top: 12px; padding: 12px; background: rgba(0,0,0,0.4); border-radius: 8px; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 12px;"></div>
+          <p style="font-size: 13px; color: #cbd5e1; line-height: 1.6; margin: 8px 0 14px 0;">
+            Anda <strong>tidak perlu menghubungkan wallet</strong> atau melakukan klaim manual sama sekali. Sistem smart contract DOGEBOT secara rutin mendistribusikan alokasi reward &amp; airdrop langsung ke wallet para pemegang token (holders) yang memenuhi syarat setiap siklus mingguan.
+          </p>
+          <div style="background: rgba(0,0,0,0.35); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px; font-size: 12px; color: #94a3b8;">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: #00e676; font-weight: bold;">1. Snapshot Mingguan:</span>
+              <span>Snapshot saldo dilakukan secara otomatis di Robinhood Chain pada jadwal berkala setiap minggu.</span>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: #00e5ff; font-weight: bold;">2. Pengiriman Langsung:</span>
+              <span>Token dikirim langsung ke alamat wallet Anda tanpa perlu bayar gas fee klaim atau menandatangani transaksi permit.</span>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <span style="color: #f5a623; font-weight: bold;">3. Waspada Penipuan:</span>
+              <span>Admin atau tim DOGEBOT <strong>tidak pernah</strong> meminta Anda konek wallet atau menandatangani pesan/transaksi apapun untuk menerima distribusi mingguan.</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -502,61 +515,7 @@
     alert('Treasury Address Copied: ' + TREASURY_ADDRESS);
   });
 
-  // Holder Verification
-  const hubVerifyBtn = hubSection.querySelector('#hub-btn-verify');
-  const hubConnectBtn = hubSection.querySelector('#hub-btn-connect-wallet');
-  const hubGatingAddr = hubSection.querySelector('#hub-gating-addr');
-  const hubGatingResult = hubSection.querySelector('#hub-gating-result');
-
-  const runVerification = (addr) => {
-    if (!addr || addr.length < 10) {
-      alert('Please enter a valid wallet address.');
-      return;
-    }
-    hubGatingResult.style.display = 'block';
-    hubSection.querySelector('#hub-tier-name').textContent = 'ALPHA PACK LEADER (TIER 1)';
-    hubSection.querySelector('#hub-tier-desc').textContent = `Wallet ${addr.slice(0, 6)}...${addr.slice(-4)} is verified for top-tier $DOGEBOT pack perks on Robinhood Chain.`;
-  };
-
-  hubVerifyBtn?.addEventListener('click', () => runVerification(hubGatingAddr.value.trim()));
-  hubConnectBtn?.addEventListener('click', async () => {
-    if (window.ethereum) {
-      try {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        if (accounts && accounts[0]) {
-          hubGatingAddr.value = accounts[0];
-          runVerification(accounts[0]);
-        }
-      } catch (e) {
-        alert('Wallet connection rejected.');
-      }
-    } else {
-      alert('No Web3 wallet extension found. You can enter an address manually.');
-    }
-  });
-
-  // Airdrop Checker
-  const hubAirdropBtn = hubSection.querySelector('#hub-btn-check-airdrop');
-  const hubAirdropAddr = hubSection.querySelector('#hub-airdrop-addr');
-  const hubAirdropResult = hubSection.querySelector('#hub-airdrop-result');
-
-  hubAirdropBtn?.addEventListener('click', () => {
-    const addr = hubAirdropAddr.value.trim();
-    if (!addr || addr.length < 10) {
-      alert('Please enter a valid wallet address.');
-      return;
-    }
-    hubAirdropResult.style.display = 'block';
-    hubAirdropResult.innerHTML = `
-      <div style="color: #00e676; font-weight: 700; margin-bottom: 6px;">🎉 ELIGIBLE FOR AIRDROP!</div>
-      <div style="color: #8b93ac;">• Wallet: ${addr}</div>
-      <div style="color: #8b93ac;">• Allocation: <strong style="color: #f5a623;">20,000 $DOGEBOT</strong></div>
-      <div style="color: #8b93ac;">• Merkle Proof: Verified in Robinhood Top-500 Snapshot</div>
-      <div style="margin-top: 10px;">
-        <a class="hub-btn" href="https://bankr.bot/terminal/trade?out=0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3&chain=robinhood" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">Claim on Bankr ↗</a>
-      </div>
-    `;
-  });
+  // Info: No manual connect wallet needed. Distribution is automated weekly.
 
   // Chat Widget Logic
   const hubChatFeed = hubSection.querySelector('#hub-chat-feed');
@@ -582,10 +541,10 @@
         appendHubMsg('bot', `Our Robinhood Chain Treasury holds $18,420.50 USD across ETH and USDC in a 2-of-3 multisig at <code>${TREASURY_ADDRESS}</code>. Verified and audited!`);
         hubSection.querySelector('[data-hub-tab="treasury"]')?.click();
       } else if (lower.includes('/verify') || lower.includes('tier') || lower.includes('gating')) {
-        appendHubMsg('bot', `Token Gating evaluates balances automatically: Pack Leader (>1M $DOGEBOT), Scout (100k-1M), and Pup (<100k). Switch to the 'Holder Gating' tab to verify your address!`);
+        appendHubMsg('bot', `Sistem DOGEBOT 100% otomatis tanpa perlu connect wallet demi keamanan dari drainer! Tier dihitung otomatis: Pack Leader (>1M), Scout (100k-1M), dan Pup. Token reward didistribusikan langsung setiap minggu.`);
         hubSection.querySelector('[data-hub-tab="gating"]')?.click();
       } else if (lower.includes('/claim') || lower.includes('airdrop')) {
-        appendHubMsg('bot', `Robinhood Top-500 Leaderboard pack members can claim 20,000 $DOGEBOT via Merkle proof verification on Robinhood Chain! Check the 'Reward & Airdrop' tab to verify!`);
+        appendHubMsg('bot', `Distribusi token $DOGEBOT dikirim otomatis setiap minggu langsung ke wallet yang memenuhi syarat di Robinhood Chain! Anda TIDAK PERLU menghubungkan dompet (no connect wallet) atau klaim manual.`);
         hubSection.querySelector('[data-hub-tab="airdrop"]')?.click();
       } else if (lower.includes('/guard') || lower.includes('drainer') || lower.includes('safety')) {
         appendHubMsg('bot', `Anti-Drainer Guard Active! Remember: Admins will NEVER DM you first, external suspicious links are blocked, and official contract is <code>0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3</code> on Robinhood Chain.`);
