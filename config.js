@@ -58,7 +58,7 @@ window.DOGEBOT_CONFIG = Object.freeze({
         icon: '<img src="images/buy-geckoterminal.png" alt="">'
       }
     ];
-    routes.innerHTML = `<span class="buy-routes-label">BUY ${config.pairSymbol}</span>`;
+    routes.innerHTML = `<span class="buy-routes-label">PAIR ${config.pairSymbol}</span>`;
     routeData.filter(({ href }) => href).forEach(({ label, type, href, className, icon }) => {
       const link = document.createElement('a');
       link.className = `buy-route ${className}`;
@@ -80,7 +80,7 @@ window.DOGEBOT_CONFIG = Object.freeze({
     link.href = config.bankrSkillUrl;
   });
 
-  const network = document.querySelector('.hero-meta > div:nth-child(2) span:not(.k)');
+  const network = document.querySelector('.hero-meta > div:first-child span:not(.k)');
   if (network) network.textContent = config.network;
 
   const chartUrl = String(config.geckoChartUrl || '').trim();
