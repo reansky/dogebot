@@ -23,18 +23,18 @@ async function bankrSnapshot() {
   const launch = data.launch || {};
   const fees = launch.unclaimedFees || {};
   const tokenAmount = finite(fees.tokenAmount);
-  const ddogAmount = finite(fees.wethAmount);
-  const ddogSymbol = String(fees.numeraireSymbol || 'NVDA').slice(0, 12);
+  const numeraireAmount = finite(fees.wethAmount);
+  const numeraireSymbol = String(fees.numeraireSymbol || 'NVDA').slice(0, 12);
   const tokenSymbol = String(fees.tokenSymbol || 'NVDA').slice(0, 12);
   const usdValue = finite(fees.usdValue);
   const usdNote = usdValue == null ? '' : ` (about $${usdValue.toFixed(2)})`;
   return {
-    ddogAmount,
-    ddogSymbol,
+    numeraireAmount,
+    numeraireSymbol,
     tokenAmount,
     tokenSymbol,
     usdValue,
-    text: `Bankr public token data currently shows ${ddogAmount == null ? 'no' : ddogAmount} ${ddogSymbol} and ${tokenAmount == null ? 'no' : tokenAmount} ${tokenSymbol} as claimable fees${usdNote}. This is a current claimable balance, not a historical fee total, transfer tax, or buyback figure.`,
+    text: `Bankr public token data currently shows ${numeraireAmount == null ? 'no' : numeraireAmount} ${numeraireSymbol} and ${tokenAmount == null ? 'no' : tokenAmount} ${tokenSymbol} as claimable fees${usdNote}. This is a current claimable balance, not a historical fee total, transfer tax, or buyback figure.`,
   };
 }
 
@@ -47,8 +47,8 @@ module.exports = async function handler(req, res) {
       token: { symbol: 'NVDA', network: 'Robinhood Chain' },
       metrics: {
         holders: market.holders?.count ?? null,
-        claimableDdogFees: bankr.ddogAmount,
-        claimableDdogSymbol: bankr.ddogSymbol,
+        claimableNumeraireFees: bankr.numeraireAmount,
+        claimableNumeraireSymbol: bankr.numeraireSymbol,
         claimableTokenFees: bankr.tokenAmount,
         claimableTokenSymbol: bankr.tokenSymbol,
         claimableFeesUsd: bankr.usdValue,
