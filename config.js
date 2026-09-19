@@ -5,7 +5,7 @@ window.DOGEBOT_CONFIG = Object.freeze({
   fomoUrl: '',
   bankrTradeUrl: '',
   geckoChartPageUrl: '',
-  xUrl: 'https://x.com/dogebotdotfun',
+  xUrl: 'https://x.com/dogebotfun',
   bankrSkillUrl: 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack',
   network: 'Robinhood Chain',
   apiBase: '/api',
