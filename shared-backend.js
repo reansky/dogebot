@@ -201,7 +201,8 @@
     const share = document.createElement('a');
     const caption = String(meme.caption || 'DOGEBOT PACK signal');
     const siteUrl = `${window.location.origin}${window.location.pathname}#memes`;
-    const text = `Pack spotlight: "${caption}"\n\nShill the DOGEBOT PACK signal. $DOGEBOT\n${siteUrl}`;
+    const pairSymbol = window.DOGEBOT_CONFIG?.pairSymbol || '$NVDA';
+    const text = `Pack spotlight: "${caption}"\n\nShill the DOGEBOT PACK signal. ${pairSymbol}\n${siteUrl}`;
     share.className = 'meme-share';
     share.href = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrlFor(meme))}`;
     share.target = '_blank';

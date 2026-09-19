@@ -1,5 +1,7 @@
 Vercel environment variables needed for the shared backend:
 
+DOGEBOT_CONTRACT_ADDRESS=
+DOGEBOT_POOL_ADDRESS=
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=replace-with-server-only-service-role-key
 SUPABASE_STORAGE_BUCKET=dogebot-memes

@@ -1,36 +1,21 @@
 /* QUICK EDIT CONFIG: change project values here before publishing. */
 window.DOGEBOT_CONFIG = Object.freeze({
-  contractAddress: '0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3',
-  pairSymbol: '$DDOG',
-  buyUrl: 'https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3',
-  fomoUrl: 'https://fomo.family/coin?address=0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3&chainId=4663&r=reansykes&source=share_link',
-  bankrTradeUrl: 'https://bankr.bot/terminal/trade?out=0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3&chain=robinhood',
-  geckoChartPageUrl: 'https://www.geckoterminal.com/robinhood/pools/0xc4aa486bbaae46b6503e3871cc3991fdfbb540444218963077ae3cd0eec290b9',
+  pairSymbol: '$NVDA',
+  buyUrl: '',
+  fomoUrl: '',
+  bankrTradeUrl: '',
+  geckoChartPageUrl: '',
   xUrl: 'https://x.com/dogebotdotfun',
   bankrSkillUrl: 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack',
   network: 'Robinhood Chain',
   apiBase: '/api',
   marketApiUrl: '/api/market',
   rpcUrl: 'https://rpc.mainnet.chain.robinhood.com',
-  geckoChartUrl: 'https://www.geckoterminal.com/robinhood/pools/0xc4aa486bbaae46b6503e3871cc3991fdfbb540444218963077ae3cd0eec290b9?embed=1&info=0&swaps=0'
+  geckoChartUrl: ''
 });
 
 (() => {
   const config = window.DOGEBOT_CONFIG;
-  const contractButton = document.getElementById('copyContract');
-  const contractCode = contractButton?.querySelector('code');
-
-  if (contractButton && contractCode) {
-    contractCode.textContent = config.contractAddress;
-    contractButton.onclick = async () => {
-      try {
-        await navigator.clipboard.writeText(config.contractAddress);
-      } catch {}
-      contractCode.textContent = 'COPIED';
-      setTimeout(() => { contractCode.textContent = config.contractAddress; }, 1600);
-    };
-  }
-
   const buyLink = document.querySelector('.buy-link');
   if (buyLink) {
     buyLink.href = config.buyUrl;
@@ -73,8 +58,8 @@ window.DOGEBOT_CONFIG = Object.freeze({
         icon: '<img src="images/buy-geckoterminal.png" alt="">'
       }
     ];
-    routes.innerHTML = '<span class="buy-routes-label">BUY $DOGEBOT</span>';
-    routeData.forEach(({ label, type, href, className, icon }) => {
+    routes.innerHTML = `<span class="buy-routes-label">BUY ${config.pairSymbol}</span>`;
+    routeData.filter(({ href }) => href).forEach(({ label, type, href, className, icon }) => {
       const link = document.createElement('a');
       link.className = `buy-route ${className}`;
       link.href = href;
@@ -110,7 +95,7 @@ window.DOGEBOT_CONFIG = Object.freeze({
   if (!chartFrame && chartUrl) {
     chartFrame = document.createElement('iframe');
     chartFrame.id = 'geckoChart';
-    chartFrame.title = 'DOGEBOT / DDOG GeckoTerminal chart';
+    chartFrame.title = `DOGEBOT / ${config.pairSymbol} GeckoTerminal chart`;
     chartFrame.loading = 'lazy';
     chartFrame.referrerPolicy = 'no-referrer';
     chartFrame.style.cssText = 'display:block;width:100%;height:430px;border:0;border-radius:16px;background:#071009;';
@@ -126,11 +111,11 @@ window.DOGEBOT_CONFIG = Object.freeze({
   }
 
   const watchtowerStatus = document.querySelector('.brief-list span');
-  if (watchtowerStatus) watchtowerStatus.textContent = 'Contract configured; market data remains read-only.';
+  if (watchtowerStatus) watchtowerStatus.textContent = 'Pair configuration is pending; market data remains read-only.';
 
   const trustCopy = [...document.querySelectorAll('.trust-card p')]
     .find((node) => node.textContent.includes('official contract'));
-  if (trustCopy) trustCopy.textContent = 'The contract, buy routes, and GeckoTerminal chart are configured. Holder data remains read-only until verified.';
+  if (trustCopy) trustCopy.textContent = 'Market routes will appear after the new pair configuration is verified. Holder data remains read-only.';
 
   const decorateBankrButtons = () => {
     document.querySelectorAll('[data-bankr-install], [data-bankr-mobile-install], .bankr-install, a[href*="bankr.bot/"]:not(.buy-route)').forEach((link) => {

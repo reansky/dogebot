@@ -1,6 +1,6 @@
 const { json, error } = require('./lib/http');
 
-const TOKEN = '0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3';
+const TOKEN = String(process.env.DOGEBOT_CONTRACT_ADDRESS || '').trim();
 const BANKR_PUBLIC = 'https://api.bankr.bot';
 
 function finite(value) {
@@ -24,8 +24,8 @@ async function bankrSnapshot() {
   const fees = launch.unclaimedFees || {};
   const tokenAmount = finite(fees.tokenAmount);
   const ddogAmount = finite(fees.wethAmount);
-  const ddogSymbol = String(fees.numeraireSymbol || 'DDOG').slice(0, 12);
-  const tokenSymbol = String(fees.tokenSymbol || 'DOGEBOT').slice(0, 12);
+  const ddogSymbol = String(fees.numeraireSymbol || 'NVDA').slice(0, 12);
+  const tokenSymbol = String(fees.tokenSymbol || 'NVDA').slice(0, 12);
   const usdValue = finite(fees.usdValue);
   const usdNote = usdValue == null ? '' : ` (about $${usdValue.toFixed(2)})`;
   return {
@@ -40,10 +40,11 @@ async function bankrSnapshot() {
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'GET') return json(res, 405, { error: 'Method not allowed.' });
+  if (!TOKEN) return json(res, 503, { error: 'Tracker data is pending pair configuration.' });
   try {
     const [market, bankr] = await Promise.all([marketSnapshot(req), bankrSnapshot()]);
     return json(res, 200, {
-      token: { address: TOKEN, symbol: 'DOGEBOT', network: 'Robinhood Chain' },
+      token: { symbol: 'NVDA', network: 'Robinhood Chain' },
       metrics: {
         holders: market.holders?.count ?? null,
         claimableDdogFees: bankr.ddogAmount,
@@ -63,7 +64,7 @@ module.exports = async function handler(req, res) {
         text: bankr.text,
         source: 'Bankr public token-launch data',
       },
-      tradeUrl: 'https://bankr.bot/terminal/trade?out=0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3&chain=robinhood',
+      tradeUrl: 'https://bankr.bot',
     });
   } catch (err) {
     return error(res, err);

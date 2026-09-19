@@ -1,5 +1,5 @@
-const TOKEN = '0xe77d9fadffdf816edbff9e63943a3ba46c6c5ba3';
-const POOL = '0xc4aa486bbaae46b6503e3871cc3991fdfbb540444218963077ae3cd0eec290b9';
+const TOKEN = String(process.env.DOGEBOT_CONTRACT_ADDRESS || '').trim();
+const POOL = String(process.env.DOGEBOT_POOL_ADDRESS || '').trim().toLowerCase();
 const RPC = 'https://rpc.mainnet.chain.robinhood.com';
 const TRANSFER_TOPIC = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
 const ZERO = '0x0000000000000000000000000000000000000000';
@@ -69,6 +69,7 @@ async function holderSnapshot() {
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed.' });
+  if (!TOKEN || !POOL) return res.status(503).json({ error: 'Market data is pending pair configuration.' });
 
   try {
     const [tokenResult, poolResult, dexResult, holdersResult] = await Promise.allSettled([
@@ -100,7 +101,7 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({
       token: {
         address: TOKEN,
-        symbol: pair?.baseToken?.symbol || token.symbol || 'DOGEBOT',
+        symbol: pair?.baseToken?.symbol || token.symbol || 'NVDA',
         decimals: token.decimals ?? 18,
         totalSupply: token.normalized_total_supply || null,
       },
