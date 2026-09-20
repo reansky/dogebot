@@ -61,7 +61,7 @@
 
   const video = section.querySelector('.cinematic-video');
   const state = section.querySelector('[data-cinematic-state]');
-  const parts = Array.from({ length: 18 }, (_, index) => `images/dogebot-cinematic.part${String(index).padStart(2, '0')}`);
+  const parts = Array.from({ length: 36 }, (_, index) => `images/dogebot-cinematic.part${String(index).padStart(2, '0')}`);
   Promise.all(parts.map((path) => fetch(path).then((response) => {
     if (!response.ok) throw new Error('Video segment unavailable.');
     return response.arrayBuffer();
