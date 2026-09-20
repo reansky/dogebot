@@ -30,8 +30,8 @@
   const featuredCreator = document.getElementById('featuredMemeCreator');
   const memeCounter = document.getElementById('memeCounter');
   const agentUpdates = document.getElementById('agentUpdates');
-  let remoteForum = false;
-  let remoteMemes = false;
+  let remoteForum = null;
+  let remoteMemes = null;
   let pendingMemes = [];
   const defaultSpotlights = [
     { id: 'spotlight-sentinel', imageUrl: 'images/dogebot-pack-sentinel.webp', caption: 'Neon sentinel signal', status: 'approved', static: true },
@@ -138,6 +138,7 @@
       if (postHint) setHint(postHint, 'Shared feed · links and scam prompts are blocked');
       window.DOGEBOT_SHARED_BACKEND = true;
     } catch {
+      remoteForum = false;
       setHint(postHint, 'Shared forum unavailable · try again shortly', true);
     }
   }
@@ -159,8 +160,8 @@
 
   if (publish) {
     publish.onclick = async () => {
-      if (!remoteForum) {
-        setHint(postHint, 'Shared forum unavailable · try again shortly', true);
+      if (remoteForum !== true) {
+        setHint(postHint, remoteForum === false ? 'Shared forum unavailable · try again shortly' : 'Connecting to the shared den…');
         return;
       }
       const text = String(compose?.value || '').trim();
@@ -267,6 +268,7 @@
       const note = document.querySelector('.meme-pool-note');
       if (note) note.textContent = 'Shared backend: uploads are moderated before appearing in the Pack spotlight.';
     } catch {
+      remoteMemes = false;
       setHint(memeHint, 'Meme Pool unavailable · try again shortly', true);
     }
   }
@@ -413,9 +415,9 @@
 
   if (memeForm) {
     memeForm.onsubmit = async (event) => {
-      if (!remoteMemes) {
+      if (remoteMemes !== true) {
         event.preventDefault();
-        setHint(memeHint, 'Meme Pool unavailable · try again shortly', true);
+        setHint(memeHint, remoteMemes === false ? 'Meme Pool unavailable · try again shortly' : 'Connecting to the shared meme pool…');
         return;
       }
       event.preventDefault();

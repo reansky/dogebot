@@ -8,6 +8,10 @@
   if (!input || !send || !feed) return;
 
   const config = window.DOGEBOT_CONFIG || {};
+  const obsoleteMenuLabels = new Set(['SOUNDBOARD', 'HOLDER TRACKER', 'MEME CONTEST', 'PACK SENTINEL HUB']);
+  document.querySelectorAll('.nav-links a, .mobile-panel a, .footer-links a').forEach((link) => {
+    if (obsoleteMenuLabels.has(link.textContent.trim().toUpperCase())) link.remove();
+  });
   const mainBuy = document.querySelector('.hero-cta a.btn-primary');
   if (mainBuy && config.bankrTradeUrl) {
     mainBuy.href = config.bankrTradeUrl;
@@ -30,6 +34,11 @@
       routeStyle.textContent = '.buy-routes-label{grid-column:1/-1}.buy-route{min-width:0}@media(max-width:700px){.buy-routes{grid-template-columns:1fr!important}.buy-routes-label{margin-bottom:2px}}';
       document.head.append(routeStyle);
     }
+  }
+  const mobileBuy = document.querySelector('.mobile-panel a[href*="app.uniswap.org"]');
+  if (mobileBuy && config.bankrTradeUrl) {
+    mobileBuy.href = config.bankrTradeUrl;
+    mobileBuy.title = 'Buy $DOGEBOT on Bankr';
   }
 
   const history = [];
