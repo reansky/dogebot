@@ -108,16 +108,16 @@ localAi = (question) => /nvda|pair|market/i.test(String(question || ''))
   section.className = 'section shell trust-section';
   section.id = 'trust';
   section.innerHTML = `
-    <div class="section-head trust-section-head">
+       <div class="section-head trust-section-head">
       <div>
         <div class="overline">08 / TRUST CENTER</div>
         <h2>Trust the <span>process.</span></h2>
-        <p>A plain-language status board for what DOGEBOT PACK can do today, what is still pending, and which actions always require a human.</p>
+         <p>A plain-language status board for what DOGEBOT PACK can do today, what requires human review, and which actions this site never executes.</p>
       </div>
       <div class="section-readout">POLICY STATUS<strong><i class="dot-live"></i> PUBLIC</strong></div>
     </div>
     <div class="trust-grid">
-      <article class="trust-card glass"><span class="trust-index">01</span><div><small>MARKET MODE</small><strong>READ-ONLY</strong><p>Charts, market context, and holder plans are informational. No swaps, buys, sells, or auto-buy are enabled.</p></div></article>
+       <article class="trust-card glass"><span class="trust-index">01</span><div><small>MARKET MODE</small><strong>READ-ONLY</strong><p>Charts and market context are informational. Manual buy routes open external platforms; this site never executes swaps, buys, sells, or auto-buy.</p></div></article>
       <article class="trust-card glass"><span class="trust-index">02</span><div><small>BANKR GATE</small><strong>HUMAN REVIEW</strong><p>Bankr Brief can explain the project. Bankr Space publication requires owner approval.</p></div></article>
       <article class="trust-card glass"><span class="trust-index">03</span><div><small>SAFETY RULE</small><strong>NO SECRET REQUESTS</strong><p>The Pack does not ask for seed phrases or private keys. URLs and common drainer prompts are blocked in the den.</p></div></article>
       <article class="trust-card glass"><span class="trust-index">04</span><div><small>LAUNCH STATE</small><strong>VERIFY BEFORE LIVE</strong><p>The official contract, buy link, chart source, and holder data remain placeholders until verified and configured.</p></div></article>
