@@ -1,3 +1,4 @@
+// Cinematic hero assets are split into static segments for reliable delivery.
 (() => {
   const hiddenHrefs = new Set(["#rewards", "#news", "#visuals", "#holders"]);
 
