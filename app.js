@@ -469,7 +469,7 @@ localAi = (question) => /nvda|pair|market/i.test(String(question || ''))
   const hero = document.querySelector('.hero');
   const heroTitle = hero?.querySelector('h1');
   if (heroTitle) {
-    heroTitle.innerHTML = '<span class="reference-token">$DOGEBOT</span>';
+    heroTitle.innerHTML = '<span class="reference-token">$DOGE</span><span class="reference-token-green">BOT</span>';
     const tagline = document.createElement('div');
     tagline.className = 'hero-tagline';
     tagline.innerHTML = 'THE DOG THAT <span>NEVER SLEEPS.</span>';
