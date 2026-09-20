@@ -18,6 +18,7 @@
     hub.querySelector('.hub-cmd-bar')?.remove();
     hub.querySelector('.hub-tabs')?.remove();
     ['hub-pane-treasury', 'hub-pane-gating', 'hub-pane-airdrop'].forEach((id) => document.getElementById(id)?.remove());
+    pane.classList.add('active');
     pane.querySelector('h4')?.replaceChildren(document.createTextNode('DOGEBOT'));
   }
   const bar = document.createElement('div');
