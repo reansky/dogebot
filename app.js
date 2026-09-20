@@ -439,3 +439,52 @@ localAi = (question) => /nvda|pair|market/i.test(String(question || ''))
     ? 'The market panel uses live read-only data from the configured DOGEBOT/NVDA pool, GeckoTerminal, DexScreener, and Robinhood Chain sources. Manual buy and chart links open external sites; this page does not execute trades.'
     : explainLiveState(question);
 })();
+
+// Rebuild the first viewport around the cyber-dog reference direction.
+(() => {
+  document.body.classList.add('reference-theme');
+  const buyUrl = 'https://app.uniswap.org/swap?chain=robinhood&inputCurrency=0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC&outputCurrency=0xb6e42960061c55e32d73dab204718dBB1aE2Cba3';
+  const navLinks = document.querySelector('.nav-links');
+  if (navLinks) {
+    navLinks.innerHTML = '<a href="#pack">About</a><a href="#rewards">Tokenomics</a><a href="#news">Roadmap</a><a href="#dogebot">Terminal</a><a href="#trust">FAQ</a>';
+  }
+  const navBuy = document.querySelector('.nav-actions a[data-bankr-install]');
+  if (navBuy) {
+    navBuy.classList.add('reference-buy');
+    navBuy.removeAttribute('data-bankr-install');
+    navBuy.href = buyUrl;
+    navBuy.target = '_blank';
+    navBuy.rel = 'noopener noreferrer';
+    navBuy.textContent = 'BUY $DOGEBOT';
+    navBuy.setAttribute('aria-label', 'Buy DOGEBOT');
+  }
+  const mobileBuy = document.querySelector('.mobile-panel a[data-bankr-mobile-install]');
+  if (mobileBuy) {
+    mobileBuy.removeAttribute('data-bankr-mobile-install');
+    mobileBuy.href = buyUrl;
+    mobileBuy.textContent = 'BUY $DOGEBOT ↗';
+  }
+  const hero = document.querySelector('.hero');
+  const heroTitle = hero?.querySelector('h1');
+  if (heroTitle) {
+    heroTitle.innerHTML = '<span class="reference-token">$DOGEBOT</span>';
+    const tagline = document.createElement('div');
+    tagline.className = 'hero-tagline';
+    tagline.innerHTML = 'THE DOG THAT <span>NEVER SLEEPS.</span>';
+    heroTitle.after(tagline);
+  }
+  const eyebrow = hero?.querySelector('.eyebrow');
+  if (eyebrow) eyebrow.innerHTML = '<span class="chip">// CYBER DOG. &nbsp; MEME CORE. &nbsp; CHAOS ENGINE.</span>';
+  const lede = hero?.querySelector('.lede');
+  if (lede) lede.textContent = 'A cybernetic dog built for the internet. Powered by memes. Driven by chaos.';
+  const cta = hero?.querySelector('.hero-cta');
+  if (cta) cta.innerHTML = `<a class="btn btn-primary btn-lg" href="${buyUrl}" target="_blank" rel="noopener noreferrer">BUY $DOGEBOT</a><a class="btn btn-glass btn-lg" href="#dogebot">ENTER TERMINAL</a>`;
+  const meta = hero?.querySelector('.hero-meta');
+  if (meta) {
+    meta.innerHTML = '<div class="reference-status-title">DOGEBOT STATUS <span>SYSTEM ONLINE // v1.0.0</span></div><div class="reference-status-grid"><div class="reference-status-item"><i>⌁</i><b>Online</b><small>24 / 7</small></div><div class="reference-status-item"><i>▥</i><b>Meme Power</b><small>99.9%</small></div><div class="reference-status-item"><i>▥</i><b>Chaos Level</b><small>MAX</small></div><div class="reference-status-item"><i>♣</i><b>Loyalty</b><small>100%</small></div><div class="reference-status-item"><i>☾</i><b>Sleep Mode</b><small>0%</small></div></div>';
+  }
+  const visual = hero?.querySelector('.hero-visual');
+  if (visual && !visual.querySelector('.reference-hud')) {
+    visual.insertAdjacentHTML('beforeend', '<div class="reference-hud reference-hud-top">DOGEBOT PROTOCOL<small>v1.0.0 &nbsp; ▰ ▰ ▰ ▰</small></div><div class="reference-hud reference-hud-bottom">SYSTEM ONLINE<small>34.0522° N<br>118.2437° W</small></div>');
+  }
+})();
