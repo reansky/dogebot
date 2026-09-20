@@ -109,15 +109,15 @@
   terminalOverlay.querySelector('.dogebot-terminal-close').addEventListener('click', closeTerminal);
   terminalOverlay.querySelector('.dogebot-terminal-backdrop').addEventListener('click', closeTerminal);
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeTerminal(); });
-  document.querySelectorAll('a').forEach((link) => {
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a');
+    if (!link) return;
     const label = link.textContent.trim().toUpperCase();
-    if (label !== 'TERMINAL' && label !== 'ENTER TERMINAL') return;
-    link.addEventListener('click', (event) => {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      openTerminal();
-    }, true);
-  });
+    if (link.dataset.terminalLaunch !== 'true' && label !== 'TERMINAL' && label !== 'ENTER TERMINAL') return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    openTerminal();
+  }, true);
 
   const append = (label, text, accent) => {
     const message = document.createElement('div');

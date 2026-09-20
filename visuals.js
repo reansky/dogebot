@@ -53,7 +53,7 @@
         <span class="cinematic-kicker">DOGEBOT / AFTER DARK</span>
         <h2>The pack moves<br><span>after dark.</span></h2>
         <p>A living signal for the DOGEBOT community. Read the market, keep the den safe, and stay close to the pack.</p>
-        <div class="cinematic-actions"><a class="btn btn-primary" href="#integration-hub">OPEN TERMINAL <b>→</b></a><span>READ-ONLY / ROBINHOOD CHAIN</span></div>
+        <div class="cinematic-actions"><a class="btn btn-primary" data-terminal-launch="true" href="#integration-hub">OPEN TERMINAL <b>→</b></a><span>READ-ONLY / ROBINHOOD CHAIN</span></div>
       </div>
       <div class="cinematic-hud cinematic-hud-top"><span>VISUAL SIGNAL</span><strong>ONLINE</strong><small>NO WALLET ACTIONS</small></div>
       <div class="cinematic-hud cinematic-hud-bottom"><span>PACK FEED</span><strong>24 / 7</strong><small>DOGEBOT NEVER SLEEPS</small></div>
