@@ -419,3 +419,23 @@ localAi = (question) => /nvda|pair|market/i.test(String(question || ''))
   reorderLinks('.mobile-panel');
   reorderLinks('.footer-links');
 })();
+
+// Keep the public copy aligned with the configured live token and pool.
+(() => {
+  const marketCopy = document.querySelector('#dogebot .section-head p');
+  if (marketCopy) marketCopy.textContent = '$DOGEBOT includes live read-only market data for the configured DOGEBOT/NVDA pool on Robinhood Chain. External buy and chart routes are available, but this page never executes trades.';
+  const marketLabel = document.querySelector('#dogebot .chart-card .card-top small');
+  if (marketLabel) marketLabel.textContent = 'LIVE MARKET DATA · ROBINHOOD CHAIN · READ-ONLY';
+  const pairCopy = document.querySelector('.pair-note p');
+  if (pairCopy) pairCopy.textContent = 'Live price, liquidity, volume, and holder data come from the configured DOGEBOT/NVDA pool and public APIs. Use an external route for any manual action.';
+  const launchCard = [...document.querySelectorAll('.trust-card')]
+    .find((card) => card.querySelector('small')?.textContent?.includes('LAUNCH STATE'));
+  if (launchCard) {
+    launchCard.querySelector('strong').textContent = 'LIVE CONFIGURED';
+    launchCard.querySelector('p').textContent = 'The contract, buy routes, GeckoTerminal chart, and read-only holder data are configured.';
+  }
+  const explainLiveState = localAi;
+  localAi = (question) => /price|market|token|contract|nvda|buy|chart/i.test(String(question || ''))
+    ? 'The market panel uses live read-only data from the configured DOGEBOT/NVDA pool, GeckoTerminal, DexScreener, and Robinhood Chain sources. Manual buy and chart links open external sites; this page does not execute trades.'
+    : explainLiveState(question);
+})();

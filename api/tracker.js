@@ -1,6 +1,6 @@
 const { json, error } = require('./lib/http');
 
-const TOKEN = String(process.env.DOGEBOT_CONTRACT_ADDRESS || '').trim();
+const TOKEN = String(process.env.DOGEBOT_CONTRACT_ADDRESS || '0xb6e42960061c55e32d73dab204718dBB1aE2Cba3').trim();
 const BANKR_PUBLIC = 'https://api.bankr.bot';
 
 function finite(value) {
@@ -25,7 +25,7 @@ async function bankrSnapshot() {
   const tokenAmount = finite(fees.tokenAmount);
   const numeraireAmount = finite(fees.wethAmount);
   const numeraireSymbol = String(fees.numeraireSymbol || 'NVDA').slice(0, 12);
-  const tokenSymbol = String(fees.tokenSymbol || 'NVDA').slice(0, 12);
+  const tokenSymbol = String(fees.tokenSymbol || 'DOGEBOT').slice(0, 12);
   const usdValue = finite(fees.usdValue);
   const usdNote = usdValue == null ? '' : ` (about $${usdValue.toFixed(2)})`;
   return {
@@ -44,7 +44,7 @@ module.exports = async function handler(req, res) {
   try {
     const [market, bankr] = await Promise.all([marketSnapshot(req), bankrSnapshot()]);
     return json(res, 200, {
-      token: { symbol: 'NVDA', network: 'Robinhood Chain' },
+      token: { symbol: 'DOGEBOT', network: 'Robinhood Chain' },
       metrics: {
         holders: market.holders?.count ?? null,
         claimableNumeraireFees: bankr.numeraireAmount,
