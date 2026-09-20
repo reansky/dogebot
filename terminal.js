@@ -51,9 +51,64 @@
   bar.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px;padding:10px 12px;border:1px solid rgba(194,255,0,.28);border-radius:8px;background:rgba(194,255,0,.05);font:600 11px/1.4 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;';
   bar.innerHTML = '<strong style="color:#c2ff00">DOGEBOT</strong><span data-agent-status style="color:#8e9991">CHECKING SERVER</span>';
   pane.prepend(bar);
-  pane.querySelectorAll('[data-hub-tab="chat"]').forEach((tab) => { tab.textContent = 'Browser Use Terminal'; });
   input.placeholder = 'Ask the DOGEBOT agent';
   const status = bar.querySelector('[data-agent-status]');
+
+  const terminalOverlay = document.createElement('div');
+  terminalOverlay.id = 'dogebot-terminal-overlay';
+  terminalOverlay.setAttribute('aria-hidden', 'true');
+  terminalOverlay.innerHTML = '<div class="dogebot-terminal-backdrop"></div><section class="dogebot-terminal-panel" role="dialog" aria-modal="true" aria-labelledby="dogebot-terminal-title"><header class="dogebot-terminal-head"><div><span class="dogebot-terminal-kicker">DOGEBOT / READ-ONLY</span><h2 id="dogebot-terminal-title">DOGEBOT</h2></div><button class="dogebot-terminal-close" type="button" aria-label="Close DOGEBOT terminal">×</button></header><div class="dogebot-terminal-slot"></div></section>';
+  const terminalStyle = document.createElement('style');
+  terminalStyle.id = 'dogebot-terminal-overlay-style';
+  terminalStyle.textContent = `
+    #dogebot-terminal-overlay{position:fixed;inset:0;z-index:1000;display:none;align-items:flex-end;justify-content:flex-end;padding:24px;background:rgba(0,0,0,.58);backdrop-filter:blur(6px)}
+    #dogebot-terminal-overlay.is-open{display:flex}
+    .dogebot-terminal-panel{position:relative;width:min(520px,calc(100vw - 30px));max-height:min(720px,calc(100vh - 30px));overflow:auto;border:1px solid rgba(194,255,0,.5);border-radius:16px;background:linear-gradient(145deg,rgba(8,14,9,.98),rgba(13,16,24,.98));box-shadow:0 24px 90px rgba(0,0,0,.65),0 0 42px rgba(194,255,0,.12)}
+    .dogebot-terminal-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid rgba(194,255,0,.22)}
+    .dogebot-terminal-kicker{display:block;color:#c2ff00;font:700 10px/1.4 ui-monospace,monospace;letter-spacing:.14em}
+    .dogebot-terminal-head h2{margin:5px 0 0;color:#f5f7ef;font:800 28px/1 'Space Grotesk',Inter,sans-serif;letter-spacing:.02em}
+    .dogebot-terminal-close{width:34px;height:34px;border:1px solid rgba(194,255,0,.45);border-radius:50%;background:rgba(194,255,0,.06);color:#c2ff00;font-size:22px;line-height:1;cursor:pointer}
+    .dogebot-terminal-slot{padding:18px}
+    .dogebot-terminal-slot .hub-tab-pane.active{display:block}
+    .dogebot-terminal-slot .hub-card{margin:0;border-color:rgba(194,255,0,.2);background:rgba(255,255,255,.025)}
+    .dogebot-terminal-slot .hub-card h4{display:none}
+    @media(max-width:700px){#dogebot-terminal-overlay{align-items:stretch;padding:12px}.dogebot-terminal-panel{width:100%;max-height:none}.dogebot-terminal-slot{padding:12px}}
+  `;
+  document.head.append(terminalStyle);
+  document.body.append(terminalOverlay);
+  terminalOverlay.querySelector('.dogebot-terminal-slot').append(pane);
+  pane.querySelector('h4')?.setAttribute('hidden', 'hidden');
+  if (hub) {
+    hub.hidden = true;
+    hub.setAttribute('aria-hidden', 'true');
+    hub.style.display = 'none';
+  }
+  document.querySelector('#aiLaunch')?.remove();
+  document.querySelector('#aiOverlay')?.remove();
+
+  const closeTerminal = () => {
+    terminalOverlay.classList.remove('is-open');
+    terminalOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+  const openTerminal = () => {
+    terminalOverlay.classList.add('is-open');
+    terminalOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => input.focus(), 40);
+  };
+  terminalOverlay.querySelector('.dogebot-terminal-close').addEventListener('click', closeTerminal);
+  terminalOverlay.querySelector('.dogebot-terminal-backdrop').addEventListener('click', closeTerminal);
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeTerminal(); });
+  document.querySelectorAll('a').forEach((link) => {
+    const label = link.textContent.trim().toUpperCase();
+    if (label !== 'TERMINAL' && label !== 'ENTER TERMINAL') return;
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      openTerminal();
+    }, true);
+  });
 
   const append = (label, text, accent) => {
     const message = document.createElement('div');
