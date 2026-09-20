@@ -7,6 +7,31 @@
   const feed = pane.querySelector('#hub-chat-feed');
   if (!input || !send || !feed) return;
 
+  const config = window.DOGEBOT_CONFIG || {};
+  const mainBuy = document.querySelector('.hero-cta a.btn-primary');
+  if (mainBuy && config.bankrTradeUrl) {
+    mainBuy.href = config.bankrTradeUrl;
+    mainBuy.target = '_blank';
+    mainBuy.rel = 'noopener noreferrer';
+    mainBuy.title = 'Buy $DOGEBOT on Bankr';
+  }
+  const routes = document.querySelector('.buy-routes');
+  if (routes) {
+    routes.querySelector('.gecko')?.remove();
+    document.querySelector('.hero-cta')?.after(routes);
+    routes.style.setProperty('display', 'grid', 'important');
+    routes.style.gridTemplateColumns = 'repeat(3, minmax(0, 1fr))';
+    routes.style.gap = '10px';
+    routes.style.marginTop = '14px';
+    routes.style.width = '100%';
+    if (!document.getElementById('dogebot-route-style')) {
+      const routeStyle = document.createElement('style');
+      routeStyle.id = 'dogebot-route-style';
+      routeStyle.textContent = '.buy-routes-label{grid-column:1/-1}.buy-route{min-width:0}@media(max-width:700px){.buy-routes{grid-template-columns:1fr!important}.buy-routes-label{margin-bottom:2px}}';
+      document.head.append(routeStyle);
+    }
+  }
+
   const history = [];
   const hub = document.querySelector('#integration-hub');
   if (hub) {
