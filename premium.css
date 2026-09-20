@@ -1124,6 +1124,7 @@ body.reference-theme:after {
   color: var(--ref-ink);
   -webkit-text-stroke: 1px rgba(255,255,255,.12);
 }
+.reference-theme .hero h1 .reference-token-green { color: var(--ref-lime); }
 .reference-theme .hero-tagline {
   margin-top: 25px;
   color: var(--ref-ink);
