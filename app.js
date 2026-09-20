@@ -446,8 +446,10 @@ localAi = (question) => /nvda|pair|market/i.test(String(question || ''))
   const buyUrl = 'https://app.uniswap.org/swap?chain=robinhood&inputCurrency=0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC&outputCurrency=0xb6e42960061c55e32d73dab204718dBB1aE2Cba3';
   const navLinks = document.querySelector('.nav-links');
   if (navLinks) {
-    navLinks.innerHTML = '<a href="#pack">About</a><a href="#rewards">Tokenomics</a><a href="#news">Roadmap</a><a href="#dogebot">Terminal</a><a href="#trust">FAQ</a>';
+    navLinks.innerHTML = '<a href="#pack">About</a><a href="#dogebot">Tokenomics</a><a href="#community">Roadmap</a><a href="#integration-hub">Terminal</a><a href="#trust">FAQ</a>';
   }
+  const brandName = document.querySelector('.brand-text strong');
+  if (brandName) brandName.textContent = 'DOGEBOT';
   const navBuy = document.querySelector('.nav-actions a[data-bankr-install]');
   if (navBuy) {
     navBuy.classList.add('reference-buy');
