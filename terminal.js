@@ -136,6 +136,38 @@
     status.style.color = '#f5a623';
   });
 
+  async function loadWatchtower() {
+    try {
+      const response = await fetch('/api/tracker');
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || 'Tracker data is unavailable.');
+      const metrics = data.metrics || {};
+      const format = (value, symbol) => value == null ? 'NOT EXPOSED' : `${Number(value).toLocaleString('en-US', { maximumFractionDigits: 6 })} ${symbol}`;
+      const fetched = data.market?.fetchedAt ? new Date(data.market.fetchedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'LIVE';
+      const statusNode = document.querySelector('#trackerStatus');
+      const fetchedNode = document.querySelector('#trackerFetched');
+      const feesNote = document.querySelector('#trackerFeesNote');
+      const tokenFeesNote = document.querySelector('#trackerTokenFeesNote');
+      const sourceNode = document.querySelector('#trackerSource');
+      const telemetryNode = document.querySelector('#trackerTelemetry');
+      const copyNode = document.querySelector('#tracker .section-head p');
+      if (statusNode) statusNode.innerHTML = '<i class="dot-live"></i> LIVE / READ-ONLY';
+      if (fetchedNode) fetchedNode.textContent = fetched;
+      if (document.querySelector('#trackerFees')) document.querySelector('#trackerFees').textContent = format(metrics.claimableNumeraireFees, metrics.claimableNumeraireSymbol || 'NVDA');
+      if (document.querySelector('#trackerTokenFees')) document.querySelector('#trackerTokenFees').textContent = format(metrics.claimableTokenFees, metrics.claimableTokenSymbol || 'DOGEBOT');
+      if (document.querySelector('#trackerHolders')) document.querySelector('#trackerHolders').textContent = metrics.holders == null ? 'NOT EXPOSED' : Number(metrics.holders).toLocaleString('en-US');
+      if (feesNote) feesNote.textContent = 'Current claimable balance · Bankr public data';
+      if (tokenFeesNote) tokenFeesNote.textContent = 'Current claimable balance · Bankr public data';
+      if (sourceNode) sourceNode.textContent = `Source: ${data.telemetry?.source || 'Bankr public token data'} · live read-only`;
+      if (telemetryNode) telemetryNode.textContent = data.telemetry?.text || 'Current Bankr public fee balance loaded.';
+      if (copyNode) copyNode.textContent = 'Live read-only holder context and current claimable fee balances from Bankr public data.';
+    } catch {
+      const statusNode = document.querySelector('#trackerStatus');
+      if (statusNode) statusNode.innerHTML = '<i class="dot-live"></i> SOURCE UNAVAILABLE';
+    }
+  }
+  loadWatchtower();
+
   async function waitForRun(runId) {
     for (let attempt = 0; attempt < 24; attempt += 1) {
       await new Promise((resolve) => setTimeout(resolve, 2000));
