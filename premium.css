@@ -1089,7 +1089,7 @@ body.reference-theme:after {
   grid-template-columns: 1.05fr .95fr;
   gap: 0;
   align-items: center;
-  padding: 132px 0 42px;
+  padding: 155px 0 42px;
   overflow: hidden;
 }
 .reference-theme .hero-copy { position: relative; z-index: 5; padding-top: 20px; }
@@ -1113,7 +1113,7 @@ body.reference-theme:after {
   margin: 0;
   color: var(--ref-ink);
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: clamp(88px, 12.4vw, 188px);
+  font-size: clamp(88px, 14vw, 208px);
   font-weight: 900;
   letter-spacing: -.035em;
   line-height: .72;
@@ -1135,14 +1135,14 @@ body.reference-theme:after {
 }
 .reference-theme .hero-tagline span { color: var(--ref-lime); }
 .reference-theme .lede {
-  max-width: 620px;
+  max-width: 530px;
   margin-top: 27px;
   color: var(--ref-ink);
   font-size: 17px;
   line-height: 1.55;
 }
 .reference-theme .lede br { display: none; }
-.reference-theme .hero-cta { gap: 25px; margin-top: 34px; }
+.reference-theme .hero-cta { gap: 25px; margin-top: 38px; }
 .reference-theme .hero-cta .btn {
   min-width: 290px;
   padding: 17px 25px;
@@ -1215,7 +1215,8 @@ body.reference-theme:after {
 .reference-theme .footer { color: var(--ref-muted); border-color: var(--ref-line); }
 .reference-theme .footer-links a { color: var(--ref-dim); }
 .reference-theme .footer-links a:hover { color: var(--ref-lime); }
-.reference-theme .nav-links a[href="/memes"], .reference-theme .nav-links a[href="/tracker"], .reference-theme .nav-links a[href="#integration-hub"], .reference-theme .nav-links a[href="#soundboard"], .reference-theme .nav-links a[href="#holders"] { display: none; }
+.reference-theme .nav-links a[href="/memes"], .reference-theme .nav-links a[href="/tracker"], .reference-theme .nav-links a[href="#soundboard"], .reference-theme .nav-links a[href="#holders"] { display: none; }
+.reference-theme .buy-routes { display: none !important; }
 .reference-theme .mobile-panel { background: rgba(3,7,2,.98); border-color: var(--ref-line); }
 
 @media (max-width: 980px) {
