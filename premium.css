@@ -1078,6 +1078,7 @@ body.reference-theme:after {
 .reference-theme .nav-actions .reference-buy:after { content: '→'; margin-left: auto; font-size: 18px; }
 .reference-theme .nav-actions .reference-buy:hover { color: #071000; background: var(--ref-lime); }
 .reference-theme .nav-actions .menu { display: none; }
+.reference-theme .nav-actions .passport-nav-btn { display: none; }
 .reference-theme .bankr-banner,
 .reference-theme .workflow-strip,
 .reference-theme .pack-marquee { display: none !important; }
@@ -1089,7 +1090,7 @@ body.reference-theme:after {
   gap: 0;
   align-items: center;
   padding: 132px 0 42px;
-  overflow: visible;
+  overflow: hidden;
 }
 .reference-theme .hero-copy { position: relative; z-index: 5; padding-top: 20px; }
 .reference-theme .eyebrow { display: block; margin-bottom: 25px; }
