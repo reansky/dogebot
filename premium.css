@@ -1416,3 +1416,8 @@ body.reference-theme:after {
 .reference-theme .meme-pool-grid{max-height:min(620px,calc(100svh - 300px));overflow-y:auto;overflow-x:hidden;align-content:start;padding:0 7px 8px 0;overscroll-behavior:contain;scrollbar-color:rgba(0,137,42,.58) transparent}
 .reference-theme .meme-form-card{position:sticky;top:96px;z-index:2;align-self:start}
 @media(max-width:700px){.reference-theme #community,.reference-theme #memes{width:calc(100% - 30px)}.reference-theme .forum-main{max-height:min(640px,calc(100svh - 190px))}.reference-theme .feed{max-height:min(420px,calc(100svh - 430px))}.reference-theme .meme-layout{display:flex;flex-direction:column;gap:12px}.reference-theme .meme-form-card{position:relative;top:auto;order:-1;width:100%}.reference-theme .meme-stage{width:100%}.reference-theme .meme-pool-grid{max-height:min(520px,calc(100svh - 260px))}}
+.reference-theme .forum-main{height:min(680px,calc(100svh - 120px));max-height:none}
+.reference-theme .feed{max-height:none}
+.reference-theme .meme-layout{display:flex;flex-direction:column;gap:14px}
+.reference-theme .meme-form-card{position:relative;top:auto;order:-1;width:100%}
+@media(max-width:700px){.reference-theme .forum-main{height:min(640px,calc(100svh - 140px));max-height:none}.reference-theme .meme-layout{gap:12px}}
