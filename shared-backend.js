@@ -36,6 +36,9 @@
     { id: 'spotlight-sentinel', imageUrl: 'images/dogebot-pack-sentinel.webp', caption: 'Neon sentinel signal', status: 'approved', static: true },
     { id: 'spotlight-guardian', imageUrl: 'images/dogebot-pack-guardian.webp', caption: 'Guardian over the pack', status: 'approved', static: true },
     { id: 'spotlight-den', imageUrl: 'images/dogebot-pack-den.webp', caption: 'The signal den', status: 'approved', static: true },
+    { id: 'uploaded-flight', imageUrl: 'images/dogebot-meme-flight.png', caption: 'Doge orbit / moon mission', status: 'approved', static: true },
+    { id: 'uploaded-robinhood', imageUrl: 'images/dogebot-meme-robinhood.png', caption: 'Robinhood Chain flight path', status: 'approved', static: true },
+    { id: 'uploaded-guardian', imageUrl: 'images/dogebot-meme-guardian.png', caption: 'The pack guards the realm', status: 'approved', static: true },
   ];
   const memeStage = document.querySelector('.meme-stage');
   if (memeStage && memeGrid) {
