@@ -1,19 +1,19 @@
 /* QUICK EDIT CONFIG: change project values here before publishing. */
 window.DOGEBOT_CONFIG = Object.freeze({
-  contractAddress: ''
-  poolAddress: ''
+  contractAddress: '',
+  poolAddress: '',
   pairSymbol: '$TSLA',
-  buyUrl: ''
-  fomoUrl: ''
-  bankrTradeUrl: ''
-  geckoChartPageUrl: ''
+  buyUrl: '',
+  fomoUrl: '',
+  bankrTradeUrl: '',
+  geckoChartPageUrl: '',
   xUrl: 'https://x.com/dogebotfun',
   bankrSkillUrl: 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack',
   network: 'Robinhood Chain',
   apiBase: '/api',
   marketApiUrl: '/api/market',
   rpcUrl: 'https://rpc.mainnet.chain.robinhood.com',
-  geckoChartUrl: ''
+  geckoChartUrl: '',
 });
 
 (() => {
