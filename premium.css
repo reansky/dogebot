@@ -1421,3 +1421,9 @@ body.reference-theme:after {
 .reference-theme .meme-layout{display:flex;flex-direction:column;gap:14px}
 .reference-theme .meme-form-card{position:relative;top:auto;order:-1;width:100%}
 @media(max-width:700px){.reference-theme .forum-main{height:min(640px,calc(100svh - 140px));max-height:none}.reference-theme .meme-layout{gap:12px}}
+.reference-theme .feed{align-content:start;grid-auto-rows:max-content}
+.reference-theme .post{height:auto;min-width:0;overflow:visible}
+.reference-theme .post-head{align-items:flex-start}
+.reference-theme .post-author{min-width:0;flex:1 1 auto}
+.reference-theme .post-author strong{min-width:0;overflow-wrap:anywhere;word-break:break-word}
+.reference-theme .post-time{flex:none;white-space:nowrap}
