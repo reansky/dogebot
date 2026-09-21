@@ -1,6 +1,7 @@
 const baseUrl = String(process.env.SUPABASE_URL || '').replace(/\/$/, '');
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const bucket = process.env.SUPABASE_STORAGE_BUCKET || 'dogebot-memes';
+const localRateLimits = new Map();
 
 function assertConfig() {
   if (!baseUrl || !serviceKey) {
@@ -32,11 +33,20 @@ async function rest(path, options = {}) {
 }
 
 async function rateLimit(key, limit, windowSeconds) {
-  const result = await rest('rpc/check_rate_limit', {
-    method: 'POST',
-    body: JSON.stringify({ p_key: key, p_limit: limit, p_window_seconds: windowSeconds }),
-  });
-  return result === true || result?.allowed === true;
+  try {
+    const result = await rest('rpc/check_rate_limit', {
+      method: 'POST',
+      body: JSON.stringify({ p_key: key, p_limit: limit, p_window_seconds: windowSeconds }),
+    });
+    return result === true || result?.allowed === true;
+  } catch {
+    const now = Date.now();
+    const current = localRateLimits.get(key);
+    const expired = !current || now - current.startedAt >= windowSeconds * 1000;
+    const next = expired ? { startedAt: now, hits: 1 } : { ...current, hits: current.hits + 1 };
+    localRateLimits.set(key, next);
+    return next.hits <= limit;
+  }
 }
 
 async function upload(path, buffer, contentType) {
