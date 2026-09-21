@@ -1362,3 +1362,41 @@ body.reference-theme:after {
   .reference-theme .cinematic-grid,
   .reference-theme .btn-primary:before { animation: none; }
 }
+
+/* Keep scrolling light and the fixed brand layer stable. */
+.reference-theme {
+  background-attachment: scroll;
+}
+.reference-theme .glass,
+.reference-theme .meme-feature-copy {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.reference-theme .nav,
+.reference-theme .brand,
+.reference-theme .brand-mark,
+.reference-theme .brand-text,
+.reference-theme .brand-text strong {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+.reference-theme .brand-mark {
+  width: 42px;
+  height: 42px;
+  mix-blend-mode: normal;
+  box-shadow: none;
+}
+.reference-theme .hero-visual:before,
+.reference-theme .section-head:after,
+.reference-theme .cinematic-shell:before,
+.reference-theme .cinematic-grid,
+.reference-theme .btn-primary:before,
+.reference-theme .dot-live {
+  animation: none;
+}
+@media (max-width: 700px) {
+  .reference-theme .brand-mark {
+    width: 34px;
+    height: 34px;
+  }
+}
