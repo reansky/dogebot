@@ -48,7 +48,7 @@
     const heading = hub.querySelector('.hub-container > h3');
     if (heading) heading.textContent = 'DOGEBOT';
     const intro = hub.querySelector('.hub-container > p');
-    if (intro) intro.textContent = 'Ask DOGEBOT about the project, safety, market context, or the pack.';
+    if (intro) intro.textContent = 'Ask DOGEBOT anything about crypto, technology, current events, or everyday topics.';
     hub.querySelector('.hub-cmd-bar')?.remove();
     hub.querySelector('.hub-tabs')?.remove();
     ['hub-pane-treasury', 'hub-pane-gating', 'hub-pane-airdrop'].forEach((id) => document.getElementById(id)?.remove());
@@ -60,7 +60,7 @@
   bar.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px;padding:10px 12px;border:1px solid rgba(194,255,0,.28);border-radius:8px;background:rgba(194,255,0,.05);font:600 11px/1.4 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;';
   bar.innerHTML = '<strong style="color:#c2ff00">DOGEBOT</strong><span data-agent-status style="color:#8e9991">CHECKING SERVER</span>';
   pane.prepend(bar);
-  input.placeholder = 'Ask the DOGEBOT agent';
+  input.placeholder = 'Ask anything';
   const status = bar.querySelector('[data-agent-status]');
 
   const terminalOverlay = document.createElement('div');
