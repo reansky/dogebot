@@ -1,5 +1,6 @@
 (() => {
   const apiBase = String(window.DOGEBOT_CONFIG?.apiBase || '/api').replace(/\/$/, '');
+  const contractConfigured = Boolean(window.DOGEBOT_CONFIG?.contractAddress);
   const clientKey = 'dogebot-shared-client-id';
   const clientId = (() => {
     try {
@@ -204,7 +205,7 @@
     const share = document.createElement('a');
     const caption = String(meme.caption || 'DOGEBOT PACK signal');
     const siteUrl = `${window.location.origin}${window.location.pathname}#memes`;
-    const pairSymbol = window.DOGEBOT_CONFIG?.pairSymbol || '$NVDA';
+    const pairSymbol = window.DOGEBOT_CONFIG?.pairSymbol || '$TSLA';
     const text = `Pack spotlight: "${caption}"\n\nShill the DOGEBOT PACK signal. ${pairSymbol}\n${siteUrl}`;
     share.className = 'meme-share';
     share.href = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrlFor(meme))}`;
@@ -382,6 +383,17 @@
   }
 
   async function loadMarket() {
+    if (!contractConfigured) {
+      updateStat('PRICE', '—', 'CA pending');
+      updateStat('MARKET CAP', '—', 'CA pending');
+      updateStat('LIQUIDITY', '—', 'CA pending');
+      updateStat('VOLUME 24H', '—', 'CA pending');
+      updateQuote('HOLDERS', '—', 'CA pending');
+      document.querySelector('.chart-card .delta')?.replaceChildren(document.createTextNode('PAUSED · CA PENDING'));
+      document.querySelector('#dogebot .chart-card .card-top small')?.replaceChildren(document.createTextNode('TSLA REFERENCE · NEW CA REQUIRED'));
+      document.querySelector('.holder-state')?.replaceChildren(document.createTextNode('PAUSED · CA PENDING'));
+      return;
+    }
     try {
       const market = await request('/market');
       window.DOGEBOT_MARKET = market;
