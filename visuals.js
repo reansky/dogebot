@@ -19,19 +19,23 @@
   if (tracker && hub) hub.after(tracker);
 
   const labels = {
-    dogebot: "01 / MARKET READOUT",
-    pack: "02 / THE PACK",
-    "integration-hub": "03 / DEN INTEGRATION HUB",
-    tracker: "04 / HOLDER + FEE WATCHTOWER",
-    community: "05 / FORUM + BANKR SPACE",
-    memes: "06 / MEME POOL",
-    holders: "07 / HOLDER INTELLIGENCE",
-    trust: "08 / TRUST CENTER",
+    dogebot: "MARKET READOUT",
+    pack: "THE PACK",
+    "integration-hub": "DEN INTEGRATION HUB",
+    tracker: "HOLDER + FEE WATCHTOWER",
+    community: "FORUM + BANKR SPACE",
+    memes: "MEME POOL",
+    holders: "HOLDER INTELLIGENCE",
+    trust: "TRUST CENTER",
   };
 
   Object.entries(labels).forEach(([id, label]) => {
     const overline = document.querySelector(`#${id} .overline`);
     if (overline) overline.textContent = label;
+  });
+
+  document.querySelectorAll('.overline, .workflow-strip span, .sound-key strong').forEach((node) => {
+    node.textContent = node.textContent.replace(/^\s*\d+\s*\/\s*/, '');
   });
 })();
 
@@ -48,7 +52,7 @@
       <video class="cinematic-video" muted loop playsinline preload="metadata" poster="images/dogebot-hero.webp" aria-label="DOGEBOT cinematic signal"></video>
       <div class="cinematic-grid"></div>
       <div class="cinematic-wash"></div>
-      <div class="cinematic-topline"><span>02 / FIELD TRANSMISSION</span><span data-cinematic-state>LOADING SIGNAL</span></div>
+       <div class="cinematic-topline"><span>FIELD TRANSMISSION</span><span data-cinematic-state>LOADING SIGNAL</span></div>
       <div class="cinematic-copy">
         <span class="cinematic-kicker">DOGEBOT / AFTER DARK</span>
         <h2>The pack moves<br><span>after dark.</span></h2>
@@ -74,6 +78,33 @@
     section.classList.add('cinematic-fallback');
     state.textContent = 'POSTER SIGNAL';
   });
+})();
+
+(() => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealTargets = [
+    ...document.querySelectorAll('.stat-strip, .section:not(#integration-hub), .agent-section, .cinematic-hero, .footer'),
+  ].filter((node) => !node.hidden);
+  const cardTargets = document.querySelectorAll('.stat, .step, .news-card, .chart-card, .quote-card, .tracker-card, .meme-stage, .meme-form-card, .forum-side, .forum-compose, .agent-console, .agent-brief, .trust-card');
+
+  [...revealTargets, ...cardTargets].forEach((node, index) => {
+    node.classList.add('motion-in');
+    node.style.setProperty('--motion-delay', `${Math.min(index * 45, 240)}ms`);
+  });
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    document.querySelectorAll('.motion-in').forEach((node) => node.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, currentObserver) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      currentObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  document.querySelectorAll('.motion-in').forEach((node) => observer.observe(node));
 })();
 
 (() => {

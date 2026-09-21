@@ -70,18 +70,24 @@
   const terminalStyle = document.createElement('style');
   terminalStyle.id = 'dogebot-terminal-overlay-style';
   terminalStyle.textContent = `
-    #dogebot-terminal-overlay{position:fixed;inset:0;z-index:1000;display:none;align-items:flex-end;justify-content:flex-end;padding:24px;background:rgba(0,0,0,.58);backdrop-filter:blur(6px)}
-    #dogebot-terminal-overlay.is-open{display:flex}
-    .dogebot-terminal-panel{position:relative;width:min(520px,calc(100vw - 30px));max-height:min(720px,calc(100vh - 30px));overflow:auto;border:1px solid rgba(194,255,0,.5);border-radius:16px;background:linear-gradient(145deg,rgba(8,14,9,.98),rgba(13,16,24,.98));box-shadow:0 24px 90px rgba(0,0,0,.65),0 0 42px rgba(194,255,0,.12)}
-    .dogebot-terminal-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid rgba(194,255,0,.22)}
-    .dogebot-terminal-kicker{display:block;color:#c2ff00;font:700 10px/1.4 ui-monospace,monospace;letter-spacing:.14em}
-    .dogebot-terminal-head h2{margin:5px 0 0;color:#f5f7ef;font:800 28px/1 'Space Grotesk',Inter,sans-serif;letter-spacing:.02em}
-    .dogebot-terminal-close{width:34px;height:34px;border:1px solid rgba(194,255,0,.45);border-radius:50%;background:rgba(194,255,0,.06);color:#c2ff00;font-size:22px;line-height:1;cursor:pointer}
-    .dogebot-terminal-slot{padding:18px}
-    .dogebot-terminal-slot .hub-tab-pane.active{display:block}
-    .dogebot-terminal-slot .hub-card{margin:0;border-color:rgba(194,255,0,.2);background:rgba(255,255,255,.025)}
-    .dogebot-terminal-slot .hub-card h4{display:none}
-    @media(max-width:700px){#dogebot-terminal-overlay{align-items:stretch;padding:12px}.dogebot-terminal-panel{width:100%;max-height:none}.dogebot-terminal-slot{padding:12px}}
+     #dogebot-terminal-overlay{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px);background:rgba(0,0,0,.68);backdrop-filter:blur(10px)}
+     #dogebot-terminal-overlay.is-open{display:flex}
+     .dogebot-terminal-panel{position:relative;width:min(680px,100%);max-height:min(760px,calc(100vh - 32px));overflow:auto;border:1px solid rgba(194,255,0,.5);border-radius:24px;background:linear-gradient(145deg,rgba(8,14,9,.99),rgba(13,16,24,.98));box-shadow:0 28px 100px rgba(0,0,0,.72),0 0 50px rgba(194,255,0,.14);animation:dogebot-terminal-in .32s cubic-bezier(.2,.8,.2,1) both}
+     .dogebot-terminal-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;border-bottom:1px solid rgba(194,255,0,.22);background:linear-gradient(90deg,rgba(194,255,0,.08),transparent 60%)}
+     .dogebot-terminal-kicker{display:block;color:#c2ff00;font:700 10px/1.4 ui-monospace,monospace;letter-spacing:.14em}
+     .dogebot-terminal-head h2{margin:6px 0 0;color:#f5f7ef;font:800 clamp(28px,4vw,38px)/1 'Space Grotesk',Inter,sans-serif;letter-spacing:.02em}
+     .dogebot-terminal-close{width:38px;height:38px;border:1px solid rgba(194,255,0,.45);border-radius:50%;background:rgba(194,255,0,.06);color:#c2ff00;font-size:24px;line-height:1;cursor:pointer;transition:transform .2s ease,background .2s ease}
+     .dogebot-terminal-close:hover{transform:rotate(90deg);background:rgba(194,255,0,.16)}
+     .dogebot-terminal-slot{padding:22px}
+     .dogebot-terminal-slot .hub-tab-pane.active{display:block}
+     .dogebot-terminal-slot .hub-card{margin:0;border-color:rgba(194,255,0,.2);border-radius:18px;background:rgba(255,255,255,.025)}
+     .dogebot-terminal-slot .hub-card h4{display:none}
+     .dogebot-terminal-slot #hub-chat-feed{max-height:min(42vh,330px);overflow:auto;scrollbar-color:#c2ff00 transparent}
+     .dogebot-terminal-slot #hub-chat-input{min-height:48px;border-radius:12px}
+     .dogebot-terminal-slot #hub-chat-send{min-width:82px;border-radius:12px}
+     @keyframes dogebot-terminal-in{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+     @media(max-width:700px){#dogebot-terminal-overlay{align-items:flex-end;padding:10px} .dogebot-terminal-panel{width:100%;max-height:calc(100svh - 20px);border-radius:22px 22px 14px 14px;animation-name:dogebot-terminal-sheet-in}.dogebot-terminal-head{padding:18px 17px}.dogebot-terminal-slot{padding:12px}@keyframes dogebot-terminal-sheet-in{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}}
+     @media(prefers-reduced-motion:reduce){.dogebot-terminal-panel,.dogebot-terminal-close{animation:none;transition:none}}
   `;
   document.head.append(terminalStyle);
   document.body.append(terminalOverlay);

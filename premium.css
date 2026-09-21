@@ -1253,5 +1253,112 @@ body.reference-theme:after {
   .reference-theme .hero-visual { width: calc(100% + 30px); height: 450px; min-height: 450px; margin: 13px -15px 0; }
   .reference-theme .hero-ape { object-position: 45% center; }
   .reference-theme .reference-hud-top { top: 7%; right: 5%; font-size: 8px; }
-  .reference-theme .reference-hud-bottom { right: 4%; bottom: 8%; transform: scale(.82); transform-origin: bottom right; }
+   .reference-theme .reference-hud-bottom { right: 4%; bottom: 8%; transform: scale(.82); transform-origin: bottom right; }
+}
+
+/* Fresh motion and layout pass. */
+.reference-theme .motion-in {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .7s ease var(--motion-delay, 0ms), transform .7s cubic-bezier(.2, .8, .2, 1) var(--motion-delay, 0ms);
+}
+.reference-theme .motion-in.is-visible { opacity: 1; transform: none; }
+.reference-theme .stat,
+.reference-theme .step,
+.reference-theme .news-card,
+.reference-theme .chart-card,
+.reference-theme .quote-card,
+.reference-theme .tracker-card,
+.reference-theme .meme-stage,
+.reference-theme .meme-form-card,
+.reference-theme .forum-side,
+.reference-theme .forum-compose,
+.reference-theme .agent-console,
+.reference-theme .agent-brief,
+.reference-theme .trust-card {
+  transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease, background .28s ease;
+}
+.reference-theme .stat:hover,
+.reference-theme .step:hover,
+.reference-theme .news-card:hover,
+.reference-theme .chart-card:hover,
+.reference-theme .quote-card:hover,
+.reference-theme .tracker-card:hover,
+.reference-theme .meme-stage:hover,
+.reference-theme .meme-form-card:hover,
+.reference-theme .forum-side:hover,
+.reference-theme .forum-compose:hover,
+.reference-theme .agent-console:hover,
+.reference-theme .agent-brief:hover,
+.reference-theme .trust-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212, 255, 0, .42);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, .42), 0 0 22px rgba(212, 255, 0, .06);
+}
+.reference-theme .hero-visual:before { animation: dogebot-glow 6s ease-in-out infinite; }
+.reference-theme .section-head:after { animation: dogebot-line-pulse 3.5s ease-in-out infinite; }
+.reference-theme .cinematic-shell:before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: -30% 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 0 46%, rgba(212, 255, 0, .13) 50%, transparent 54%);
+  transform: translateY(-35%);
+  animation: dogebot-scan 7s ease-in-out infinite;
+}
+.reference-theme .cinematic-grid { animation: dogebot-grid-drift 18s linear infinite; }
+.reference-theme .btn-primary { position: relative; overflow: hidden; isolation: isolate; }
+.reference-theme .btn-primary:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0 auto 0 -35%;
+  width: 25%;
+  background: rgba(255, 255, 255, .42);
+  transform: skewX(-18deg);
+  animation: dogebot-button-sheen 5s ease-in-out infinite;
+}
+@keyframes dogebot-glow { 0%, 100% { opacity: .78; transform: scale(.96); } 50% { opacity: 1; transform: scale(1.04); } }
+@keyframes dogebot-line-pulse { 0%, 100% { width: 62px; opacity: .65; } 50% { width: 118px; opacity: 1; } }
+@keyframes dogebot-scan { 0%, 35% { transform: translateY(-35%); opacity: 0; } 52%, 68% { opacity: 1; } 100% { transform: translateY(35%); opacity: 0; } }
+@keyframes dogebot-grid-drift { to { background-position: 64px 64px; } }
+@keyframes dogebot-button-sheen { 0%, 58% { transform: translateX(-120%) skewX(-18deg); } 78%, 100% { transform: translateX(560%) skewX(-18deg); } }
+
+@media (max-width: 700px) {
+  .reference-theme .nav { padding: 12px 14px; }
+  .reference-theme .nav-actions .menu { width: 40px; height: 40px; border: 1px solid rgba(212, 255, 0, .3); border-radius: 10px; background: rgba(212, 255, 0, .06); }
+  .reference-theme .hero { padding: 108px 0 34px; }
+  .reference-theme .hero h1 { font-size: clamp(60px, 18vw, 92px); line-height: .78; }
+  .reference-theme .hero-cta { gap: 9px; }
+  .reference-theme .hero-cta .btn { min-width: 0; padding: 14px 15px; font-size: 12px; }
+  .reference-theme .hero-meta { margin-top: 26px; }
+  .reference-theme .section, .reference-theme .agent-section { padding-top: 84px; }
+  .reference-theme .section h2, .reference-theme .agent-section-head h2 { font-size: clamp(36px, 11vw, 50px); }
+  .reference-theme .cinematic-hero { margin-top: 20px; }
+  .reference-theme .cinematic-shell { border-radius: 16px; }
+  .reference-theme .stat:hover,
+  .reference-theme .step:hover,
+  .reference-theme .news-card:hover,
+  .reference-theme .chart-card:hover,
+  .reference-theme .quote-card:hover,
+  .reference-theme .tracker-card:hover,
+  .reference-theme .meme-stage:hover,
+  .reference-theme .meme-form-card:hover,
+  .reference-theme .forum-side:hover,
+  .reference-theme .forum-compose:hover,
+  .reference-theme .agent-console:hover,
+  .reference-theme .agent-brief:hover,
+  .reference-theme .trust-card:hover { transform: none; }
+}
+@media (max-width: 420px) {
+  .reference-theme .hero-cta { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reference-theme .motion-in { opacity: 1; transform: none; transition: none; }
+  .reference-theme .hero-visual:before,
+  .reference-theme .section-head:after,
+  .reference-theme .cinematic-shell:before,
+  .reference-theme .cinematic-grid,
+  .reference-theme .btn-primary:before { animation: none; }
 }
