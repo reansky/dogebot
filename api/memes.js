@@ -42,9 +42,9 @@ module.exports = async function handler(req, res) {
     const imageUrl = await upload(path, buffer, match[1].toLowerCase());
     const rows = await rest('memes', {
       method: 'POST',
-      body: JSON.stringify([{ image_url: imageUrl, caption: moderated.text, client_id: viewer, status: 'pending' }]),
+      body: JSON.stringify([{ image_url: imageUrl, caption: moderated.text, client_id: viewer, status: 'approved' }]),
     });
-    return json(res, 201, { meme: { ...publicMemes(rows || [])[0], status: 'pending' }, message: 'Meme submitted for moderation.' });
+    return json(res, 201, { meme: { ...publicMemes(rows || [])[0], status: 'approved' }, message: 'Meme published to the public pool.' });
   } catch (err) {
     return error(res, err);
   }

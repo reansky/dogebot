@@ -32,7 +32,6 @@
   const agentUpdates = document.getElementById('agentUpdates');
   let remoteForum = null;
   let remoteMemes = null;
-  let pendingMemes = [];
   const defaultSpotlights = [
     { id: 'spotlight-sentinel', imageUrl: 'images/dogebot-pack-sentinel.webp', caption: 'Neon sentinel signal', status: 'approved', static: true },
     { id: 'spotlight-guardian', imageUrl: 'images/dogebot-pack-guardian.webp', caption: 'Guardian over the pack', status: 'approved', static: true },
@@ -53,7 +52,7 @@
   }
   const memePoolCounter = document.getElementById('memePoolCounter');
   document.querySelector('.meme-pool-head p')?.replaceChildren(document.createTextNode('Every approved upload stays visible in the pool. Pick a signal, then shill it to X.'));
-  document.querySelector('.meme-pool-note')?.replaceChildren(document.createTextNode('Shared backend: uploads are moderated before appearing in the Pack spotlight.'));
+  document.querySelector('.meme-pool-note')?.replaceChildren(document.createTextNode('Shared backend: every valid upload appears immediately in the public Pack pool.'));
 
   function setHint(node, text, warning = false) {
     if (!node) return;
@@ -214,7 +213,7 @@
   }
 
   function renderMemes(memes) {
-    const pool = [...defaultSpotlights, ...pendingMemes, ...memes];
+    const pool = [...defaultSpotlights, ...memes];
     const memeStat = [...document.querySelectorAll('.stat')]
       .find((stat) => stat.querySelector('small')?.textContent?.trim() === 'MEME POWER');
     if (memeStat) {
@@ -248,9 +247,9 @@
       }
       const caption = document.createElement('strong');
       caption.textContent = meme.caption;
-      const meta = document.createElement('span');
+       const meta = document.createElement('span');
       meta.className = 'meme-card-meta';
-      meta.textContent = meme.static ? 'Built-in pack spotlight' : (meme.status === 'pending' ? 'Pending moderation · visible to you' : 'Approved community signal');
+       meta.textContent = meme.static ? 'Built-in pack spotlight' : 'Public community signal';
       const actions = document.createElement('div');
       actions.className = 'meme-card-actions';
       if (meme.static || meme.status === 'approved') actions.append(makeXShare(meme));
@@ -266,7 +265,7 @@
       remoteMemes = true;
       renderMemes(Array.isArray(data.memes) ? data.memes : []);
       const note = document.querySelector('.meme-pool-note');
-      if (note) note.textContent = 'Shared backend: uploads are moderated before appearing in the Pack spotlight.';
+       if (note) note.textContent = 'Shared backend: every valid upload appears immediately in the public Pack pool.';
     } catch {
       remoteMemes = false;
       setHint(memeHint, 'Meme Pool unavailable · try again shortly', true);
@@ -428,9 +427,8 @@
       memeForm.querySelector('button[type="submit"]').disabled = true;
       try {
         const data = await request('/memes', { method: 'POST', body: JSON.stringify({ imageData: await fileAsDataUrl(file), caption: memeCaption.value.trim(), clientId }) });
-        if (data.meme?.imageUrl) pendingMemes = [data.meme, ...pendingMemes.filter((meme) => meme.id !== data.meme.id)];
         memeForm.reset();
-        setHint(memeHint, 'Submitted for moderation. It is visible in your pool while it is reviewed.');
+        setHint(memeHint, 'Published to the shared public pool.');
         await loadMemes();
       } catch (err) {
         setHint(memeHint, err.message, true);
@@ -444,4 +442,8 @@
   loadMemes();
   loadAgentUpdates();
   loadMarket();
+  window.setInterval(() => {
+    if (remoteForum) loadPosts();
+    if (remoteMemes) loadMemes();
+  }, 20000);
 })();
