@@ -58,9 +58,9 @@
   overlay.setAttribute('role', 'dialog');
   overlay.setAttribute('aria-label', 'DOGEBOT PACK intro');
   overlay.innerHTML = `
-    <video class="dogebot-intro-video" muted autoplay playsinline preload="auto" poster="images/dogebot-meme-flight.png" aria-label="DOGEBOT PACK launch intro"></video>
+    <video class="dogebot-intro-video" muted autoplay loop playsinline preload="auto" poster="images/dogebot-meme-flight.png" aria-label="DOGEBOT PACK launch intro"></video>
     <div class="dogebot-intro-wash"></div>
-    <div class="dogebot-intro-top"><span>DOGEBOT PACK / ORIGIN SIGNAL</span><span data-intro-state>LOADING INTRO</span></div>
+    <div class="dogebot-intro-top"><span>DOGEBOT PACK / ORIGIN SIGNAL</span></div>
     <div class="dogebot-intro-copy">
       <span class="dogebot-intro-kicker">WELCOME TO THE PACK</span>
       <h1>DOGEBOT<br><span>NEVER SLEEPS.</span></h1>
@@ -69,11 +69,28 @@
     </div>`;
   document.body.append(overlay);
   const video = overlay.querySelector('.dogebot-intro-video');
-  const state = overlay.querySelector('[data-intro-state]');
   const skip = overlay.querySelector('[data-intro-skip]');
   const buy = overlay.querySelector('[data-intro-buy]');
-  const previousOverflow = document.body.style.overflow;
+  const root = document.documentElement;
+  const previousScrollY = window.scrollY;
+  const previousRootOverflow = root.style.overflow;
+  const previousBodyStyles = {
+    overflow: document.body.style.overflow,
+    position: document.body.style.position,
+    top: document.body.style.top,
+    left: document.body.style.left,
+    right: document.body.style.right,
+    width: document.body.style.width,
+  };
+  root.classList.add('dogebot-intro-active');
   document.body.classList.add('dogebot-intro-active');
+  root.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${previousScrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
   if (window.DOGEBOT_CONFIG?.bankrTradeUrl) {
     buy.href = window.DOGEBOT_CONFIG.bankrTradeUrl;
     buy.target = '_blank';
@@ -85,14 +102,19 @@
     if (closing) return;
     closing = true;
     try { sessionStorage.setItem('dogebot-intro-seen', '1'); } catch {}
-    document.body.classList.remove('dogebot-intro-active');
     overlay.classList.add('is-closing');
-    setTimeout(() => overlay.remove(), 460);
+    setTimeout(() => {
+      overlay.remove();
+      root.classList.remove('dogebot-intro-active');
+      document.body.classList.remove('dogebot-intro-active');
+      root.style.overflow = previousRootOverflow;
+      Object.entries(previousBodyStyles).forEach(([property, value]) => {
+        document.body.style[property] = value;
+      });
+      window.scrollTo(0, previousScrollY);
+    }, 460);
   };
   skip.addEventListener('click', close);
-  video.addEventListener('ended', () => {
-    state.textContent = 'SIGNAL COMPLETE / ENTER WHEN READY';
-  });
 
   const parts = Array.from({ length: 52 }, (_, index) => `images/dogebot-intro.part${String(index).padStart(2, '0')}`);
   Promise.all(parts.map((path) => fetch(path).then((response) => {
@@ -100,11 +122,8 @@
     return response.arrayBuffer();
   }))).then((buffers) => {
     video.src = URL.createObjectURL(new Blob(buffers, { type: 'video/mp4' }));
-    state.textContent = 'INTRO FEED READY';
     return video.play();
-  }).catch(() => {
-    state.textContent = 'POSTER SIGNAL';
-  });
+  }).catch(() => {});
 })();
 
 (() => {
@@ -187,9 +206,9 @@
     .dogebot-top-track i{color:#6e8a25;font-style:normal;font-size:8px}
     .dogebot-ticker-buy{color:#061005;background:#d4ff00;box-shadow:0 0 18px rgba(212,255,0,.18);font-weight:900}
     @keyframes dogebot-ticker{to{transform:translateX(-50%)}}
-    #dogebot-intro{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;overflow:hidden;background:#020402;opacity:1;transition:opacity .42s ease}
+    html.dogebot-intro-active,body.dogebot-intro-active{overflow:hidden;overscroll-behavior:none;touch-action:none}
+    #dogebot-intro{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;overflow:hidden;touch-action:none;background:#020402;opacity:1;transition:opacity .42s ease}
     #dogebot-intro.is-closing{opacity:0;pointer-events:none}
-    body.dogebot-intro-active{overflow:hidden}
     .dogebot-intro-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(1.12) contrast(1.08) brightness(.62)}
     .dogebot-intro-wash{position:absolute;inset:0;background:linear-gradient(90deg,rgba(1,4,2,.92),rgba(1,4,2,.42) 52%,rgba(1,4,2,.62)),linear-gradient(0deg,rgba(1,4,2,.9),transparent 45%,rgba(1,4,2,.22));pointer-events:none}
     .dogebot-intro:after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(212,255,0,.035) 4px 5px);mix-blend-mode:screen}
