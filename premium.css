@@ -1075,7 +1075,7 @@ body.reference-theme:after {
   letter-spacing: .03em;
   text-transform: uppercase;
 }
-.reference-theme .nav-actions .reference-buy:after { content: '→'; margin-left: auto; font-size: 18px; }
+.reference-theme .nav-actions .reference-buy:after { content: none; }
 .reference-theme .nav-actions .reference-buy:hover { color: #071000; background: var(--ref-lime); }
 .reference-theme .nav-actions .menu { display: none; }
 .reference-theme .nav-actions .passport-nav-btn { display: none; }
@@ -1157,7 +1157,7 @@ body.reference-theme:after {
   letter-spacing: .015em;
   text-transform: uppercase;
 }
-.reference-theme .hero-cta .btn:after { content: '→'; margin-left: auto; font-size: 22px; }
+.reference-theme .hero-cta .btn:after { content: none; }
 .reference-theme .hero-cta .btn-glass {
   color: var(--ref-ink);
   background: rgba(0,0,0,.42);
@@ -1407,3 +1407,12 @@ body.reference-theme:after {
   }
 }
 .reference-theme .community-meme-shell{width:min(calc(100% - 96px),1280px);max-height:min(900px,calc(100vh - 170px));margin:28px auto 42px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-gutter:stable;border:1px solid rgba(212,255,0,.3);border-radius:18px;background:linear-gradient(145deg,rgba(16,27,12,.96),rgba(5,9,5,.98));box-shadow:0 30px 80px rgba(0,0,0,.38),inset 0 0 40px rgba(212,255,0,.03);scrollbar-color:rgba(212,255,0,.45) rgba(4,8,4,.8);contain:content}.reference-theme .community-meme-shell>#community,.reference-theme .community-meme-shell>#memes{width:auto;margin:0;padding:34px clamp(24px,4vw,52px);background:transparent;border:0}.reference-theme .community-meme-shell>#community{padding-bottom:24px}.reference-theme .community-meme-shell>#memes{padding-top:34px;border-top:1px solid rgba(212,255,0,.18)}.reference-theme .community-meme-shell .section-head,.reference-theme .community-meme-shell .meme-pool-head{margin-bottom:24px}.reference-theme .community-meme-shell .forum-layout{gap:20px}.reference-theme .community-meme-shell .meme-layout{display:block}.reference-theme .community-meme-shell .meme-stage{width:100%}.reference-theme .community-meme-shell .meme-form-card{margin-top:20px}.reference-theme .community-meme-shell .meme-pool-grid{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}.reference-theme .community-meme-shell .forum-side,.reference-theme .community-meme-shell .forum-compose,.reference-theme .community-meme-shell .post,.reference-theme .community-meme-shell .meme-stage,.reference-theme .community-meme-shell .meme-form-card{background:transparent;box-shadow:none;border-color:rgba(212,255,0,.14)}.reference-theme .community-meme-shell .post,.reference-theme .community-meme-shell .meme-card{content-visibility:auto;contain-intrinsic-size:180px}@media(max-width:700px){.reference-theme .community-meme-shell{width:calc(100% - 30px);max-height:min(720px,calc(100vh - 150px));margin:18px auto 30px;border-radius:14px}.reference-theme .community-meme-shell>#community,.reference-theme .community-meme-shell>#memes{padding:26px 18px}.reference-theme .community-meme-shell>#memes{padding-top:26px}.reference-theme .community-meme-shell .meme-pool-grid{grid-template-columns:1fr}}
+.reference-theme #community,.reference-theme #memes{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
+.reference-theme .forum-main{display:flex;flex-direction:column;min-width:0;min-height:0;max-height:min(680px,calc(100svh - 220px))}
+.reference-theme .forum-compose{position:relative;z-index:2;flex:0 0 auto}
+.reference-theme .feed{flex:1 1 auto;min-height:0;max-height:min(430px,calc(100svh - 470px));overflow-y:auto;overflow-x:hidden;padding:0 7px 8px 0;overscroll-behavior:contain;scrollbar-color:rgba(0,137,42,.58) transparent}
+.reference-theme .meme-layout{align-items:start}
+.reference-theme .meme-stage{display:flex;flex-direction:column;min-height:0}
+.reference-theme .meme-pool-grid{max-height:min(620px,calc(100svh - 300px));overflow-y:auto;overflow-x:hidden;align-content:start;padding:0 7px 8px 0;overscroll-behavior:contain;scrollbar-color:rgba(0,137,42,.58) transparent}
+.reference-theme .meme-form-card{position:sticky;top:96px;z-index:2;align-self:start}
+@media(max-width:700px){.reference-theme #community,.reference-theme #memes{width:calc(100% - 30px)}.reference-theme .forum-main{max-height:min(640px,calc(100svh - 190px))}.reference-theme .feed{max-height:min(420px,calc(100svh - 430px))}.reference-theme .meme-layout{display:flex;flex-direction:column;gap:12px}.reference-theme .meme-form-card{position:relative;top:auto;order:-1;width:100%}.reference-theme .meme-stage{width:100%}.reference-theme .meme-pool-grid{max-height:min(520px,calc(100svh - 260px))}}
