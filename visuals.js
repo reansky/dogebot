@@ -90,7 +90,9 @@
     setTimeout(() => overlay.remove(), 460);
   };
   skip.addEventListener('click', close);
-  video.addEventListener('ended', close);
+  video.addEventListener('ended', () => {
+    state.textContent = 'SIGNAL COMPLETE / ENTER WHEN READY';
+  });
 
   const parts = Array.from({ length: 52 }, (_, index) => `images/dogebot-intro.part${String(index).padStart(2, '0')}`);
   Promise.all(parts.map((path) => fetch(path).then((response) => {
