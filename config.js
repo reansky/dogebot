@@ -74,7 +74,7 @@ window.DOGEBOT_CONFIG = Object.freeze({
     heroCopy.append(routes);
   }
 
-  document.querySelectorAll('a.footer-x, a[href*="x.com/"]').forEach(link => {
+  document.querySelectorAll('a[href*="x.com/"]:not(.footer-x)').forEach(link => {
     link.href = config.xUrl;
   });
 
