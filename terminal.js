@@ -152,6 +152,13 @@
   });
 
   async function loadWatchtower() {
+    if (!config.contractAddress) {
+      const statusNode = document.querySelector('#trackerStatus');
+      const copyNode = document.querySelector('#tracker .section-head p');
+      if (statusNode) statusNode.innerHTML = '<i class="dot-live"></i> PAUSED / CA PENDING';
+      if (copyNode) copyNode.textContent = 'TSLA reference tracking will activate after a new contract address is configured.';
+      return;
+    }
     try {
       const response = await fetch('/api/tracker');
       const data = await response.json().catch(() => ({}));
@@ -168,7 +175,7 @@
       const copyNode = document.querySelector('#tracker .section-head p');
       if (statusNode) statusNode.innerHTML = '<i class="dot-live"></i> LIVE / READ-ONLY';
       if (fetchedNode) fetchedNode.textContent = fetched;
-      if (document.querySelector('#trackerFees')) document.querySelector('#trackerFees').textContent = format(metrics.claimableNumeraireFees, metrics.claimableNumeraireSymbol || 'NVDA');
+      if (document.querySelector('#trackerFees')) document.querySelector('#trackerFees').textContent = format(metrics.claimableNumeraireFees, metrics.claimableNumeraireSymbol || 'TSLA');
       if (document.querySelector('#trackerTokenFees')) document.querySelector('#trackerTokenFees').textContent = format(metrics.claimableTokenFees, metrics.claimableTokenSymbol || 'DOGEBOT');
       if (document.querySelector('#trackerHolders')) document.querySelector('#trackerHolders').textContent = metrics.holders == null ? 'NOT EXPOSED' : Number(metrics.holders).toLocaleString('en-US');
       if (feesNote) feesNote.textContent = 'Current claimable balance · Bankr public data';
