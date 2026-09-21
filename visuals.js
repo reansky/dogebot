@@ -278,3 +278,5 @@
   `;
   document.head.append(style);
 })();
+
+(() => {const community=document.getElementById("community"),memes=document.getElementById("memes");if(!community||!memes||document.querySelector(".community-meme-shell"))return;const shell=document.createElement("div");shell.className="community-meme-shell";shell.setAttribute("aria-label","Forum, Bankr Space, and Meme Pool");community.parentNode.insertBefore(shell,community);shell.append(community,memes);})();
