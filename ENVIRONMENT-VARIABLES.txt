@@ -1,10 +1,11 @@
 Vercel environment variables needed for the shared backend:
 
-DOGEBOT_CONTRACT_ADDRESS=0xb6e42960061c55e32d73dab204718dBB1aE2Cba3
-DOGEBOT_POOL_ADDRESS=0x56d5776e4c6b3da818f6922102dc156a98bc9156ddbb25f9c18afe7fbd7cd8b8
+DOGEBOT_CONTRACT_ADDRESS=
+DOGEBOT_POOL_ADDRESS=
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=replace-with-server-only-service-role-key
 SUPABASE_STORAGE_BUCKET=dogebot-memes
 MODERATOR_TOKEN=replace-with-a-long-random-moderator-token
 
 Do not publish real secret values in GitHub files.
+DOGEBOT_DATA_ENABLED=false

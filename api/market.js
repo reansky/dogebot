@@ -1,5 +1,6 @@
-const TOKEN = String(process.env.DOGEBOT_CONTRACT_ADDRESS || '0xb6e42960061c55e32d73dab204718dBB1aE2Cba3').trim();
-const POOL = String(process.env.DOGEBOT_POOL_ADDRESS || '0x56d5776e4c6b3da818f6922102dc156a98bc9156ddbb25f9c18afe7fbd7cd8b8').trim().toLowerCase();
+const DATA_ENABLED = String(process.env.DOGEBOT_DATA_ENABLED || '').toLowerCase() === 'true';
+const TOKEN = DATA_ENABLED ? String(process.env.DOGEBOT_CONTRACT_ADDRESS || '').trim() : '';
+const POOL = DATA_ENABLED ? String(process.env.DOGEBOT_POOL_ADDRESS || '').trim().toLowerCase() : '';
 const RPC = 'https://rpc.mainnet.chain.robinhood.com';
 const TRANSFER_TOPIC = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
 const ZERO = '0x0000000000000000000000000000000000000000';

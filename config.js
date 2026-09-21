@@ -1,19 +1,19 @@
 /* QUICK EDIT CONFIG: change project values here before publishing. */
 window.DOGEBOT_CONFIG = Object.freeze({
-  contractAddress: '0xb6e42960061c55e32d73dab204718dBB1aE2Cba3',
-  poolAddress: '0x56d5776e4c6b3da818f6922102dc156a98bc9156ddbb25f9c18afe7fbd7cd8b8',
-  pairSymbol: '$NVDA',
-  buyUrl: 'https://app.uniswap.org/swap?chain=robinhood&inputCurrency=0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC&outputCurrency=0xb6e42960061c55e32d73dab204718dBB1aE2Cba3',
-  fomoUrl: 'https://fomo.family/coin?address=0xb6e42960061c55e32d73dab204718dBB1aE2Cba3&chainId=4663&r=reansykes&source=share_link',
-  bankrTradeUrl: 'https://bankr.bot/terminal/trade?out=0xb6e42960061c55e32d73dab204718dBB1aE2Cba3&chain=robinhood',
-  geckoChartPageUrl: 'https://www.geckoterminal.com/robinhood/pools/0x56d5776e4c6b3da818f6922102dc156a98bc9156ddbb25f9c18afe7fbd7cd8b8',
+  contractAddress: ''
+  poolAddress: ''
+  pairSymbol: '$TSLA',
+  buyUrl: ''
+  fomoUrl: ''
+  bankrTradeUrl: ''
+  geckoChartPageUrl: ''
   xUrl: 'https://x.com/dogebotfun',
   bankrSkillUrl: 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack',
   network: 'Robinhood Chain',
   apiBase: '/api',
   marketApiUrl: '/api/market',
   rpcUrl: 'https://rpc.mainnet.chain.robinhood.com',
-  geckoChartUrl: 'https://www.geckoterminal.com/robinhood/pools/0x56d5776e4c6b3da818f6922102dc156a98bc9156ddbb25f9c18afe7fbd7cd8b8?embed=1&info=0&swaps=0'
+  geckoChartUrl: ''
 });
 
 (() => {

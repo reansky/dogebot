@@ -1,6 +1,7 @@
 const { json, error } = require('./lib/http');
 
-const TOKEN = String(process.env.DOGEBOT_CONTRACT_ADDRESS || '0xb6e42960061c55e32d73dab204718dBB1aE2Cba3').trim();
+const DATA_ENABLED = String(process.env.DOGEBOT_DATA_ENABLED || '').toLowerCase() === 'true';
+const TOKEN = DATA_ENABLED ? String(process.env.DOGEBOT_CONTRACT_ADDRESS || '').trim() : '';
 const BANKR_PUBLIC = 'https://api.bankr.bot';
 
 function finite(value) {
@@ -24,7 +25,7 @@ async function bankrSnapshot() {
   const fees = launch.unclaimedFees || {};
   const tokenAmount = finite(fees.tokenAmount);
   const numeraireAmount = finite(fees.wethAmount);
-  const numeraireSymbol = String(fees.numeraireSymbol || 'NVDA').slice(0, 12);
+  const numeraireSymbol = String(fees.numeraireSymbol || 'TSLA').slice(0, 12);
   const tokenSymbol = String(fees.tokenSymbol || 'DOGEBOT').slice(0, 12);
   const usdValue = finite(fees.usdValue);
   const usdNote = usdValue == null ? '' : ` (about $${usdValue.toFixed(2)})`;
