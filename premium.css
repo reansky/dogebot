@@ -1394,6 +1394,12 @@ body.reference-theme:after {
 .reference-theme .dot-live {
   animation: none;
 }
+.reference-theme .reference-disabled,
+.dogebot-ticker-buy.is-disabled {
+  cursor: not-allowed;
+  opacity: .52;
+  box-shadow: none;
+}
 @media (max-width: 700px) {
   .reference-theme .brand-mark {
     width: 34px;
