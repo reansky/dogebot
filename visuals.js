@@ -43,7 +43,7 @@
     ticker.className = 'dogebot-top-ticker';
     const buyUrl = window.DOGEBOT_CONFIG?.bankrTradeUrl || document.querySelector('.reference-buy')?.href || '';
     const signal = '<span>PACK SIGNAL ONLINE</span><i>◆</i><span>ROBINHOOD CHAIN</span><i>◆</i><span>READ-ONLY MARKET INTEL</span><i>◆</i><span>PUBLIC MEME POOL</span><i>◆</i>';
-    const buySignal = buyUrl ? `<a class="dogebot-ticker-buy" href="${buyUrl}" target="_blank" rel="noopener noreferrer">BUY $DOGEBOT ↗</a>` : '<span class="dogebot-ticker-buy is-disabled">CA PENDING</span>';
+    const buySignal = buyUrl ? `<a class="dogebot-ticker-buy" href="${buyUrl}" target="_blank" rel="noopener noreferrer">BUY $DOGEBOT</a>` : '<span class="dogebot-ticker-buy is-disabled">CA PENDING</span>';
     ticker.innerHTML = `<div class="dogebot-top-track">${signal}${buySignal}${signal}${buySignal}</div>`;
     document.querySelector('.nav-wrap')?.before(ticker);
   }
@@ -66,7 +66,7 @@
       <span class="dogebot-intro-kicker">WELCOME TO THE PACK</span>
       <h1>DOGEBOT<br><span>NEVER SLEEPS.</span></h1>
       <p>Memes, markets, and a public den on Robinhood Chain.</p>
-      <div class="dogebot-intro-actions"><a class="btn btn-primary" data-intro-buy href="#dogebot">BUY $DOGEBOT <b>↗</b></a><button type="button" data-intro-skip>ENTER THE SITE <b>→</b></button></div>
+      <div class="dogebot-intro-actions"><a class="btn btn-primary" data-intro-buy href="#dogebot">BUY $DOGEBOT</a><button type="button" data-intro-skip>ENTER THE SITE</button></div>
     </div>`;
   document.body.append(overlay);
   const video = overlay.querySelector('.dogebot-intro-video');
@@ -145,7 +145,7 @@
         <span class="cinematic-kicker">DOGEBOT / AFTER DARK</span>
         <h2>The pack moves<br><span>after dark.</span></h2>
         <p>A living signal for the DOGEBOT community. Read the market, keep the den safe, and stay close to the pack.</p>
-        <div class="cinematic-actions"><a class="btn btn-primary" data-terminal-launch="true" href="#integration-hub">OPEN TERMINAL <b>→</b></a><span>READ-ONLY / ROBINHOOD CHAIN</span></div>
+        <div class="cinematic-actions"><a class="btn btn-primary" data-terminal-launch="true" href="#integration-hub">OPEN TERMINAL</a><span>READ-ONLY / ROBINHOOD CHAIN</span></div>
       </div>
       <div class="cinematic-hud cinematic-hud-top"><span>VISUAL SIGNAL</span><strong>ONLINE</strong><small>NO WALLET ACTIONS</small></div>
       <div class="cinematic-hud cinematic-hud-bottom"><span>PACK FEED</span><strong>24 / 7</strong><small>DOGEBOT NEVER SLEEPS</small></div>
@@ -278,5 +278,3 @@
   `;
   document.head.append(style);
 })();
-
-(() => {const community=document.getElementById("community"),memes=document.getElementById("memes");if(!community||!memes||document.querySelector(".community-meme-shell"))return;const shell=document.createElement("div");shell.className="community-meme-shell";shell.setAttribute("aria-label","Forum, Bankr Space, and Meme Pool");community.parentNode.insertBefore(shell,community);shell.append(community,memes);})();

@@ -66,7 +66,7 @@
   const terminalOverlay = document.createElement('div');
   terminalOverlay.id = 'dogebot-terminal-overlay';
   terminalOverlay.setAttribute('aria-hidden', 'true');
-  terminalOverlay.innerHTML = '<div class="dogebot-terminal-backdrop"></div><section class="dogebot-terminal-panel" role="dialog" aria-modal="true" aria-labelledby="dogebot-terminal-title"><header class="dogebot-terminal-head"><div><span class="dogebot-terminal-kicker">DOGEBOT / READ-ONLY</span><h2 id="dogebot-terminal-title">DOGEBOT</h2></div><button class="dogebot-terminal-close" type="button" aria-label="Close DOGEBOT terminal">×</button></header><div class="dogebot-terminal-slot"></div></section>';
+  terminalOverlay.innerHTML = '<div class="dogebot-terminal-backdrop"></div><section class="dogebot-terminal-panel" role="dialog" aria-modal="true" aria-labelledby="dogebot-terminal-title"><header class="dogebot-terminal-head"><div><span class="dogebot-terminal-kicker">DOGEBOT / GENERAL ASSISTANT</span><h2 id="dogebot-terminal-title">DOGEBOT</h2></div><button class="dogebot-terminal-close" type="button" aria-label="Close DOGEBOT terminal">×</button></header><div class="dogebot-terminal-slot"></div></section>';
   const terminalStyle = document.createElement('style');
   terminalStyle.id = 'dogebot-terminal-overlay-style';
   terminalStyle.textContent = `

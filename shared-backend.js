@@ -211,7 +211,7 @@
     share.href = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrlFor(meme))}`;
     share.target = '_blank';
     share.rel = 'noopener noreferrer';
-    share.textContent = 'SHILL ON X ↗';
+    share.textContent = 'SHILL ON X';
     share.setAttribute('aria-label', `Share ${caption} on X`);
     return share;
   }

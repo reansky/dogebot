@@ -1,5 +1,5 @@
 const { json, body } = require('./lib/http');
-const { moderateText, clientId } = require('./lib/security');
+const { clientId } = require('./lib/security');
 
 const API_BASE = 'https://api.browser-use.com/api/v4';
 const MODEL = process.env.BROWSER_USE_MODEL || 'gpt-5.6-luna';
@@ -36,11 +36,6 @@ function cleanHistory(value) {
     const role = message?.role === 'assistant' ? 'ASSISTANT' : 'USER';
     const text = String(message?.content || '').replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, 900);
     if (!text) return [];
-    if (role === 'USER') {
-      const safe = moderateText(text, 900);
-      if (!safe.ok) return [];
-      return [`${role}: ${safe.text}`];
-    }
     return [`${role}: ${text}`];
   });
 }

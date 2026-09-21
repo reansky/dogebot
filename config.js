@@ -122,7 +122,7 @@ window.DOGEBOT_CONFIG = Object.freeze({
   const decorateBankrButtons = () => {
     document.querySelectorAll('[data-bankr-install], [data-bankr-mobile-install], .bankr-install, a[href*="bankr.bot/"]:not(.buy-route)').forEach((link) => {
       if (link.querySelector('.bankr-button-logo')) return;
-      const label = link.textContent.replace(/↗/g, '').trim();
+      const label = link.textContent.trim();
       const logo = document.createElement('img');
       logo.className = 'bankr-button-logo';
       logo.src = 'images/bankr-logo.webp';
