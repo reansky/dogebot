@@ -11,7 +11,96 @@
       localStorage.setItem(clientKey, next);
       return next;
     } catch { return `client_${Date.now()}`; }
-  })();
+ })();
+
+(() => {
+  const config = window.DOGEBOT_CONFIG || {};
+  const apiBase = String(config.apiBase || '/api').replace(/\/$/, '');
+  const bankrBriefUrl = config.bankrSkillUrl || 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack';
+  const navTargets = [document.querySelector('.nav-links'), document.querySelector('.mobile-panel'), document.querySelector('.footer-links')];
+  const addLink = (parent, href, text, before) => {
+    if (!parent || parent.querySelector(`[href="${href}"]`)) return;
+    const link = document.createElement('a');
+    link.href = href;
+    link.textContent = text;
+    if (before) parent.insertBefore(link, before); else parent.append(link);
+  };
+  navTargets.forEach((parent) => addLink(parent, '#arena', 'Signal Arena', parent.querySelector('[href="#community"]')));
+
+  const section = document.createElement('section');
+  section.className = 'section shell arena-section';
+  section.id = 'arena';
+  section.innerHTML = `
+    <div class="section-head arena-section-head">
+      <div>
+        <div class="overline">PACK SIGNAL ARENA</div>
+        <h2>Turn noise into <span>signal.</span></h2>
+        <p>A recurring community mission built on the Forum and Meme Pool. Submit something useful, make it easy to share, and let the Pack review it in public.</p>
+      </div>
+      <div class="section-readout">WEEK 01<strong><i class="dot-live"></i> OPEN</strong></div>
+    </div>
+    <div class="arena-mission glass">
+      <div class="arena-mission-copy">
+        <span class="arena-kicker">CURRENT MISSION / MANUAL REVIEW</span>
+        <h3>Make Bankr community tools more useful.</h3>
+        <p>Share one original idea, meme, or safety improvement that could help a Bankr community member. Keep it specific, verifiable, and safe.</p>
+        <div class="arena-actions">
+          <a class="btn btn-primary" href="#memes">Submit a meme</a>
+          <a class="btn btn-ghost" href="#community">Post an idea</a>
+          <button class="btn btn-ghost" type="button" data-arena-copy>Copy X draft</button>
+        </div>
+        <span class="arena-status" id="arenaStatus" role="status">MVP mode · Bankr Space poll requires owner approval</span>
+      </div>
+      <div class="arena-mission-stats" aria-label="Signal Arena stats">
+        <div><small>SUBMISSIONS</small><strong id="arenaSubmissions">—</strong><span>public Meme Pool items</span></div>
+        <div><small>COMMUNITY VOTES</small><strong id="arenaVotes">—</strong><span>read-only vote count</span></div>
+        <div><small>REWARDS</small><strong>NONE</strong><span>no reward promise active</span></div>
+      </div>
+    </div>
+    <div class="arena-grid">
+      <article class="arena-lane glass"><span class="arena-lane-index">01</span><div><small>MEME SIGNAL</small><h3>Make it memorable.</h3><p>Upload one original visual to the Meme Pool. Strong captions should explain the idea without promising returns.</p><a href="#memes">Open Meme Pool</a></div></article>
+      <article class="arena-lane glass"><span class="arena-lane-index">02</span><div><small>BUILD SIGNAL</small><h3>Make it useful.</h3><p>Post a concrete feature, tutorial, or Bankr skill idea in the anonymous Forum. No links are needed.</p><a href="#community">Open Forum</a></div></article>
+      <article class="arena-lane glass"><span class="arena-lane-index">03</span><div><small>SAFETY SIGNAL</small><h3>Keep the pack safe.</h3><p>Explain one scam pattern or safety improvement. Never share seed phrases, private keys, or suspicious URLs.</p><a href="#trust">Read Trust Center</a></div></article>
+    </div>
+    <div class="arena-foot glass">
+      <div><strong>How review works</strong><p>Originality 40% · usefulness 40% · safety 20%. The public page shows signals; official announcements and any bounty require a verified Bankr Space post.</p></div>
+      <a class="btn btn-ghost" href="${bankrBriefUrl}" target="_blank" rel="noopener noreferrer">Open Bankr Brief</a>
+    </div>`;
+  document.querySelector('#community')?.before(section);
+
+  const setText = (selector, value) => {
+    const node = section.querySelector(selector);
+    if (node) node.textContent = value;
+  };
+  const loadArenaStats = async () => {
+    try {
+      const [memesResponse, votesResponse] = await Promise.all([
+        fetch(`${apiBase}/memes`),
+        fetch(`${apiBase}/meme-votes`),
+      ]);
+      if (!memesResponse.ok || !votesResponse.ok) throw new Error('Arena data unavailable');
+      const memes = await memesResponse.json();
+      const votes = await votesResponse.json();
+      setText('#arenaSubmissions', String(Array.isArray(memes.memes) ? memes.memes.length : 0));
+      setText('#arenaVotes', String(Number(votes.totalVotes) || 0));
+      setText('#arenaStatus', 'Live read-only counts · final Bankr Space poll requires owner approval');
+    } catch {
+      setText('#arenaStatus', 'MVP mode · shared counts are unavailable right now');
+    }
+  };
+  section.querySelector('[data-arena-copy]')?.addEventListener('click', async (event) => {
+    const button = event.currentTarget;
+    const draft = 'DOGEBOT PACK Signal Arena is open. Share one useful meme, build idea, or safety signal for the Bankr community. Review the live Pack page before sharing.';
+    try {
+      await navigator.clipboard.writeText(draft);
+      button.textContent = 'X draft copied';
+    } catch {
+      button.textContent = 'Select draft manually';
+    }
+    setTimeout(() => { button.textContent = 'Copy X draft'; }, 2200);
+  });
+  loadArenaStats();
+})();
   const request = async (path, options = {}) => {
     const response = await fetch(`${apiBase}${path}`, { ...options, headers: { 'Content-Type': 'application/json', 'x-dogebot-client': clientId, ...(options.headers || {}) } });
     const data = await response.json().catch(() => ({}));
@@ -38,7 +127,7 @@
 
   const trackerSection = document.createElement('section');
   trackerSection.className = 'section shell tracker-section'; trackerSection.id = 'tracker';
-   trackerSection.innerHTML = `<div class="section-head"><div><div class="overline">HOLDER REWARDS / FEE TRACKER</div><h2>Follow the <span>flow.</span></h2><p>Read-only holder context plus claimable fee data from Bankr's public token page. Historical totals and buyback values are not inferred.</p></div><div class="section-readout">TRACKER STATUS<strong id="trackerStatus"><i class="dot-live"></i> SYNCING</strong></div></div><div class="tracker-grid"><article class="tracker-card tracker-card-main glass"><div class="tracker-card-top"><div><strong>Claimable fee snapshot</strong><small>ROBINHOOD CHAIN / READ-ONLY</small></div><span id="trackerFetched">-</span></div><div class="tracker-metrics"><div><small>CLAIMABLE $TSLA FEES</small><strong id="trackerFees">NOT EXPOSED</strong><span id="trackerFeesNote">Waiting for Bankr public data</span></div><div><small>CLAIMABLE $DOGEBOT FEES</small><strong id="trackerTokenFees">NOT EXPOSED</strong><span id="trackerTokenFeesNote">Waiting for Bankr public data</span></div><div><small>POSITIVE HOLDERS</small><strong id="trackerHolders">-</strong><span>Robinhood Chain transfer logs</span></div></div></article><aside class="tracker-card tracker-card-action glass"><div class="tracker-card-top"><div><strong>View on Bankr</strong><small>OFFICIAL SOURCE</small></div><span class="tracker-lock">LINK</span></div><p>Bankr's token page is the source of truth for the current claimable balances. This tracker never executes trades.</p><a class="btn btn-primary" href="${config.bankrTradeUrl || 'https://bankr.bot'}" target="_blank" rel="noopener noreferrer">Open Bankr trade page</a><div class="tracker-source" id="trackerSource">Source: connecting to Bankr public token data.</div></aside></div><div class="tracker-telemetry glass"><span class="tracker-telemetry-mark">i</span><div><strong>Bankr fee data note</strong><p id="trackerTelemetry">Bankr public fee data is loading. No historical total or buyback estimate is shown.</p></div></div>`;
+   trackerSection.innerHTML = `<div class="section-head"><div><div class="overline">HOLDER REWARDS / FEE TRACKER</div><h2>Follow the <span>flow.</span></h2><p>Read-only holder context plus claimable fee data from Bankr's public token page. Historical totals and buyback values are not inferred.</p></div><div class="section-readout">TRACKER STATUS<strong id="trackerStatus"><i class="dot-live"></i> SYNCING</strong></div></div><div class="tracker-grid"><article class="tracker-card tracker-card-main glass"><div class="tracker-card-top"><div><strong>Claimable fee snapshot</strong><small>ROBINHOOD CHAIN / READ-ONLY</small></div><span id="trackerFetched">-</span></div><div class="tracker-metrics"><div><small>CLAIMABLE $TSLA FEES</small><strong id="trackerFees">NOT EXPOSED</strong><span id="trackerFeesNote">Waiting for Bankr public data</span></div><div><small>CLAIMABLE $DOGEBOT FEES</small><strong id="trackerTokenFees">NOT EXPOSED</strong><span id="trackerTokenFeesNote">Waiting for Bankr public data</span></div><div><small>POSITIVE HOLDERS</small><strong id="trackerHolders">-</strong><span>Robinhood Chain transfer logs</span></div></div></article><aside class="tracker-card tracker-card-action glass"><div class="tracker-card-top"><div><strong>View on Bankr</strong><small>OFFICIAL SOURCE</small></div><span class="tracker-lock">LINK</span></div><p>Bankr's token page is the source of truth for the current claimable balances. This tracker never executes trades.</p><a class="btn btn-primary" href="${config.bankrTradeUrl || 'https://bankr.bot'}" target="_blank" rel="noopener noreferrer">Open Bankr skill</a><div class="tracker-source" id="trackerSource">Source: connecting to Bankr public token data.</div></aside></div><div class="tracker-telemetry glass"><span class="tracker-telemetry-mark">i</span><div><strong>Bankr fee data note</strong><p id="trackerTelemetry">Bankr public fee data is loading. No historical total or buyback estimate is shown.</p></div></div>`;
   document.querySelector('#dogebot')?.before(trackerSection);
 
   const soundboardSection = document.createElement('section');

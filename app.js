@@ -30,15 +30,20 @@ aiForm.onsubmit=event=>{event.preventDefault();const text=aiInput.value;aiInput.
  document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{const id=link.getAttribute('href').slice(1);const target=document.getElementById(id);if(!target)return;event.preventDefault();if(typeof setAiOpen==='function')setAiOpen(false);if(nav){nav.classList.remove('open');menu.textContent='☰';menu.setAttribute('aria-expanded','false')}target.scrollIntoView({behavior:'smooth',block:'start'});try{history.replaceState(null,'','#'+id)}catch{}}));
 // Keep the launch page explicit: no holder fee, dividend, or buyback model is active.
 document.querySelector('.fee-share-note')?.remove();
-const explainFeeStatus = localAi;
-localAi = (question) => /fee|fees|holder|holders|dividend|distribution|buyback|revenue/i.test(String(question || ''))
-  ? 'No holder fee, dividend, or buyback model is active or configured for DOGEBOT PACK. The page is read-only and does not execute trades or distributions.'
-  : explainFeeStatus(question);
+ const explainFeeStatus = localAi;
+ const liveConfigured = Boolean(window.DOGEBOT_CONFIG?.contractAddress && window.DOGEBOT_CONFIG?.poolAddress);
+ localAi = (question) => /fee|fees|holder|holders|dividend|distribution|buyback|revenue/i.test(String(question || ''))
+   ? (liveConfigured
+     ? 'The Holder Fee Tracker reads current claimable balances from Bankr public token data and holder context from Robinhood Chain. It never executes claims, trades, or distributions.'
+     : 'No holder fee, dividend, or buyback model is active or configured for DOGEBOT PACK. The page is read-only and does not execute trades or distributions.')
+   : explainFeeStatus(question);
  document.getElementById('memeHint')?.replaceChildren(document.createTextNode('PNG, JPG, GIF, or WEBP · 3 MB max'));
-const explainTSLAMarket = localAi;
-localAi = (question) => /tsla|pair|market/i.test(String(question || ''))
-  ? 'This is the TSLA MARKET panel for TSLA (TSLA). It is read-only: no live DOGEBOT/TSLA trading pair, trades, swaps, or buy recommendation is active.'
-  : explainTSLAMarket(question);
+ const explainTSLAMarket = localAi;
+ localAi = (question) => /tsla|pair|market/i.test(String(question || ''))
+   ? (liveConfigured
+     ? 'This is the live DOGEBOT / TSLA market panel on Robinhood Chain. Data is read-only and sourced from the configured pool, GeckoTerminal, DexScreener, and public RPC data. No trades or swaps are executed.'
+     : 'This is the TSLA MARKET panel for TSLA (TSLA). It is read-only: no live DOGEBOT/TSLA trading pair, trades, swaps, or buy recommendation is active.')
+   : explainTSLAMarket(question);
 // Keep market and holder copy aligned with the configured live data sources.
 (() => {
   const marketCopy = document.querySelector('#dogebot .section-head p');
@@ -49,6 +54,8 @@ localAi = (question) => /tsla|pair|market/i.test(String(question || ''))
 
 // Keep launch metrics and copy honest until each live data source is connected.
 (() => {
+  const liveConfigured = Boolean(window.DOGEBOT_CONFIG?.contractAddress && window.DOGEBOT_CONFIG?.poolAddress);
+  if (liveConfigured) return;
   const statUpdates = {
     'MARKET CAP': ['—', 'data source pending'],
     'PACK SIZE': ['—', 'shared count pending'],
@@ -326,11 +333,14 @@ localAi = (question) => /tsla|pair|market/i.test(String(question || ''))
 })();
 
 (() => {
+  const liveConfigured = Boolean(window.DOGEBOT_CONFIG?.contractAddress && window.DOGEBOT_CONFIG?.poolAddress);
   const launchCard = [...document.querySelectorAll('.trust-card')]
     .find((card) => card.querySelector('small')?.textContent?.includes('LAUNCH STATE'));
   if (launchCard) {
-    launchCard.querySelector('strong').textContent = 'CA PENDING';
-    launchCard.querySelector('p').textContent = 'Contract-dependent features are paused until a new address is provided.';
+    launchCard.querySelector('strong').textContent = liveConfigured ? 'LIVE CONFIGURED' : 'CA PENDING';
+    launchCard.querySelector('p').textContent = liveConfigured
+      ? 'Contract, pool, market, chart, and holder feeds are configured in read-only mode.'
+      : 'Contract-dependent features are paused until a new address is provided.';
   }
   document.querySelectorAll('.brief-list span').forEach((node) => {
     if (node.textContent.includes('No live contract configured')) node.textContent = 'Contract and route configuration are paused.';
@@ -422,28 +432,37 @@ localAi = (question) => /tsla|pair|market/i.test(String(question || ''))
 
 // Keep the public copy aligned with the configured live token and pool.
 (() => {
-  const marketCopy = document.querySelector('#dogebot .section-head p');
-  if (marketCopy) marketCopy.textContent = '$DOGEBOT includes a read-only TSLA reference panel on Robinhood Chain. Live market data and external routes are paused until a new contract address is configured.';
+   const liveConfigured = Boolean(window.DOGEBOT_CONFIG?.contractAddress && window.DOGEBOT_CONFIG?.poolAddress);
+   const marketCopy = document.querySelector('#dogebot .section-head p');
+   if (marketCopy) marketCopy.textContent = liveConfigured
+     ? '$DOGEBOT includes a live, read-only DOGEBOT / TSLA market panel on Robinhood Chain. No swaps, buys, sells, or auto-buy are executed here.'
+     : '$DOGEBOT includes a clearly labeled TSLA reference panel on Robinhood Chain. Live market data and external routes are paused until a new contract address is configured.';
   const marketLabel = document.querySelector('#dogebot .chart-card .card-top small');
   if (marketLabel) marketLabel.textContent = 'LIVE MARKET DATA · ROBINHOOD CHAIN · READ-ONLY';
   const pairCopy = document.querySelector('.pair-note p');
-  if (pairCopy) pairCopy.textContent = 'The TSLA reference panel is ready for the next verified contract configuration. No live price, liquidity, volume, holder data, or external buy route is active right now.';
+   if (pairCopy) pairCopy.textContent = liveConfigured
+     ? 'Live price, liquidity, volume, market cap, and holder data are sourced from the configured pool and public APIs. This panel is not a swap interface.'
+     : 'The TSLA reference panel is ready for the next verified contract configuration. No live price, liquidity, volume, holder data, or external buy route is active right now.';
   const launchCard = [...document.querySelectorAll('.trust-card')]
     .find((card) => card.querySelector('small')?.textContent?.includes('LAUNCH STATE'));
   if (launchCard) {
-    launchCard.querySelector('strong').textContent = 'CA PENDING';
-    launchCard.querySelector('p').textContent = 'Contract-dependent market, chart, buy, and holder features are paused until a new address is provided.';
-  }
-  const explainLiveState = localAi;
-    localAi = (question) => /price|market|token|contract|tsla|buy|chart/i.test(String(question || ''))
-     ? 'The market panel is a read-only TSLA reference view. Contract-dependent data and external buy routes are paused until a new verified contract address is configured.'
-    : explainLiveState(question);
+     launchCard.querySelector('strong').textContent = liveConfigured ? 'LIVE CONFIGURED' : 'CA PENDING';
+     launchCard.querySelector('p').textContent = liveConfigured
+       ? 'Contract, pool, market, chart, and holder features are configured in read-only mode.'
+       : 'Contract-dependent market, chart, buy, and holder features are paused until a new address is provided.';
+   }
+   const explainLiveState = localAi;
+     localAi = (question) => /price|market|token|contract|tsla|buy|chart/i.test(String(question || ''))
+      ? (liveConfigured
+        ? 'The market panel uses live read-only data from the configured DOGEBOT / TSLA pool, GeckoTerminal, DexScreener, and Robinhood Chain sources. It does not execute trades.'
+        : 'The market panel is a read-only TSLA reference view. Contract-dependent data and external buy routes are paused until a new verified contract address is configured.')
+     : explainLiveState(question);
 })();
 
 // Rebuild the first viewport around the cyber-dog reference direction.
 (() => {
   document.body.classList.add('reference-theme');
-  const buyUrl = '';
+  const buyUrl = window.DOGEBOT_CONFIG?.buyUrl || '';
   const navLinks = document.querySelector('.nav-links');
   if (navLinks) {
     navLinks.innerHTML = '<a href="#pack">About</a><a href="#dogebot">Tokenomics</a><a href="#community">Roadmap</a><a href="#integration-hub">Terminal</a><a href="#trust">FAQ</a>';
@@ -480,7 +499,7 @@ localAi = (question) => /tsla|pair|market/i.test(String(question || ''))
   const lede = hero?.querySelector('.lede');
   if (lede) lede.textContent = 'A cybernetic dog built for the internet. Powered by memes. Driven by chaos.';
   const cta = hero?.querySelector('.hero-cta');
-  if (cta) cta.innerHTML = `${buyUrl ? `<a class="btn btn-primary btn-lg" href="${buyUrl}" target="_blank" rel="noopener noreferrer">BUY $DOGEBOT</a>` : '<span class="btn btn-primary btn-lg reference-disabled" aria-disabled="true">CA PENDING</span>'}<a class="btn btn-glass btn-lg" href="#dogebot">ENTER TERMINAL</a>`;
+  if (cta) cta.innerHTML = `${buyUrl ? `<a class="btn btn-primary btn-lg" href="${buyUrl}" target="_blank" rel="noopener noreferrer">OPEN LIVE POOL</a>` : '<span class="btn btn-primary btn-lg reference-disabled" aria-disabled="true">CA PENDING</span>'}<a class="btn btn-glass btn-lg" href="#dogebot">ENTER TERMINAL</a>`;
   const meta = hero?.querySelector('.hero-meta');
   if (meta) {
     meta.innerHTML = '<div class="reference-status-title">DOGEBOT STATUS <span>SYSTEM ONLINE // v1.0.0</span></div><div class="reference-status-grid"><div class="reference-status-item"><i>⌁</i><b>Online</b><small>24 / 7</small></div><div class="reference-status-item"><i>▥</i><b>Meme Power</b><small>99.9%</small></div><div class="reference-status-item"><i>▥</i><b>Chaos Level</b><small>MAX</small></div><div class="reference-status-item"><i>♣</i><b>Loyalty</b><small>100%</small></div><div class="reference-status-item"><i>☾</i><b>Sleep Mode</b><small>0%</small></div></div>';
