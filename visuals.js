@@ -43,7 +43,7 @@
     ticker.className = 'dogebot-top-ticker';
     const buyUrl = window.DOGEBOT_CONFIG?.bankrTradeUrl || document.querySelector('.reference-buy')?.href || '';
     const signal = '<span>PACK SIGNAL ONLINE</span><i>◆</i><span>ROBINHOOD CHAIN</span><i>◆</i><span>READ-ONLY MARKET INTEL</span><i>◆</i><span>PUBLIC MEME POOL</span><i>◆</i>';
-    const buySignal = buyUrl ? `<a class="dogebot-ticker-buy" href="${buyUrl}" target="_blank" rel="noopener noreferrer">BUY $DOGEBOT</a>` : '<span class="dogebot-ticker-buy is-disabled">CA PENDING</span>';
+     const buySignal = buyUrl ? `<a class="dogebot-ticker-buy" href="${buyUrl}" target="_blank" rel="noopener noreferrer">OPEN BANKR</a>` : '<span class="dogebot-ticker-buy is-disabled">CA PENDING</span>';
     ticker.innerHTML = `<div class="dogebot-top-track">${signal}${buySignal}${signal}${buySignal}</div>`;
     document.querySelector('.nav-wrap')?.before(ticker);
   }

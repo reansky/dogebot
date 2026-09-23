@@ -3,13 +3,15 @@ const { clientId } = require('./lib/security');
 
 const API_BASE = 'https://api.browser-use.com/api/v4';
 const MODEL = process.env.BROWSER_USE_MODEL || 'gpt-5.6-luna';
+const CONTRACT = String(process.env.DOGEBOT_CONTRACT_ADDRESS || '0x009dd26859b3aa58ac30194e6c48a2e6087daba3').trim();
+const POOL = String(process.env.DOGEBOT_POOL_ADDRESS || '0x6a392bba62ae48cdc544adebcdff3642795e08390ea83ca7ec8f8b47a93108a3').trim();
 const buckets = globalThis.__dogebotAgentBuckets || (globalThis.__dogebotAgentBuckets = new Map());
 const SYSTEM_PROMPT = `You are the general-purpose DOGEBOT PACK terminal assistant running through Browser Use Cloud. Respond in clear English and keep answers concise. You are not limited to this project. Help with crypto, blockchain, technology, science, current events, writing, and everyday questions.
 
 Project context, only when relevant:
 - DOGEBOT is on Robinhood Chain.
-- Contract: not configured yet. Do not invent or display a contract address.
-- The configured reference market is $TSLA. It is read-only and is not a live DOGEBOT/TSLA trading pair.
+- Contract: ${CONTRACT} on Robinhood Chain.
+- Pool: ${POOL}, a DOGEBOT / TSLA read-only market route.
 - Bankr is an external project workspace for knowledge and owner-approved announcements.
 
 Safety rules:

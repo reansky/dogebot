@@ -1,19 +1,19 @@
 /* QUICK EDIT CONFIG: change project values here before publishing. */
 window.DOGEBOT_CONFIG = Object.freeze({
-  contractAddress: '',
-  poolAddress: '',
+  contractAddress: '0x009dd26859b3aa58ac30194e6c48a2e6087daba3',
+  poolAddress: '0x6a392bba62ae48cdc544adebcdff3642795e08390ea83ca7ec8f8b47a93108a3',
   pairSymbol: '$TSLA',
-  buyUrl: '',
+  buyUrl: 'https://www.geckoterminal.com/robinhood/pools/0x6a392bba62ae48cdc544adebcdff3642795e08390ea83ca7ec8f8b47a93108a3',
   fomoUrl: '',
-  bankrTradeUrl: '',
-  geckoChartPageUrl: '',
+  bankrTradeUrl: 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack',
+  geckoChartPageUrl: 'https://www.geckoterminal.com/robinhood/pools/0x6a392bba62ae48cdc544adebcdff3642795e08390ea83ca7ec8f8b47a93108a3',
   xUrl: 'https://x.com/dogebotfun',
   bankrSkillUrl: 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack',
   network: 'Robinhood Chain',
   apiBase: '/api',
   marketApiUrl: '/api/market',
   rpcUrl: 'https://rpc.mainnet.chain.robinhood.com',
-  geckoChartUrl: '',
+  geckoChartUrl: 'https://www.geckoterminal.com/robinhood/pools/0x6a392bba62ae48cdc544adebcdff3642795e08390ea83ca7ec8f8b47a93108a3?embed=1&info=0&swaps=0&grayscale=0',
 });
 
 (() => {
@@ -21,8 +21,8 @@ window.DOGEBOT_CONFIG = Object.freeze({
   const buyLink = document.querySelector('.buy-link');
   if (buyLink) {
     buyLink.href = config.buyUrl;
-    buyLink.title = 'Swap DOGEBOT on Uniswap';
-    buyLink.innerHTML = '<span class="buy-link-mark" aria-hidden="true"><img src="images/buy-uniswap.jpeg" alt=""></span><code>BUY / UNISWAP</code>';
+    buyLink.title = 'Open the DOGEBOT live pool';
+    buyLink.innerHTML = '<span class="buy-link-mark" aria-hidden="true"><img src="images/buy-geckoterminal.png" alt=""></span><code>OPEN / LIVE POOL</code>';
   }
 
   const heroCopy = document.querySelector('.hero-copy');
@@ -47,14 +47,14 @@ window.DOGEBOT_CONFIG = Object.freeze({
       },
       {
         label: 'Bankr',
-        type: 'Trade link',
+         type: 'Official skill',
         href: config.bankrTradeUrl,
         className: 'bankr',
         icon: bankrLogo ? `<img src="${bankrLogo}" alt="">` : '<span class="route-letter" aria-hidden="true">B</span>'
       },
       {
         label: 'GeckoTerminal',
-        type: 'Pool chart',
+         type: 'Live pool',
         href: config.geckoChartPageUrl,
         className: 'gecko',
         icon: '<img src="images/buy-geckoterminal.png" alt="">'

@@ -17,12 +17,11 @@
     mainBuy.href = config.bankrTradeUrl;
     mainBuy.target = '_blank';
     mainBuy.rel = 'noopener noreferrer';
-    mainBuy.title = 'Buy $DOGEBOT on Bankr';
+     mainBuy.title = 'Open DOGEBOT on Bankr';
   }
   const routes = document.querySelector('.buy-routes');
   if (routes) {
-    routes.querySelector('.gecko')?.remove();
-    document.querySelector('.hero-cta')?.after(routes);
+     document.querySelector('.hero-cta')?.after(routes);
     routes.style.setProperty('display', 'grid', 'important');
     routes.style.gridTemplateColumns = 'repeat(3, minmax(0, 1fr))';
     routes.style.gap = '10px';
@@ -38,7 +37,7 @@
   const mobileBuy = document.querySelector('.mobile-panel a[href*="app.uniswap.org"]');
   if (mobileBuy && config.bankrTradeUrl) {
     mobileBuy.href = config.bankrTradeUrl;
-    mobileBuy.title = 'Buy $DOGEBOT on Bankr';
+     mobileBuy.title = 'Open DOGEBOT on Bankr';
   }
 
   const history = [];
