@@ -462,7 +462,9 @@ document.querySelector('.fee-share-note')?.remove();
 // Rebuild the first viewport around the cyber-dog reference direction.
 (() => {
   document.body.classList.add('reference-theme');
-  const buyUrl = window.DOGEBOT_CONFIG?.buyUrl || '';
+  const config = window.DOGEBOT_CONFIG || {};
+  const buyUrl = config.buyUrl || '';
+  const livePoolUrl = config.livePoolUrl || config.geckoChartPageUrl || '';
   const navLinks = document.querySelector('.nav-links');
   if (navLinks) {
     navLinks.innerHTML = '<a href="#pack">About</a><a href="#dogebot">Tokenomics</a><a href="#community">Roadmap</a><a href="#integration-hub">Terminal</a><a href="#trust">FAQ</a>';
@@ -499,7 +501,7 @@ document.querySelector('.fee-share-note')?.remove();
   const lede = hero?.querySelector('.lede');
   if (lede) lede.textContent = 'A cybernetic dog built for the internet. Powered by memes. Driven by chaos.';
   const cta = hero?.querySelector('.hero-cta');
-  if (cta) cta.innerHTML = `${buyUrl ? `<a class="btn btn-primary btn-lg" href="${buyUrl}" target="_blank" rel="noopener noreferrer">OPEN LIVE POOL</a>` : '<span class="btn btn-primary btn-lg reference-disabled" aria-disabled="true">CA PENDING</span>'}<a class="btn btn-glass btn-lg" href="#dogebot">ENTER TERMINAL</a>`;
+  if (cta) cta.innerHTML = `${livePoolUrl ? `<a class="btn btn-primary btn-lg" href="${livePoolUrl}" target="_blank" rel="noopener noreferrer">OPEN LIVE POOL</a>` : '<span class="btn btn-primary btn-lg reference-disabled" aria-disabled="true">CA PENDING</span>'}<a class="btn btn-glass btn-lg" href="#dogebot">ENTER TERMINAL</a>`;
   const meta = hero?.querySelector('.hero-meta');
   if (meta) {
     meta.innerHTML = '<div class="reference-status-title">DOGEBOT STATUS <span>SYSTEM ONLINE // v1.0.0</span></div><div class="reference-status-grid"><div class="reference-status-item"><i>⌁</i><b>Online</b><small>24 / 7</small></div><div class="reference-status-item"><i>▥</i><b>Meme Power</b><small>99.9%</small></div><div class="reference-status-item"><i>▥</i><b>Chaos Level</b><small>MAX</small></div><div class="reference-status-item"><i>♣</i><b>Loyalty</b><small>100%</small></div><div class="reference-status-item"><i>☾</i><b>Sleep Mode</b><small>0%</small></div></div>';

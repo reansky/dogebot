@@ -8,16 +8,17 @@
   if (!input || !send || !feed) return;
 
   const config = window.DOGEBOT_CONFIG || {};
+  const livePoolUrl = config.livePoolUrl || config.geckoChartPageUrl || '';
   const obsoleteMenuLabels = new Set(['SOUNDBOARD', 'HOLDER TRACKER', 'MEME CONTEST', 'PACK SENTINEL HUB']);
   document.querySelectorAll('.nav-links a, .mobile-panel a, .footer-links a').forEach((link) => {
     if (obsoleteMenuLabels.has(link.textContent.trim().toUpperCase())) link.remove();
   });
   const mainBuy = document.querySelector('.hero-cta a.btn-primary');
-   if (mainBuy && (config.buyUrl || config.bankrTradeUrl)) {
-     mainBuy.href = config.buyUrl || config.bankrTradeUrl;
+   if (mainBuy && (livePoolUrl || config.buyUrl || config.bankrTradeUrl)) {
+     mainBuy.href = livePoolUrl || config.buyUrl || config.bankrTradeUrl;
      mainBuy.target = '_blank';
      mainBuy.rel = 'noopener noreferrer';
-     mainBuy.title = config.buyUrl ? 'Open the DOGEBOT live pool' : 'Open DOGEBOT on Bankr';
+     mainBuy.title = livePoolUrl ? 'Open the DOGEBOT live pool' : 'Open DOGEBOT on Bankr';
   }
   const routes = document.querySelector('.buy-routes');
   if (routes) {
