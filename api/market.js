@@ -1,6 +1,8 @@
+const { CONTRACT_ADDRESS, POOL_ADDRESS } = require('./lib/config');
+
 const DATA_ENABLED = String(process.env.DOGEBOT_DATA_ENABLED || '').toLowerCase() === 'true';
-const TOKEN = DATA_ENABLED ? String(process.env.DOGEBOT_CONTRACT_ADDRESS || '').trim() : '';
-const POOL = DATA_ENABLED ? String(process.env.DOGEBOT_POOL_ADDRESS || '').trim().toLowerCase() : '';
+const TOKEN = DATA_ENABLED ? CONTRACT_ADDRESS : '';
+const POOL = DATA_ENABLED ? POOL_ADDRESS.toLowerCase() : '';
 const RPC = 'https://rpc.mainnet.chain.robinhood.com';
 const TRANSFER_TOPIC = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
 const ZERO = '0x0000000000000000000000000000000000000000';

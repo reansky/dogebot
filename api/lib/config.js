@@ -1,0 +1,4 @@
+const CONTRACT_ADDRESS = '0xfb6d5e8a27f4d993b1be01ee41c5d506a5e7cba3';
+const POOL_ADDRESS = '0x6ead1b3f01a387ff8c165f7df9abe830d5752148ef93415d719065fd72a059cf';
+
+module.exports = Object.freeze({ CONTRACT_ADDRESS, POOL_ADDRESS });

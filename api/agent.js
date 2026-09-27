@@ -1,10 +1,11 @@
 const { json, body } = require('./lib/http');
 const { clientId } = require('./lib/security');
+const { CONTRACT_ADDRESS, POOL_ADDRESS } = require('./lib/config');
 
 const API_BASE = 'https://api.browser-use.com/api/v4';
 const MODEL = process.env.BROWSER_USE_MODEL || 'gpt-5.6-luna';
-const CONTRACT = String(process.env.DOGEBOT_CONTRACT_ADDRESS || '0xfb6d5e8a27f4d993b1be01ee41c5d506a5e7cba3').trim();
-const POOL = String(process.env.DOGEBOT_POOL_ADDRESS || '0x6ead1b3f01a387ff8c165f7df9abe830d5752148ef93415d719065fd72a059cf').trim();
+const CONTRACT = CONTRACT_ADDRESS;
+const POOL = POOL_ADDRESS;
 const buckets = globalThis.__dogebotAgentBuckets || (globalThis.__dogebotAgentBuckets = new Map());
 const SYSTEM_PROMPT = `You are the general-purpose DOGEBOT PACK terminal assistant running through Browser Use Cloud. Respond in clear English and keep answers concise. You are not limited to this project. Help with crypto, blockchain, technology, science, current events, writing, and everyday questions.
 

@@ -1,7 +1,8 @@
 const { json, error } = require('./lib/http');
+const { CONTRACT_ADDRESS } = require('./lib/config');
 
 const DATA_ENABLED = String(process.env.DOGEBOT_DATA_ENABLED || '').toLowerCase() === 'true';
-const TOKEN = DATA_ENABLED ? String(process.env.DOGEBOT_CONTRACT_ADDRESS || '').trim() : '';
+const TOKEN = DATA_ENABLED ? CONTRACT_ADDRESS : '';
 const BANKR_PUBLIC = 'https://api.bankr.bot';
 
 function finite(value) {
