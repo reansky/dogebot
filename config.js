@@ -1,20 +1,20 @@
 /* QUICK EDIT CONFIG: change project values here before publishing. */
 window.DOGEBOT_CONFIG = Object.freeze({
-  contractAddress: '0x009dd26859b3aa58ac30194e6c48a2e6087daba3',
-  poolAddress: '0x6a392bba62ae48cdc544adebcdff3642795e08390ea83ca7ec8f8b47a93108a3',
+  contractAddress: '0xfb6d5e8a27f4d993b1be01ee41c5d506a5e7cba3',
+  poolAddress: '0x6ead1b3f01a387ff8c165f7df9abe830d5752148ef93415d719065fd72a059cf',
   pairSymbol: '$TSLA',
-  buyUrl: 'https://bankr.bot/terminal/trade?out=0x009dd26859b3aa58ac30194e6c48a2e6087daba3&chain=robinhood',
-  livePoolUrl: 'https://www.geckoterminal.com/robinhood/pools/0x6a392bba62ae48cdc544adebcdff3642795e08390ea83ca7ec8f8b47a93108a3',
+  buyUrl: 'https://bankr.bot/terminal/trade?out=0xfb6d5e8a27f4d993b1be01ee41c5d506a5e7cba3&chain=robinhood',
+  livePoolUrl: 'https://www.geckoterminal.com/robinhood/pools/0x6ead1b3f01a387ff8c165f7df9abe830d5752148ef93415d719065fd72a059cf',
   fomoUrl: '',
-  bankrTradeUrl: 'https://bankr.bot/terminal/trade?out=0x009dd26859b3aa58ac30194e6c48a2e6087daba3&chain=robinhood',
-  geckoChartPageUrl: 'https://www.geckoterminal.com/robinhood/pools/0x6a392bba62ae48cdc544adebcdff3642795e08390ea83ca7ec8f8b47a93108a3',
+  bankrTradeUrl: 'https://bankr.bot/terminal/trade?out=0xfb6d5e8a27f4d993b1be01ee41c5d506a5e7cba3&chain=robinhood',
+  geckoChartPageUrl: 'https://www.geckoterminal.com/robinhood/pools/0x6ead1b3f01a387ff8c165f7df9abe830d5752148ef93415d719065fd72a059cf',
   xUrl: 'https://x.com/dogebotfun',
   bankrSkillUrl: 'https://bankr.bot/skills/0x0b127f65d167159e4e2bf0b73c2975a14ac3d056/dogebot-pack',
   network: 'Robinhood Chain',
   apiBase: '/api',
   marketApiUrl: '/api/market',
   rpcUrl: 'https://rpc.mainnet.chain.robinhood.com',
-  geckoChartUrl: 'https://www.geckoterminal.com/robinhood/pools/0x6a392bba62ae48cdc544adebcdff3642795e08390ea83ca7ec8f8b47a93108a3?embed=1&info=0&swaps=0&grayscale=0',
+  geckoChartUrl: 'https://www.geckoterminal.com/robinhood/pools/0x6ead1b3f01a387ff8c165f7df9abe830d5752148ef93415d719065fd72a059cf?embed=1&info=0&swaps=0&grayscale=0',
 });
 
 (() => {
